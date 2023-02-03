@@ -7,6 +7,7 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 pragma solidity 0.8.17;
 
 contract Vending is ERC721("Go Logic NFT", "GLNFT") {
+    using Strings for uint256;
 
     GLToken token;
 
