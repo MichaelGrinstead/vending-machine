@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Interface from './components/Interface';
+import Items from './components/Items'
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
     >
       <div className='Vending'>
         <div className='Vending-Inner'>
-
+          <Items/>
         </div>
       </div>
       <Interface/>
