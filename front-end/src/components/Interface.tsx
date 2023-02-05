@@ -85,7 +85,7 @@ const Interface = () => {
   }
 
   useEffect(()=> {
-    const timer = setTimeout(() => setPurchaseStatus(status.PAYMENT_IN_PROGRESS), 9)
+    const timer = setTimeout(() => setPurchaseStatus(status.PAYMENT_IN_PROGRESS), 9500)
     return () => clearTimeout(timer)
   }, [itemSelected])
 
@@ -225,6 +225,7 @@ const Interface = () => {
           }
             <button 
             className='Key'
+            style={{fontSize: "30px"}}
             onClick={() => clearOrder()}
             >Clear</button>
           {purchaseStatus === status.PAYMENT_IN_PROGRESS
@@ -243,11 +244,13 @@ const Interface = () => {
           ?
             <button 
             className='Key'
+            style={{fontSize: "30px"}}
             onClick={() => payOrder()}
             >Enter</button>
           :
             <button 
             className='Key'
+            style={{fontSize: "30px"}}
             onClick={() => enterOrder()}
             >Enter</button>
           }
