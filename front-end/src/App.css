@@ -98,7 +98,7 @@ body {
   position: absolute;
   width: 150%;
   color: greenyellow;
-  animation: Display 9.5s linear infinite;
+  animation: Display 9.5s linear infinite; 
   margin: 0
 }
 
