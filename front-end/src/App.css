@@ -166,3 +166,20 @@ body {
   border-radius: 10px;
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
 }
+
+.ItemSelected {
+  scale: 1.1;
+  background-color: greenyellow;
+  color: black;
+  width: 100%;
+  height: 100%;
+  padding: 5%;
+  text-align: center;
+  font-weight: bold;
+  font-size: larger;
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+  position: relative;
+}
