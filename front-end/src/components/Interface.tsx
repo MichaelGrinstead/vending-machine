@@ -1,3 +1,4 @@
+import { format } from 'path'
 import {useEffect, useState} from 'react'
 import {VendingContract, signer} from '../ContractObjects'
 
@@ -14,11 +15,12 @@ const Interface = () => {
 
   const [order, setOrder] = useState<string>("")
   const [itemSelected, setItemSelected] = useState<string>("")
-  const [cost, setCost] = useState<string>("0")
-  const [payment, setPayment] = useState<string>("")
+  const [cost, setCost] = useState<string>("")
+  const [paymentDisplay, setPaymentDisplay] = useState<string>("00.00")
+  const [paymentString, setPaymentString] = useState<string>("")
   const [purchaseStatus, setPurchaseStatus] = useState<status>(status.NO_SELECTION)
 
-  
+
   const selectionText = () => {
     if(purchaseStatus == status.NO_SELECTION){
       return <h3 className='Selection-Text-Moving-First'>Please make your selection</h3>
@@ -30,8 +32,7 @@ const Interface = () => {
     }
   }
 
-    
-
+  
   const updateOrder = (value : string) => {
     if((order === "1") && (value === "0" || value === "1" || value === "2")){
       setOrder(order + value)
@@ -40,46 +41,23 @@ const Interface = () => {
     }
   }
 
-  const formatPayment = (num :number) => {
-    if(num < 0.1){
-      return num*100
-    }else if(num > 0.09 && num < 1){
-      return (num*10).toString().replace(".", "")
-    }else if(num > 0.9 && num < 10){
-      return (num*100).toString().replace(".", "")
-    }
-  }
+  const inputPayment = (input : string) => {
 
-  function insertAtIndex(str : string, substring : string, index : number) {
-    return str.slice(0, index) + substring + str.slice(index);
+    const value = paymentString.concat(input)
+    setPaymentString(value)
+    const numberValue : number = parseInt(value)
+    const formattedValue : number = numberValue/100
+    const finalValue = formattedValue.toString()
+    setPaymentDisplay(finalValue)
+    
   }
-
-  const inputPayment = (value : number) => {
-    const pay = formatPayment(+payment)
-    const result = "" + pay + value
- 
-    if(parseInt(result) < 10){
-      const numOne = "0" + "0" + "." + "0" + parseInt(result).toString()
-      setPayment(numOne)
-    }else if(parseInt(result) > 9 && parseInt(result) < 100){
-      const numTwo = "0" + "0" + "." + parseInt(result).toString()
-      setPayment(numTwo)
-    }else if(parseInt(result) > 99 && parseInt(result) < 1000){
-      const numThree = parseInt(result).toString()
-      const nThree = insertAtIndex(numThree, ".", 1)
-      setPayment("0" + nThree)
-    }else if(parseInt(result) > 999 && parseInt(result) < 10000){
-      const numFour = parseInt(result).toString()
-      const nFour = insertAtIndex(numFour, ".", 2)
-      setPayment(nFour)} 
-  }
-
 
   const clearOrder = () => {
     setOrder("")
     setPurchaseStatus(status.NO_SELECTION)
     setItemSelected("")
-    setPayment("")
+    setPaymentDisplay("00.00")
+    setPaymentString("")
   }
 
   const enterOrder = () => {
@@ -113,11 +91,11 @@ const Interface = () => {
         {purchaseStatus === status.PAYMENT_IN_PROGRESS
         ?
           <div className='Display'>
-            {payment == ""
+            {paymentDisplay == "00.00"
             ?
             selectionText()
             :
-            <h3>${payment}</h3>
+            <h3>${paymentDisplay}</h3>
             }
             
           </div>
@@ -137,7 +115,7 @@ const Interface = () => {
           ?
             <button 
             className='Key'
-            onClick={() => inputPayment(1)}
+            onClick={() => inputPayment("1")}
             >1</button>
           :
             <button 
@@ -150,7 +128,7 @@ const Interface = () => {
           ?
             <button 
             className='Key'
-            onClick={() => inputPayment(2)}
+            onClick={() => inputPayment("2")}
             >2</button>
           :
             <button 
@@ -162,7 +140,7 @@ const Interface = () => {
           ?
             <button 
             className='Key'
-            onClick={() => inputPayment(3)}
+            onClick={() => inputPayment("3")}
             >3</button>
           :
             <button 
@@ -174,7 +152,7 @@ const Interface = () => {
           ?
             <button 
             className='Key'
-            onClick={() => inputPayment(4)}
+            onClick={() => inputPayment("4")}
             >4</button>
           :
             <button 
@@ -186,7 +164,7 @@ const Interface = () => {
           ?
             <button 
             className='Key'
-            onClick={() => inputPayment(5)}
+            onClick={() => inputPayment("5")}
             >5</button>
           :
             <button 
@@ -198,7 +176,7 @@ const Interface = () => {
           ?
             <button 
             className='Key'
-            onClick={() => inputPayment(6)}
+            onClick={() => inputPayment("6")}
             >6</button>
           :
             <button 
@@ -210,7 +188,7 @@ const Interface = () => {
           ?
             <button 
             className='Key'
-            onClick={() => inputPayment(7)}
+            onClick={() => inputPayment("7")}
             >7</button>
           :
             <button 
@@ -222,7 +200,7 @@ const Interface = () => {
           ?
             <button 
             className='Key'
-            onClick={() => inputPayment(8)}
+            onClick={() => inputPayment("8")}
             >8</button>
           :
             <button 
@@ -234,7 +212,7 @@ const Interface = () => {
           ?
             <button 
             className='Key'
-            onClick={() => inputPayment(9)}
+            onClick={() => inputPayment("9")}
             >9</button>
           :
             <button 
@@ -250,7 +228,7 @@ const Interface = () => {
           ?
             <button 
             className='Key'
-            onClick={() => inputPayment(0)}
+            onClick={() => inputPayment("0")}
             >0</button>
           :
             <button 
