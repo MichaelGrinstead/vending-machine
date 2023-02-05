@@ -1,12 +1,13 @@
-import { format } from 'path'
+import { ethers, utils } from 'ethers'
 import {useEffect, useState, useContext} from 'react'
 import {VendingContract, signer} from '../ContractObjects'
 import VendingContext from '../context/VendingContext'
 
 const Interface = () => {
 
-  const {order, setOrder} = useContext(VendingContext)
+  const {itemSelected, setItemSelected} = useContext(VendingContext)
 
+  
   const enum status {
     NO_SELECTION,
     ITEM_SELECTED,
@@ -15,12 +16,12 @@ const Interface = () => {
     PAYMENT_COMPLETE
   }
 
-  const [itemSelected, setItemSelected] = useState<string>("")
   const [cost, setCost] = useState<string>("")
   const [paymentDisplay, setPaymentDisplay] = useState<string>("00.00")
   const [paymentString, setPaymentString] = useState<string>("")
   const [purchaseStatus, setPurchaseStatus] = useState<status>(status.NO_SELECTION)
 
+  console.log(itemSelected)
   console.log(purchaseStatus)
 
 
@@ -37,10 +38,10 @@ const Interface = () => {
 
   
   const updateOrder = (value : string) => {
-    if((order === "1") && (value === "0" || value === "1" || value === "2")){
-      setOrder(order + value)
+    if((itemSelected === "1") && (value === "0" || value === "1" || value === "2")){
+      setItemSelected(itemSelected + value)
     }else if(value != "0"){
-      setOrder(value)
+      setItemSelected(value)
     }
   }
 
@@ -56,7 +57,7 @@ const Interface = () => {
   }
 
   const clearOrder = () => {
-    setOrder("")
+
     setPurchaseStatus(0)
     setItemSelected("")
     setPaymentDisplay("00.00")
@@ -65,9 +66,7 @@ const Interface = () => {
 
   const enterOrder = () => {
     setPurchaseStatus(status.ITEM_SELECTED)
-    setItemSelected(order)
-    getCost(order)
-    setOrder("")
+    getCost(itemSelected)
   }
 
   const getCost = (order : string) => {
@@ -80,9 +79,15 @@ const Interface = () => {
     }
   }
 
-  const payOrder = () => {
-
+  const payOrder = async () => {
+    console.log("clicked")
+    const buyer = await signer.getAddress()
+    console.log(buyer)
+    console.log(parseInt(paymentDisplay))
+    await VendingContract.purchase(buyer, parseInt(itemSelected), parseInt(paymentDisplay))
   }
+
+
 
   useEffect(()=> {
     const timer = setTimeout(() => setPurchaseStatus(status.PAYMENT_IN_PROGRESS), 9500)
@@ -104,11 +109,11 @@ const Interface = () => {
           </div>
         :
          <div className='Display'>
-            {order == ""
+            {itemSelected == ""
             ?
             selectionText()
             :
-            <h3>{order}</h3>
+            <h3>{itemSelected}</h3>
             }
             
           </div>
