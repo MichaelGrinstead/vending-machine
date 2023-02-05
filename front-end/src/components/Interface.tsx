@@ -1,8 +1,11 @@
 import { format } from 'path'
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useContext} from 'react'
 import {VendingContract, signer} from '../ContractObjects'
+import VendingContext from '../context/VendingContext'
 
 const Interface = () => {
+
+  const {order, setOrder} = useContext(VendingContext)
 
   const enum status {
     NO_SELECTION,
@@ -12,13 +15,13 @@ const Interface = () => {
     PAYMENT_COMPLETE
   }
 
-
-  const [order, setOrder] = useState<string>("")
   const [itemSelected, setItemSelected] = useState<string>("")
   const [cost, setCost] = useState<string>("")
   const [paymentDisplay, setPaymentDisplay] = useState<string>("00.00")
   const [paymentString, setPaymentString] = useState<string>("")
   const [purchaseStatus, setPurchaseStatus] = useState<status>(status.NO_SELECTION)
+
+  console.log(purchaseStatus)
 
 
   const selectionText = () => {
@@ -54,7 +57,7 @@ const Interface = () => {
 
   const clearOrder = () => {
     setOrder("")
-    setPurchaseStatus(status.NO_SELECTION)
+    setPurchaseStatus(0)
     setItemSelected("")
     setPaymentDisplay("00.00")
     setPaymentString("")
