@@ -5,7 +5,7 @@ import VendingContext from '../context/VendingContext'
 
 const Interface = () => {
 
-  const {itemSelected, setItemSelected} = useContext(VendingContext)
+  const {currentItemSelected, setCurrentItemSelected} = useContext(VendingContext)
 
   
   const enum status {
@@ -17,19 +17,24 @@ const Interface = () => {
   }
 
   const [cost, setCost] = useState<string>("")
+  const [itemDisplay, setItemDisplay] = useState<string>("")
   const [paymentDisplay, setPaymentDisplay] = useState<string>("00.00")
   const [paymentString, setPaymentString] = useState<string>("")
+  const [paymentValue, setPaymentValue] = useState<number>(0)
   const [purchaseStatus, setPurchaseStatus] = useState<status>(status.NO_SELECTION)
+  const [itemSelected, setItemSelected] = useState<boolean>(false)
 
-  console.log(itemSelected)
+  console.log(currentItemSelected)
+  console.log(paymentDisplay)
   console.log(purchaseStatus)
+  console.log(paymentValue)
 
 
   const selectionText = () => {
     if(purchaseStatus == status.NO_SELECTION){
       return <h3 className='Selection-Text-Moving-First'>Please make your selection</h3>
     }else if(purchaseStatus == status.ITEM_SELECTED){
-      return <h3 className='Selection-Text-Moving-Second'>You have selected Item {itemSelected}
+      return <h3 className='Selection-Text-Moving-Second'>You have selected Item {currentItemSelected}
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The cost is ${cost}</h3>
     }else if(purchaseStatus == status.PAYMENT_IN_PROGRESS){
       return <h3 className='Selection-Text-Moving-Third'>Please enter in ${cost} or more</h3>
@@ -38,10 +43,12 @@ const Interface = () => {
 
   
   const updateOrder = (value : string) => {
-    if((itemSelected === "1") && (value === "0" || value === "1" || value === "2")){
-      setItemSelected(itemSelected + value)
+    if((currentItemSelected === "1") && (value === "0" || value === "1" || value === "2")){
+      setItemDisplay(currentItemSelected + value)
     }else if(value != "0"){
-      setItemSelected(value)
+      setCurrentItemSelected(value)
+      setItemDisplay(value)
+      setItemSelected(true)
     }
   }
 
@@ -50,23 +57,51 @@ const Interface = () => {
     const value = paymentString.concat(input)
     setPaymentString(value)
     const numberValue : number = parseInt(value)
+    setPaymentValue(numberValue)
     const formattedValue : number = numberValue/100
+    console.log(formattedValue)
+    // const finalValue = addDecimal(formattedValue)
     const finalValue = formattedValue.toString()
+    console.log(finalValue)
     setPaymentDisplay(finalValue)
-    
   }
+
+  // const addDecimal = (value : number) => {
+  //   let decimalValue
+  //   const singleDecimals = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+  //   if(value >= 1 && value < 10){
+  //     const stringValue = value.toString()
+  //     decimalValue = stringValue + "." + "0" + "0"
+  //   }else if(singleDecimals.includes(value)){
+  //     const stringValue = value.toString()
+  //     console.log(stringValue)
+  //     decimalValue = stringValue + "0"
+  //   }else{
+  //     decimalValue = value.toString()
+  //   }
+  //   return decimalValue
+  // }
 
   const clearOrder = () => {
 
-    setPurchaseStatus(0)
-    setItemSelected("")
+    setPurchaseStatus(status.NO_SELECTION)
+    setCurrentItemSelected("")
+    setPaymentDisplay("00.00")
+    setPaymentString("")
+    setItemSelected(false)
+  }
+
+  const clearPaymentDisplay = () => {
     setPaymentDisplay("00.00")
     setPaymentString("")
   }
 
+  console.log(itemSelected)
+
   const enterOrder = () => {
     setPurchaseStatus(status.ITEM_SELECTED)
-    getCost(itemSelected)
+    getCost(currentItemSelected)
+    setItemDisplay("")
   }
 
   const getCost = (order : string) => {
@@ -83,16 +118,25 @@ const Interface = () => {
     console.log("clicked")
     const buyer = await signer.getAddress()
     console.log(buyer)
-    console.log(parseInt(paymentDisplay))
-    await VendingContract.purchase(buyer, parseInt(itemSelected), parseInt(paymentDisplay))
+    console.log(paymentDisplay)
+    console.log(parseInt(currentItemSelected))
+    console.log(paymentValue)
+    await VendingContract.purchase(buyer, parseInt(currentItemSelected), paymentValue)
   }
 
 
-
   useEffect(()=> {
-    const timer = setTimeout(() => setPurchaseStatus(status.PAYMENT_IN_PROGRESS), 9500)
+    const timer = setTimeout(() => setPurchaseStatus(status.PAYMENT_IN_PROGRESS), 95)
     return () => clearTimeout(timer)
-  }, [itemSelected])
+  }, [purchaseStatus === status.ITEM_SELECTED])
+
+  useEffect(() => {
+    clearOrder()
+  }, [])
+
+  useEffect(() => {
+    selectionText()
+  },[purchaseStatus])
 
  return (
     <div className='Interface'>
@@ -109,11 +153,11 @@ const Interface = () => {
           </div>
         :
          <div className='Display'>
-            {itemSelected == ""
+            {itemDisplay === ""
             ?
             selectionText()
             :
-            <h3>{itemSelected}</h3>
+            <h3>{itemDisplay}</h3>
             }
             
           </div>
@@ -228,11 +272,20 @@ const Interface = () => {
             onClick={() => updateOrder("9")}
             >9</button>
           }
+          {purchaseStatus === status.PAYMENT_IN_PROGRESS
+          ?
+            <button 
+            className='Key'
+            style={{fontSize: "30px"}}
+            onClick={() => clearPaymentDisplay()}
+            >Clear</button>
+          :
             <button 
             className='Key'
             style={{fontSize: "30px"}}
             onClick={() => clearOrder()}
             >Clear</button>
+          }
           {purchaseStatus === status.PAYMENT_IN_PROGRESS
           ?
             <button 
