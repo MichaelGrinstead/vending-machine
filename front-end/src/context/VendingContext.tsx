@@ -1,8 +1,8 @@
 import React, {createContext, useState, ReactNode} from 'react'
 
 interface VendingContextInterface {
-    itemSelected : string
-    setItemSelected : React.Dispatch<React.SetStateAction<string>>
+    currentItemSelected : string
+    setCurrentItemSelected : React.Dispatch<React.SetStateAction<string>>
 }
 
 const VendingContext = createContext<VendingContextInterface>({} as VendingContextInterface)
@@ -10,13 +10,13 @@ const VendingContext = createContext<VendingContextInterface>({} as VendingConte
 export const VendingProvider  = ({children} : {children : ReactNode}) => {
 
     
-    const [itemSelected, setItemSelected] = useState<string>("")
+    const [currentItemSelected, setCurrentItemSelected] = useState<string>("")
 
   return(
     <VendingContext.Provider
     value={{
-        itemSelected, 
-        setItemSelected
+        currentItemSelected, 
+        setCurrentItemSelected
       }}
       >
         {children}
