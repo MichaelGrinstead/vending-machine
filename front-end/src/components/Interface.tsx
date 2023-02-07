@@ -1,6 +1,6 @@
 import { ethers, utils } from 'ethers'
 import {useEffect, useState, useContext} from 'react'
-import {VendingContract, signer} from '../ContractObjects'
+import {VendingContract, GLTokenContract, VendingAddress, signer} from '../ContractObjects'
 import VendingContext from '../context/VendingContext'
 
 const Interface = () => {
@@ -9,41 +9,53 @@ const Interface = () => {
 
   
   const enum status {
-    NO_SELECTION,
-    ITEM_SELECTED,
-    PAYMENT_IN_PROGRESS,
-    PAYMENT_ENTERED,
+    ENTERING_DEPOSIT,
+    DISPLAYING_DEPOSIT,
+    SELECTING_ORDER,
+    DISPLAYING_REMAINING_DEPOSIT,
     PAYMENT_COMPLETE
   }
 
   const [cost, setCost] = useState<string>("")
   const [itemDisplay, setItemDisplay] = useState<string>("")
-  const [paymentDisplay, setPaymentDisplay] = useState<string>("00.00")
-  const [paymentString, setPaymentString] = useState<string>("")
-  const [paymentValue, setPaymentValue] = useState<number>(0)
-  const [purchaseStatus, setPurchaseStatus] = useState<status>(status.NO_SELECTION)
+  const [inputDepositDisplay, setInputDepositDisplay] = useState<string>("00.00")
+  const [depositString, setDepositString] = useState<string>("")
+  const [depositValue, setDepositValue] = useState<number>(0)
+  const [depositDisplay, setDepositDisplay] = useState<string>("")
+  const [purchaseStatus, setPurchaseStatus] = useState<status>(status.ENTERING_DEPOSIT)
   const [itemSelected, setItemSelected] = useState<boolean>(false)
+  const [remainingDeposit, setRemainingDeposit] = useState<string>("")
 
   console.log(currentItemSelected)
-  console.log(paymentDisplay)
+  console.log(inputDepositDisplay)
   console.log(purchaseStatus)
-  console.log(paymentValue)
+  console.log(depositValue)
 
-
-  const selectionText = () => {
-    if(purchaseStatus == status.NO_SELECTION){
-      return <h3 className='Selection-Text-Moving-First'>Please make your selection</h3>
-    }else if(purchaseStatus == status.ITEM_SELECTED){
-      return <h3 className='Selection-Text-Moving-Second'>You have selected Item {currentItemSelected}
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The cost is ${cost}</h3>
-    }else if(purchaseStatus == status.PAYMENT_IN_PROGRESS){
-      return <h3 className='Selection-Text-Moving-Third'>Please enter in ${cost} or more</h3>
-    }
+  const makeDeposit = async () => {
+    try{
+      const approval = await GLTokenContract.approve(VendingAddress, depositValue)
+      await approval.wait()
+    }catch(e){
+      console.log(e)
+    }finally{
+      setPurchaseStatus(status.DISPLAYING_DEPOSIT)
+      setDepositDisplay(inputDepositDisplay)
+    } 
   }
+
+  const getRemainingDeposit = async () => {
+    const changeNumber = await GLTokenContract.allowance(signer.getAddress(), VendingAddress)
+    const changeFormatted = changeNumber/100
+    const changeFinal = changeFormatted.toFixed(2)
+    setRemainingDeposit(changeFinal)
+  }
+
+ 
 
   
   const updateOrder = (value : string) => {
     if((currentItemSelected === "1") && (value === "0" || value === "1" || value === "2")){
+      setCurrentItemSelected(currentItemSelected + value)
       setItemDisplay(currentItemSelected + value)
     }else if(value != "0"){
       setCurrentItemSelected(value)
@@ -53,53 +65,33 @@ const Interface = () => {
   }
 
   const inputPayment = (input : string) => {
+    setPurchaseStatus(status.ENTERING_DEPOSIT)
 
-    const value = paymentString.concat(input)
-    setPaymentString(value)
+    const value = depositString.concat(input)
+    setDepositString(value)
     const numberValue : number = parseInt(value)
-    setPaymentValue(numberValue)
+    setDepositValue(numberValue)
     const formattedValue : number = numberValue/100
     console.log(formattedValue)
-    // const finalValue = addDecimal(formattedValue)
-    const finalValue = formattedValue.toString()
-    console.log(finalValue)
-    setPaymentDisplay(finalValue)
+    const finalValue = formattedValue.toFixed(2)
+    setInputDepositDisplay(finalValue)
   }
 
-  // const addDecimal = (value : number) => {
-  //   let decimalValue
-  //   const singleDecimals = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
-  //   if(value >= 1 && value < 10){
-  //     const stringValue = value.toString()
-  //     decimalValue = stringValue + "." + "0" + "0"
-  //   }else if(singleDecimals.includes(value)){
-  //     const stringValue = value.toString()
-  //     console.log(stringValue)
-  //     decimalValue = stringValue + "0"
-  //   }else{
-  //     decimalValue = value.toString()
-  //   }
-  //   return decimalValue
-  // }
-
   const clearOrder = () => {
-
-    setPurchaseStatus(status.NO_SELECTION)
+    setPurchaseStatus(status.ENTERING_DEPOSIT)
     setCurrentItemSelected("")
-    setPaymentDisplay("00.00")
-    setPaymentString("")
+    setInputDepositDisplay("00.00")
+    setDepositString("")
     setItemSelected(false)
   }
 
   const clearPaymentDisplay = () => {
-    setPaymentDisplay("00.00")
-    setPaymentString("")
+    setInputDepositDisplay("00.00")
+    setDepositString("")
   }
 
-  console.log(itemSelected)
-
   const enterOrder = () => {
-    setPurchaseStatus(status.ITEM_SELECTED)
+    
     getCost(currentItemSelected)
     setItemDisplay("")
   }
@@ -117,18 +109,39 @@ const Interface = () => {
   const payOrder = async () => {
     console.log("clicked")
     const buyer = await signer.getAddress()
-    console.log(buyer)
-    console.log(paymentDisplay)
-    console.log(parseInt(currentItemSelected))
-    console.log(paymentValue)
-    await VendingContract.purchase(buyer, parseInt(currentItemSelected), paymentValue)
+    await VendingContract.purchase(buyer, parseInt(currentItemSelected), depositValue)
   }
 
+///Conditional HTML
+
+  const selectionText = () => {
+    if(purchaseStatus === status.ENTERING_DEPOSIT){
+      return <h3 className='Selection-Text-Moving-First'>Please make a Deposit</h3>
+    }else if(purchaseStatus === status.DISPLAYING_DEPOSIT){
+      return <h3 className='Selection-Text-Moving-First'>You have deposited ${depositDisplay}</h3>
+    }else if(purchaseStatus === status.SELECTING_ORDER){
+      return <h3 className='Selection-Text-Moving-First'>Please make your selection</h3>
+    }else if(purchaseStatus === status.DISPLAYING_REMAINING_DEPOSIT){
+      return <h3 className='Selection-Text-Moving-First'>You have ${remainingDeposit} remaining</h3>
+    }
+  }
+
+  const enterButton = () => {
+    if(purchaseStatus === status.ENTERING_DEPOSIT){
+      return <button className='Key' style={{fontSize: "30px"}} onClick={() => makeDeposit()}>Enter</button>
+    }else if(purchaseStatus === status.SELECTING_ORDER){
+      return  <button className='Key' style={{fontSize: "30px"}} onClick={() => enterOrder()}>Enter</button>
+    }else{
+      return <button className='Key' style={{fontSize: "30px"}}>Enter</button>
+    }
+  }
+
+///UseEffect
 
   useEffect(()=> {
-    const timer = setTimeout(() => setPurchaseStatus(status.PAYMENT_IN_PROGRESS), 95)
+    const timer = setTimeout(() => setPurchaseStatus(status.SELECTING_ORDER), 9500)
     return () => clearTimeout(timer)
-  }, [purchaseStatus === status.ITEM_SELECTED])
+  }, [depositDisplay])
 
   useEffect(() => {
     clearOrder()
@@ -138,16 +151,20 @@ const Interface = () => {
     selectionText()
   },[purchaseStatus])
 
+  useEffect(() => {
+    getRemainingDeposit()
+  }, [])
+
  return (
     <div className='Interface'>
-        {purchaseStatus === status.PAYMENT_IN_PROGRESS
+        {purchaseStatus === status.ENTERING_DEPOSIT
         ?
           <div className='Display'>
-            {paymentDisplay == "00.00"
+            {inputDepositDisplay == "00.00"
             ?
             selectionText()
             :
-            <h3>${paymentDisplay}</h3>
+            <h3>${inputDepositDisplay}</h3>
             }
             
           </div>
@@ -163,7 +180,7 @@ const Interface = () => {
           </div>
         }
         <div className='Keypad'>
-          {purchaseStatus === status.PAYMENT_IN_PROGRESS
+          {purchaseStatus === status.ENTERING_DEPOSIT
           ?
             <button 
             className='Key'
@@ -176,7 +193,7 @@ const Interface = () => {
             >1</button>
           }
 
-          {purchaseStatus === status.PAYMENT_IN_PROGRESS
+          {purchaseStatus === status.ENTERING_DEPOSIT
           ?
             <button 
             className='Key'
@@ -188,7 +205,7 @@ const Interface = () => {
             onClick={() => updateOrder("2")}
             >2</button>
           }
-          {purchaseStatus === status.PAYMENT_IN_PROGRESS
+          {purchaseStatus === status.ENTERING_DEPOSIT
           ?
             <button 
             className='Key'
@@ -200,7 +217,7 @@ const Interface = () => {
             onClick={() => updateOrder("3")}
             >3</button>
           }
-          {purchaseStatus === status.PAYMENT_IN_PROGRESS
+          {purchaseStatus === status.ENTERING_DEPOSIT
           ?
             <button 
             className='Key'
@@ -212,7 +229,7 @@ const Interface = () => {
             onClick={() => updateOrder("4")}
             >4</button>
           }
-          {purchaseStatus === status.PAYMENT_IN_PROGRESS
+          {purchaseStatus === status.ENTERING_DEPOSIT
           ?
             <button 
             className='Key'
@@ -224,7 +241,7 @@ const Interface = () => {
             onClick={() => updateOrder("5")}
             >5</button>
           }
-          {purchaseStatus === status.PAYMENT_IN_PROGRESS
+          {purchaseStatus === status.ENTERING_DEPOSIT
           ?
             <button 
             className='Key'
@@ -236,7 +253,7 @@ const Interface = () => {
             onClick={() => updateOrder("6")}
             >6</button>
           }
-          {purchaseStatus === status.PAYMENT_IN_PROGRESS
+          {purchaseStatus === status.ENTERING_DEPOSIT
           ?
             <button 
             className='Key'
@@ -248,7 +265,7 @@ const Interface = () => {
             onClick={() => updateOrder("7")}
             >7</button>
           }
-          {purchaseStatus === status.PAYMENT_IN_PROGRESS
+          {purchaseStatus === status.ENTERING_DEPOSIT
           ?
             <button 
             className='Key'
@@ -260,7 +277,7 @@ const Interface = () => {
             onClick={() => updateOrder("8")}
             >8</button>
           }
-          {purchaseStatus === status.PAYMENT_IN_PROGRESS
+          {purchaseStatus === status.ENTERING_DEPOSIT
           ?
             <button 
             className='Key'
@@ -272,7 +289,7 @@ const Interface = () => {
             onClick={() => updateOrder("9")}
             >9</button>
           }
-          {purchaseStatus === status.PAYMENT_IN_PROGRESS
+          {purchaseStatus === status.ENTERING_DEPOSIT
           ?
             <button 
             className='Key'
@@ -286,7 +303,7 @@ const Interface = () => {
             onClick={() => clearOrder()}
             >Clear</button>
           }
-          {purchaseStatus === status.PAYMENT_IN_PROGRESS
+          {purchaseStatus === status.ENTERING_DEPOSIT
           ?
             <button 
             className='Key'
@@ -298,20 +315,7 @@ const Interface = () => {
             onClick={() => updateOrder("0")}
             >0</button>
           }
-          {purchaseStatus === status.PAYMENT_IN_PROGRESS
-          ?
-            <button 
-            className='Key'
-            style={{fontSize: "30px"}}
-            onClick={() => payOrder()}
-            >Enter</button>
-          :
-            <button 
-            className='Key'
-            style={{fontSize: "30px"}}
-            onClick={() => enterOrder()}
-            >Enter</button>
-          }
+          {enterButton()}
         </div>
 
     </div>
