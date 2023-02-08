@@ -11,7 +11,9 @@ const Interface = () => {
   const enum status {
     ENTERING_DEPOSIT,
     DISPLAYING_DEPOSIT,
-    SELECTING_ORDER,
+    SELECTING_ITEM,
+    ITEM_SELECTED,
+    DISPLAYING_COST,
     DISPLAYING_REMAINING_DEPOSIT,
     PAYMENT_COMPLETE
   }
@@ -40,6 +42,8 @@ const Interface = () => {
     }finally{
       setPurchaseStatus(status.DISPLAYING_DEPOSIT)
       setDepositDisplay(inputDepositDisplay)
+      setTimeout(() => setPurchaseStatus(status.SELECTING_ITEM), 9000)
+    
     } 
   }
 
@@ -91,9 +95,11 @@ const Interface = () => {
   }
 
   const enterOrder = () => {
-    
     getCost(currentItemSelected)
     setItemDisplay("")
+    setPurchaseStatus(status.ITEM_SELECTED)
+    setTimeout(() => setPurchaseStatus(status.DISPLAYING_COST), 9000)
+    
   }
 
   const getCost = (order : string) => {
@@ -107,30 +113,46 @@ const Interface = () => {
   }
 
   const payOrder = async () => {
-    console.log("clicked")
     const buyer = await signer.getAddress()
-    await VendingContract.purchase(buyer, parseInt(currentItemSelected), depositValue)
+    try{
+      const purchase = await VendingContract.purchase(buyer, parseInt(currentItemSelected), (parseInt(cost)*100))
+      await purchase.wait()
+    }catch(e){
+      console.log(e)
+    }finally{
+      setPurchaseStatus(status.DISPLAYING_REMAINING_DEPOSIT)
+      setTimeout(() => setPurchaseStatus(status.SELECTING_ITEM), 9000)
+    }
+    
   }
 
 ///Conditional HTML
 
   const selectionText = () => {
     if(purchaseStatus === status.ENTERING_DEPOSIT){
-      return <h3 className='Selection-Text-Moving-First'>Please make a Deposit</h3>
+      return <h3 className='Selection-Text-Moving'>Please enter an amount to deposit</h3>
     }else if(purchaseStatus === status.DISPLAYING_DEPOSIT){
-      return <h3 className='Selection-Text-Moving-First'>You have deposited ${depositDisplay}</h3>
-    }else if(purchaseStatus === status.SELECTING_ORDER){
-      return <h3 className='Selection-Text-Moving-First'>Please make your selection</h3>
+      return <h3 className='Selection-Text-Moving'>You have deposited ${depositDisplay}</h3>
+    }else if(purchaseStatus === status.SELECTING_ITEM){
+      return <h3 className='Selection-Text-Moving-Longer'>Please make your selection or press clear to end</h3>
+    }else if(purchaseStatus === status.ITEM_SELECTED){
+      return <h3 className='Selection-Text-Moving'>You have selected item {currentItemSelected}</h3> 
+    }else if(purchaseStatus == status.DISPLAYING_COST){
+      return <h3 className='Selection-Text-Moving-Longer'>The cost is ${cost}&nbsp;&nbsp;&nbsp;Press enter to confirm</h3>
     }else if(purchaseStatus === status.DISPLAYING_REMAINING_DEPOSIT){
-      return <h3 className='Selection-Text-Moving-First'>You have ${remainingDeposit} remaining</h3>
+      return <h3 className='Selection-Text-Moving'>You have ${remainingDeposit} remaining</h3>
     }
+    
+    
   }
 
   const enterButton = () => {
     if(purchaseStatus === status.ENTERING_DEPOSIT){
       return <button className='Key' style={{fontSize: "30px"}} onClick={() => makeDeposit()}>Enter</button>
-    }else if(purchaseStatus === status.SELECTING_ORDER){
+    }else if(purchaseStatus === status.SELECTING_ITEM){
       return  <button className='Key' style={{fontSize: "30px"}} onClick={() => enterOrder()}>Enter</button>
+    }else if(purchaseStatus === status.DISPLAYING_COST){
+      return  <button className='Key' style={{fontSize: "30px"}} onClick={() => payOrder()}>Enter</button>
     }else{
       return <button className='Key' style={{fontSize: "30px"}}>Enter</button>
     }
@@ -138,10 +160,9 @@ const Interface = () => {
 
 ///UseEffect
 
-  useEffect(()=> {
-    const timer = setTimeout(() => setPurchaseStatus(status.SELECTING_ORDER), 9500)
-    return () => clearTimeout(timer)
-  }, [depositDisplay])
+  // useEffect(()=> {
+    
+  // }, [depositDisplay])
 
   useEffect(() => {
     clearOrder()
