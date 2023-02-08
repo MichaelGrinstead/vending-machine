@@ -13,6 +13,10 @@ contract Vending is ERC721("Go Logic NFT", "GLNFT") {
 
     uint256 tokenId = 1;
 
+    uint256 public itemTierOneAmount = 20;
+    uint256 public itemTierTwoAmount = 20;
+    uint256 public itemTierThreeAmount = 20;
+
     constructor(address _GLTokenAddress) {
         token = GLToken(_GLTokenAddress);
     }
@@ -26,16 +30,16 @@ contract Vending is ERC721("Go Logic NFT", "GLNFT") {
 
         if(_itemNumber >= 1 && _itemNumber <= 4){
             require(_amount >= 200);
-            (bool refundTierOne) = token.transfer(msg.sender, (_amount - 200));
-            require(refundTierOne);
+            require(itemTierOneAmount > 0);
+            itemTierOneAmount --;
         }else if(_itemNumber >= 5 && _itemNumber <= 8) {
             require(_amount >= 400);
-            (bool refundTierTwo) = token.transfer(msg.sender, (_amount - 400));
-            require(refundTierTwo);
+            require(itemTierTwoAmount > 0);
+            itemTierTwoAmount --;
         }else if(_itemNumber >= 9 && _itemNumber <= 12){
             require(_amount >= 600);
-            (bool refundTierThree) = token.transfer(msg.sender, (_amount - 600));
-            require(refundTierThree);
+            require(itemTierThreeAmount > 0);
+            itemTierThreeAmount --;
         }
         _safeMint(_to, tokenId);
 
