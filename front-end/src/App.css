@@ -78,17 +78,17 @@ body {
   margin-bottom: 0;
 }
 
-.Selection-Text-Moving-First {
+.Selection-Text-Moving {
   position: absolute;
-  width: 150%;
+  width: 500px;
   color: greenyellow;
   animation: Display 9.5s linear infinite;
   margin: 0
 }
 
-.Selection-Text-Moving-Second {
+.Selection-Text-Moving-Longer {
   position: absolute;
-  width: 700px;
+  width: 800px;
   color: greenyellow;
   animation: Display 9s linear infinite;
   margin: 0
@@ -107,7 +107,7 @@ body {
     left: 120%;
   }
   to {
-    left: -200%;
+    left: -180%;
   }
 }
 
