@@ -17,6 +17,62 @@ body {
   color: white;
 }
 
+.Heading-Text {
+  color: #171717;
+  font-size: 25px;
+}
+
+.Connect {
+  width: 50%;
+  height: 5%;
+  background-color: whitesmoke;
+  color: #171717;
+  border-radius: 20px;
+  font-size: large;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.Enter {
+  width: 50%;
+  height: 5%;
+  background-color: whitesmoke;
+  color: #171717;
+  border-radius: 20px;
+  font-size: large;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.Loader {
+  border: solid whitesmoke 2px; 
+  border-top: solid #171717;
+  border-right: solid #171717; 
+  border-left: solid #171717;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/*Landing Page*/
+
+.Landing-Inner {
+  height: 80%;
+  width: 50%;
+  border: solid #171717 2px;
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5%;
+  text-align: center;
+}
+
 .Vending {
   margin-left: 10%;
   margin-top: 5%;
