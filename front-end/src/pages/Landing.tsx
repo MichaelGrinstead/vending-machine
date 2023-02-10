@@ -70,7 +70,7 @@ const Landing = () => {
             <button 
             className="Enter"
             onClick={enter}
-            ><div className="Loader"></div>
+            ><div className="Loader" style={{marginLeft: "auto", marginRight: "auto"}}></div>
             </button>
             :
             <button 
