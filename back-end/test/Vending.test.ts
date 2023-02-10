@@ -32,22 +32,24 @@ describe("Using the vending machine", () => {
         expect(balance).to.equal(1000)
     })
 
-    it("should refund the correct amount if tokenId is between 1 and 4", async () => {
-        await Vending.purchase(buyer.address, 2, 250)
-        expect(await GLToken.balanceOf(Vending.address)).to.equal(200)
-        expect(await GLToken.balanceOf(buyer.address)).to.equal(800)
+    it("should deduct 1 from the itemTierOneAmount if between 1 and 4", async () => {
+        await Vending.purchase(buyer.address, 3, 200) 
+        expect(await Vending.itemTierOneAmount()).to.equal(19)
     })
 
-    it("should refund the correct amount if tokenId is between 5 and 8", async () => {
-        await Vending.purchase(buyer.address, 7, 450)
-        expect(await GLToken.balanceOf(Vending.address)).to.equal(400)
-        expect(await GLToken.balanceOf(buyer.address)).to.equal(600)
+    it("should deduct 1 from the itemTierTwoAmount if between 5 and 8", async () => {
+        await Vending.purchase(buyer.address, 6, 400) 
+        expect(await Vending.itemTierTwoAmount()).to.equal(19)
     })
 
-    it("should refund the correct amount if tokenId is between 9 and 12", async () => {
-        await Vending.purchase(buyer.address, 11, 650)
-        expect(await GLToken.balanceOf(Vending.address)).to.equal(600)
-        expect(await GLToken.balanceOf(buyer.address)).to.equal(400)
+    it("should deduct 1 from the itemTierThreeAmount if between 9 and 12", async () => {
+        await Vending.purchase(buyer.address, 10, 600) 
+        expect(await Vending.itemTierThreeAmount()).to.equal(19)
+    })
+
+    it("buyer should become the owner of an NFT", async () => {
+        await Vending.purchase(buyer.address, 10, 600)
+        expect(await Vending.ownerOf(1)).to.equal(buyer.address)
     })
 
 
