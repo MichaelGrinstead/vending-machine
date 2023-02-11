@@ -49,6 +49,7 @@ const Interface = () => {
 
   const getRemainingDeposit = async () => {
     const changeNumber = await GLTokenContract.allowance(signer.getAddress(), VendingAddress)
+    console.log(changeNumber)
     const changeFormatted = changeNumber/100
     const changeFinal = changeFormatted.toFixed(2)
     setRemainingDeposit(changeFinal)
@@ -81,12 +82,13 @@ const Interface = () => {
     setInputDepositDisplay(finalValue)
   }
 
-  const clearOrder = () => {
+  const clearOrder = async () => {
     setPurchaseStatus(status.ENTERING_DEPOSIT)
     setCurrentItemSelected("")
     setInputDepositDisplay("00.00")
     setDepositString("")
     setItemSelected(false)
+    await GLTokenContract.approve(VendingAddress, 0)
   }
 
   const clearPaymentDisplay = () => {
@@ -148,13 +150,61 @@ const Interface = () => {
 
   const enterButton = () => {
     if(purchaseStatus === status.ENTERING_DEPOSIT){
-      return <button className='Key' style={{fontSize: "30px"}} onClick={() => makeDeposit()}>Enter</button>
+      return  <button 
+              className='Key' 
+              style={{fontSize: "30px"}} 
+              onClick={() => makeDeposit()}
+              >Enter
+              </button>
+
     }else if(purchaseStatus === status.SELECTING_ITEM){
-      return  <button className='Key' style={{fontSize: "30px"}} onClick={() => enterOrder()}>Enter</button>
+      return  <button 
+              className='Key' 
+              style={{fontSize: "30px"}} 
+              onClick={() => enterOrder()}
+              >Enter
+              </button>
+
     }else if(purchaseStatus === status.DISPLAYING_COST){
-      return  <button className='Key' style={{fontSize: "30px"}} onClick={() => payOrder()}>Enter</button>
+      return  <button 
+              className='Key' 
+              style={{fontSize: "30px"}} 
+              onClick={() => payOrder()}
+              >Enter
+              </button>
+
     }else{
-      return <button className='Key' style={{fontSize: "30px"}}>Enter</button>
+      return  <button 
+              className='Key' 
+              style={{fontSize: "30px"}}
+              >Enter
+              </button>
+    }
+  }
+
+  const clearButton = () => {
+    if(purchaseStatus === status.ENTERING_DEPOSIT){
+      return  <button 
+              className='Key'
+              style={{fontSize: "30px"}}
+              onClick={() => clearPaymentDisplay()}
+              >Clear
+              </button>
+
+    }else if(purchaseStatus === status.SELECTING_ITEM){
+      return  <button 
+              className='Key'
+              style={{fontSize: "30px"}}
+              onClick={() => clearOrder()}
+              >Clear
+              </button>
+
+    }else{
+      return  <button 
+              className='Key'
+              style={{fontSize: "30px"}}
+              >Clear
+              </button>
     }
   }
 
@@ -310,20 +360,7 @@ const Interface = () => {
             onClick={() => updateOrder("9")}
             >9</button>
           }
-          {purchaseStatus === status.ENTERING_DEPOSIT
-          ?
-            <button 
-            className='Key'
-            style={{fontSize: "30px"}}
-            onClick={() => clearPaymentDisplay()}
-            >Clear</button>
-          :
-            <button 
-            className='Key'
-            style={{fontSize: "30px"}}
-            onClick={() => clearOrder()}
-            >Clear</button>
-          }
+          {clearButton()}
           {purchaseStatus === status.ENTERING_DEPOSIT
           ?
             <button 
