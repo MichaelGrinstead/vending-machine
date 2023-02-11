@@ -86,8 +86,14 @@ export default [
       "type": "event"
     },
     {
-      "inputs": [],
-      "name": "URI",
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "CIDs",
       "outputs": [
         {
           "internalType": "string",
@@ -396,6 +402,25 @@ export default [
       "inputs": [
         {
           "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "tokenIdToURI",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
           "name": "_itemNumber",
           "type": "uint256"
         }
@@ -430,19 +455,6 @@ export default [
         }
       ],
       "name": "transferFrom",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "_uri",
-          "type": "string"
-        }
-      ],
-      "name": "updateURI",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
