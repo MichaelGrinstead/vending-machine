@@ -8,8 +8,8 @@ declare var window: any
 
 ///LocalHost
 
-const GLTokenAddress = "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707"
-const VendingAddress = "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853"
+const GLTokenAddress = "0x68B1D87F95878fE05B998F19b66F4baba5De1aed"
+const VendingAddress = "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d"
 
 
 
