@@ -61,7 +61,7 @@ const Interface = () => {
     if((currentItemSelected === "1") && (value === "0" || value === "1" || value === "2")){
       setCurrentItemSelected(currentItemSelected + value)
       setItemDisplay(currentItemSelected + value)
-    }else if(value != "0"){
+    }else if(value !== "0"){
       setCurrentItemSelected(value)
       setItemDisplay(value)
       setItemSelected(true)
@@ -137,7 +137,7 @@ const Interface = () => {
       return <h3 className='Selection-Text-Moving-Longer'>Please make your selection or press clear to end</h3>
     }else if(purchaseStatus === status.ITEM_SELECTED){
       return <h3 className='Selection-Text-Moving'>You have selected item {currentItemSelected}</h3> 
-    }else if(purchaseStatus == status.DISPLAYING_COST){
+    }else if(purchaseStatus === status.DISPLAYING_COST){
       return <h3 className='Selection-Text-Moving-Longer'>The cost is ${cost}&nbsp;&nbsp;&nbsp;Press enter to confirm</h3>
     }else if(purchaseStatus === status.DISPLAYING_REMAINING_DEPOSIT){
       return <h3 className='Selection-Text-Moving'>You have ${remainingDeposit} remaining</h3>
@@ -181,7 +181,7 @@ const Interface = () => {
         {purchaseStatus === status.ENTERING_DEPOSIT
         ?
           <div className='Display'>
-            {inputDepositDisplay == "00.00"
+            {inputDepositDisplay === "00.00"
             ?
             selectionText()
             :

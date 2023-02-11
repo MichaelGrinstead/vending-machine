@@ -29,4 +29,4 @@ if(window.ethereum != null) {
   
 }   
 
-export {provider, signer, VendingContract, GLTokenContract}
+export {provider, signer, VendingContract, GLTokenContract, VendingAddress, GLTokenAddress}
