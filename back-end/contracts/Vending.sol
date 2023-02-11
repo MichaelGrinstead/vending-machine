@@ -17,8 +17,26 @@ contract Vending is ERC721("Go Logic NFT", "GLNFT") {
     uint256 public itemTierTwoAmount = 20;
     uint256 public itemTierThreeAmount = 20;
 
+    string public URI;
+
     constructor(address _GLTokenAddress) {
         token = GLToken(_GLTokenAddress);
+    }
+
+    function updateURI(string memory _uri) external {
+        URI = _uri;
+    }
+
+    function fetchIds(address _owner) view external returns(uint[] memory){
+        uint[] memory ids = new uint[](balanceOf(_owner));
+        uint counter = 0;
+        for(uint i = 1; i < tokenId; i ++){
+            if(ownerOf(i) == _owner){
+                ids[counter] = i;
+                counter++;
+            }
+        }
+        return ids;
     }
 
 
