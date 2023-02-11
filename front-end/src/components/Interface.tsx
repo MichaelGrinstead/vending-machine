@@ -51,13 +51,12 @@ const Interface = () => {
     const changeNumber = await GLTokenContract.allowance(signer.getAddress(), VendingAddress)
     console.log(changeNumber)
     const changeFormatted = changeNumber/100
+    console.log(changeFormatted)
     const changeFinal = changeFormatted.toFixed(2)
+    console.log(changeFinal)
     setRemainingDeposit(changeFinal)
   }
 
- 
-
-  
   const updateOrder = (value : string) => {
     if((currentItemSelected === "1") && (value === "0" || value === "1" || value === "2")){
       setCurrentItemSelected(currentItemSelected + value)
@@ -122,10 +121,16 @@ const Interface = () => {
     }catch(e){
       console.log(e)
     }finally{
+      getRemainingDeposit()
       setPurchaseStatus(status.DISPLAYING_REMAINING_DEPOSIT)
-      setTimeout(() => setPurchaseStatus(status.SELECTING_ITEM), 9000)
-    }
-    
+  
+      if(remainingDeposit === "00.00"){
+        setTimeout(() => setPurchaseStatus(status.ENTERING_DEPOSIT), 9000)
+        setInputDepositDisplay("")
+      }else{
+        setTimeout(() => setPurchaseStatus(status.SELECTING_ITEM), 9000)
+      }
+    } 
   }
 
 ///Conditional HTML
@@ -213,10 +218,6 @@ const Interface = () => {
   // useEffect(()=> {
     
   // }, [depositDisplay])
-
-  useEffect(() => {
-    clearOrder()
-  }, [])
 
   useEffect(() => {
     selectionText()
