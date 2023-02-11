@@ -17,14 +17,26 @@ contract Vending is ERC721("Go Logic NFT", "GLNFT") {
     uint256 public itemTierTwoAmount = 20;
     uint256 public itemTierThreeAmount = 20;
 
-    string public URI;
+    mapping(uint => string) public tokenIdToURI;
+
+    string[] public CIDs = 
+        ["Qmbt85r9jUtP9yP6arpUGnNqgjKSLjRDV4X8apHyX1CKdF",
+        "Qmbt85r9jUtP9yP6arpUGnNqgjKSLjRDV4X8apHyX1CKdF",
+        "Qmbt85r9jUtP9yP6arpUGnNqgjKSLjRDV4X8apHyX1CKdF",
+        "Qmbt85r9jUtP9yP6arpUGnNqgjKSLjRDV4X8apHyX1CKdF",
+        "Qmbt85r9jUtP9yP6arpUGnNqgjKSLjRDV4X8apHyX1CKdF",
+        "Qmbt85r9jUtP9yP6arpUGnNqgjKSLjRDV4X8apHyX1CKdF",
+        "Qmbt85r9jUtP9yP6arpUGnNqgjKSLjRDV4X8apHyX1CKdF",
+        "Qmbt85r9jUtP9yP6arpUGnNqgjKSLjRDV4X8apHyX1CKdF",
+        "Qmbt85r9jUtP9yP6arpUGnNqgjKSLjRDV4X8apHyX1CKdF",
+        "Qmbt85r9jUtP9yP6arpUGnNqgjKSLjRDV4X8apHyX1CKdF",
+        "Qmbt85r9jUtP9yP6arpUGnNqgjKSLjRDV4X8apHyX1CKdF",
+        "Qmbt85r9jUtP9yP6arpUGnNqgjKSLjRDV4X8apHyX1CKdF"];
+                
+
 
     constructor(address _GLTokenAddress) {
         token = GLToken(_GLTokenAddress);
-    }
-
-    function updateURI(string memory _uri) external {
-        URI = _uri;
     }
 
     function fetchIds(address _owner) view external returns(uint[] memory){
@@ -60,6 +72,8 @@ contract Vending is ERC721("Go Logic NFT", "GLNFT") {
             itemTierThreeAmount --;
         }
         _safeMint(_to, tokenId);
+        string memory uri = tokenURI(_itemNumber);
+        tokenIdToURI[tokenId] = uri;
 
         tokenId ++;
     }
@@ -68,12 +82,12 @@ contract Vending is ERC721("Go Logic NFT", "GLNFT") {
         _requireMinted(tokenId);
 
         string memory baseURI = _baseURI();
-        return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, _itemNumber.toString())) : "";
+        return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, CIDs[_itemNumber - 1])) : "";
     }
 
 
     function _baseURI() internal pure override returns (string memory) {
-        return "";
+        return "https://personal-project-storage.infura-ipfs.io/ipfs/";
     }
 
 
