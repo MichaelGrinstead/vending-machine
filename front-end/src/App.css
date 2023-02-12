@@ -211,7 +211,7 @@ body {
   gap: 5%;
   grid-template-columns: 20% 20% 20% 20%;
   width: 90%;
-  height: 80%;
+  height: 90%;
   font-size: 30px;
   margin-left: auto;
   margin-right: auto;
@@ -220,8 +220,8 @@ body {
 .Item {
   background-color: black;
   color: whitesmoke;
-  width: 100%;
-  height: 100%;
+  width: 100px;
+  height: 100px;
   padding: 5%;
   text-align: center;
   border: solid black;
@@ -240,8 +240,8 @@ body {
   scale: 1.1;
   background-color: greenyellow;
   color: black;
-  width: 100%;
-  height: 100%;
+  width: 100px;
+  height: 100px;
   padding: 5%;
   text-align: center;
   font-weight: bold;
