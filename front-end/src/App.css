@@ -254,18 +254,31 @@ body {
 }
 
 .Purchased-Items {
-  height: 70%;
-  width: 20%;
-  position: absolute;
-  right: 5%;
-  top: 5%;
   display: flex;
-  flex-direction: column;
-  gap: 5px;
   align-items: center;
-  justify-content: center;
+  position: absolute;
+  width: 20%;
+  min-height: 40%;
+  right: 10%;
+  top: 10%;
   border: solid #171717 2px;
   background-color: whitesmoke;
   z-index: 1;
   border-radius: 10px;
+  padding: 2%;
+}
+
+.Purchased-Items-Inner {
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Image {
+  margin-bottom: 5%;
+  margin-top: 5%;
 }
