@@ -20,18 +20,20 @@ contract Vending is ERC721("Go Logic NFT", "GLNFT") {
     mapping(uint => string) public tokenIdToURI;
 
     string[] public CIDs = 
-        ["Qmbt85r9jUtP9yP6arpUGnNqgjKSLjRDV4X8apHyX1CKdF",
-        "Qmbt85r9jUtP9yP6arpUGnNqgjKSLjRDV4X8apHyX1CKdF",
-        "Qmbt85r9jUtP9yP6arpUGnNqgjKSLjRDV4X8apHyX1CKdF",
-        "Qmbt85r9jUtP9yP6arpUGnNqgjKSLjRDV4X8apHyX1CKdF",
-        "Qmbt85r9jUtP9yP6arpUGnNqgjKSLjRDV4X8apHyX1CKdF",
-        "Qmbt85r9jUtP9yP6arpUGnNqgjKSLjRDV4X8apHyX1CKdF",
-        "Qmbt85r9jUtP9yP6arpUGnNqgjKSLjRDV4X8apHyX1CKdF",
-        "Qmbt85r9jUtP9yP6arpUGnNqgjKSLjRDV4X8apHyX1CKdF",
-        "Qmbt85r9jUtP9yP6arpUGnNqgjKSLjRDV4X8apHyX1CKdF",
-        "Qmbt85r9jUtP9yP6arpUGnNqgjKSLjRDV4X8apHyX1CKdF",
-        "Qmbt85r9jUtP9yP6arpUGnNqgjKSLjRDV4X8apHyX1CKdF",
-        "Qmbt85r9jUtP9yP6arpUGnNqgjKSLjRDV4X8apHyX1CKdF"];
+        [
+        "QmPJCZbenCkYbDrHj9PPmvUHGbfgQUBGSK3BRTsmXRj3MR",
+        "QmSi49oEboHGKiBrjRp5PkKEeXLE83j5fJG9TwVmfgcPcj",
+        "QmRpCrsKQeCuXxfPCrVrk2Er6DgZ7grVinhHrwNbZC68yS",
+        "QmSffb8DKjeMQoTUtBJq2XA72z4jemjuBQGmDtJd7DfPc9",
+        "QmW9GYYZ3wb8tYA3Hpr3jnTD5uNbjDbd3TR7UbQm7qe4KJ",
+        "QmUGTj9F9Qqx1FbwY7fVfGNZrGJnpopRJjdgvxNUVZF5yt",
+        "Qmba2N1sMDpVFXVoPjS2CJxhqZXbquaKRwCkCMh1kW964x",
+        "Qmbc1QogbULNZaM8UcBWPxxY6VFtqbXLduiPVpYLe5begu",
+        "QmVkBC6VPuatf686sVEKPmEUoWfJruCmBMkV3NXGDGaY9M",
+        "QmPjefQnS1W5Lj1SnBH8n16uWVCRX3JPmZxb4d2ReLpJa2",
+        "QmWHy5Ffz7R9y6JWjrYPtMTF4qXu9esm7P1RvQNGYJ3LLB",
+        "QmTWg4eRpQoMUc5pwnfvLNjjSu6RCBFKdAhgL717L6kN4z"
+        ];
                 
 
 
