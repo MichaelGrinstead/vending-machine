@@ -5,7 +5,13 @@ import VendingContext from '../context/VendingContext'
 
 const Interface = () => {
 
-  const {currentItemSelected, setCurrentItemSelected} = useContext(VendingContext)
+  const {
+    currentItemSelected, 
+    setCurrentItemSelected,
+    images,
+    getTokenIds,
+    setImagesLoading
+  } = useContext(VendingContext)
 
   
   const enum status {
@@ -38,7 +44,7 @@ const Interface = () => {
     }finally{
       setPurchaseStatus(status.DISPLAYING_DEPOSIT)
       setDepositDisplay(inputDepositDisplay)
-      setTimeout(() => setPurchaseStatus(status.SELECTING_ITEM), 9000)
+      setTimeout(() => setPurchaseStatus(status.SELECTING_ITEM), 12000)
     
     } 
   }
@@ -122,7 +128,14 @@ const Interface = () => {
       }else{
         setTimeout(() => setPurchaseStatus(status.SELECTING_ITEM), 9000)
       }
+      showPurchased()
     } 
+  }
+
+  const showPurchased = () => {
+    getTokenIds()
+    setImagesLoading(true)
+    setTimeout(() => setImagesLoading(false), 5000)
   }
 
   console.log(remainingDeposit)
@@ -208,10 +221,6 @@ const Interface = () => {
   }
 
 ///UseEffect
-
-  // useEffect(()=> {
-    
-  // }, [depositDisplay])
 
   useEffect(() => {
     selectionText()
