@@ -28,10 +28,6 @@ const Interface = () => {
   const [itemSelected, setItemSelected] = useState<boolean>(false)
   const [remainingDeposit, setRemainingDeposit] = useState<string>("")
 
-  console.log(currentItemSelected)
-  console.log(inputDepositDisplay)
-  console.log(purchaseStatus)
-  console.log(depositValue)
 
   const makeDeposit = async () => {
     try{
@@ -49,11 +45,8 @@ const Interface = () => {
 
   const getRemainingDeposit = async () => {
     const changeNumber = await GLTokenContract.allowance(signer.getAddress(), VendingAddress)
-    console.log(changeNumber)
     const changeFormatted = changeNumber/100
-    console.log(changeFormatted)
     const changeFinal = changeFormatted.toFixed(2)
-    console.log(changeFinal)
     setRemainingDeposit(changeFinal)
   }
 
@@ -76,7 +69,6 @@ const Interface = () => {
     const numberValue : number = parseInt(value)
     setDepositValue(numberValue)
     const formattedValue : number = numberValue/100
-    console.log(formattedValue)
     const finalValue = formattedValue.toFixed(2)
     setInputDepositDisplay(finalValue)
   }
@@ -124,14 +116,16 @@ const Interface = () => {
       getRemainingDeposit()
       setPurchaseStatus(status.DISPLAYING_REMAINING_DEPOSIT)
   
-      if(remainingDeposit === "00.00"){
+      if(remainingDeposit === "0.00"){
         setTimeout(() => setPurchaseStatus(status.ENTERING_DEPOSIT), 9000)
-        setInputDepositDisplay("")
+        setInputDepositDisplay("00.00")
       }else{
         setTimeout(() => setPurchaseStatus(status.SELECTING_ITEM), 9000)
       }
     } 
   }
+
+  console.log(remainingDeposit)
 
 ///Conditional HTML
 
