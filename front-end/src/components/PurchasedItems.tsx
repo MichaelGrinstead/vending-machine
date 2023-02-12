@@ -11,7 +11,7 @@ const PurchasedItems = () => {
     <div className="Purchased-Items">
         {imagesLoading
         ?
-        <div className="Loader" style={{marginLeft: "auto", marginRight: "auto", marginTop: "45%"}}></div>
+        <div className="Loader" style={{marginLeft: "auto", marginRight: "auto", marginTop: "5%"}}></div>
         :
         <div className="Purchased-Items-Inner">
             {images.length === 0
