@@ -1,5 +1,17 @@
 import {useContext} from 'react'
 import VendingContext from '../context/VendingContext'
+import cherry_ripe from '../images/cherry_ripe.jpeg'
+import mi_goreng from '../images/mi_goreng.jpg'
+import protein_bar from '../images/protein_bar.jpeg'
+import nurofen from '../images/nurofen.jpeg'
+import goat_beer from '../images/goat_beer.png'
+import coffee from '../images/coffee.jpeg'
+import tuna from '../images/tuna.jpg'
+import broccolini from '../images/broccolini.jpeg'
+import peanuts from '../images/peanuts.jpg'
+import egg from '../images/egg.jpeg'
+import sriracha from '../images/sriracha.jpeg'
+import bhuja from '../images/bhuja.jpeg'
 
 const Items = () => {
 
@@ -11,97 +23,97 @@ const Items = () => {
         <div className='Vending-Items'>
         {currentItemSelected === "1"
         ?
-        <div className='ItemSelected'>Item 1</div>
+        <img src={cherry_ripe} className='ItemSelected'></img>
         :
-        <div className='Item' onClick={() => setCurrentItemSelected("1")}>Item 1</div>
+        <img src={cherry_ripe} className='Item' onClick={() => setCurrentItemSelected("1")}></img>
 
         }  
 
         {currentItemSelected === "2"
         ?
-        <div className='ItemSelected'>Item 2</div>
+        <img src={mi_goreng} className='ItemSelected'></img>
         :
-        <div className='Item' onClick={() => setCurrentItemSelected("2")}>Item 2</div>
+        <img src={mi_goreng} className='Item' onClick={() => setCurrentItemSelected("2")}></img>
 
         }  
 
         {currentItemSelected === "3"
         ?
-        <div className='ItemSelected'>Item 3</div>
+        <img src={protein_bar} className='ItemSelected'></img>
         :
-        <div className='Item' onClick={() => setCurrentItemSelected("3")}>Item 3</div>
+        <img src={protein_bar} className='Item' onClick={() => setCurrentItemSelected("3")}></img>
 
         } 
 
         {currentItemSelected === "4"
         ?
-        <div className='ItemSelected'>Item 4</div>
+        <img src= {nurofen} className='ItemSelected'></img>
         :
-        <div className='Item' onClick={() => setCurrentItemSelected("4")}>Item 4</div>
+        <img src= {nurofen} className='Item' onClick={() => setCurrentItemSelected("4")}></img>
 
         } 
 
         {currentItemSelected === "5"
         ?
-        <div className='ItemSelected'>Item 5</div>
+        <img src={goat_beer} className='ItemSelected'></img>
         :
-        <div className='Item' onClick={() => setCurrentItemSelected("5")}>Item 5</div>
+        <img src={goat_beer} className='Item' onClick={() => setCurrentItemSelected("5")}></img>
 
         } 
         
         {currentItemSelected === "6"
         ?
-        <div className='ItemSelected'>Item 6</div>
+        <img src={coffee} className='ItemSelected'></img>
         :
-        <div className='Item' onClick={() => setCurrentItemSelected("6")}>Item 6</div>
+        <img src={coffee} className='Item' onClick={() => setCurrentItemSelected("6")}></img>
 
         } 
 
         {currentItemSelected === "7"
         ?
-        <div className='ItemSelected'>Item 7</div>
+        <img src={tuna} className='ItemSelected'></img>
         :
-        <div className='Item' onClick={() => setCurrentItemSelected("7")}>Item 7</div>
+        <img src={tuna} className='Item' onClick={() => setCurrentItemSelected("7")}></img>
 
         } 
         
         {currentItemSelected === "8"
         ?
-        <div className='ItemSelected'>Item 8</div>
+        <img src={broccolini} className='ItemSelected'></img>
         :
-        <div className='Item' onClick={() => setCurrentItemSelected("8")}>Item 8</div>
+        <img src={broccolini} className='Item' onClick={() => setCurrentItemSelected("8")}></img>
 
         } 
 
         {currentItemSelected === "9"
         ?
-        <div className='ItemSelected'>Item 9</div>
+        <img src={peanuts} className='ItemSelected'></img>
         :
-        <div className='Item' onClick={() => setCurrentItemSelected("9")}>Item 9</div>
+        <img src={peanuts} className='Item' onClick={() => setCurrentItemSelected("9")}></img>
 
         } 
 
         {currentItemSelected === "10"
         ?
-        <div className='ItemSelected'>Item 10</div>
+        <img src={egg} className='ItemSelected'></img>
         :
-        <div className='Item' onClick={() => setCurrentItemSelected("10")}>Item 10</div>
+        <img src={egg} className='Item' onClick={() => setCurrentItemSelected("10")}></img>
 
         } 
 
         {currentItemSelected === "11"
         ?
-        <div className='ItemSelected'>Item 11</div>
+        <img src={sriracha} className='ItemSelected'></img>
         :
-        <div className='Item' onClick={() => setCurrentItemSelected("11")}>Item 11</div>
+        <img src={sriracha} className='Item' onClick={() => setCurrentItemSelected("11")}></img>
 
         } 
 
         {currentItemSelected === "12"
         ?
-        <div className='ItemSelected'>Item 12</div>
+        <img src={bhuja} className='ItemSelected'></img>
         :
-        <div className='Item' onClick={() => setCurrentItemSelected("12")}>Item 12</div>
+        <img src={bhuja} className='Item' onClick={() => setCurrentItemSelected("12")}></img>
 
         } 
     </div>
