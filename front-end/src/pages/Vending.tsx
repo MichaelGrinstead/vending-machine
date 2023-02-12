@@ -1,11 +1,22 @@
-import {useState} from 'react'
+import {useEffect, useState, useContext} from 'react'
 import Interface from '../components/Interface'
 import Items from '../components/Items'
 import PurchasedItems from '../components/PurchasedItems'
+import VendingContext from '../context/VendingContext'
 
 const Vending = () => {
 
+  const {getTokenIds, setImagesLoading} = useContext(VendingContext)
+
   const [showItems, setShowItems] = useState<boolean>()
+
+  const showPurchased = () => {
+    setShowItems(!showItems)
+    getTokenIds()
+    setImagesLoading(true)
+    setTimeout(() => setImagesLoading(false), 2000)
+
+  }
 
   return (
     <div
@@ -14,7 +25,7 @@ const Vending = () => {
           <div className='Vending'>
             <h3 
             className='Show-Items'
-            onClick={() => setShowItems(!showItems)}
+            onClick={() => showPurchased()}
             >Show Items</h3>
             <div className='Vending-Inner'>
               <Items/>
