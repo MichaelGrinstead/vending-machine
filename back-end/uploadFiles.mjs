@@ -20,7 +20,7 @@ const client = create({
     }
 })
 
-const fileDir = './images'
+const fileDir = './vending-images'
 
 const handleUpload = async () => {
     const images = fs.readdirSync(fileDir)
@@ -34,7 +34,7 @@ const handleUpload = async () => {
         console.log(url)
       
     }
-    fs.writeFile(`./upload-links/uploads.txt`, uploads.join('\n'), e => {
+    fs.writeFile(`./upload-links/vending-image-uris.txt`, uploads.join('\n'), e => {
         if (e) {
             console.error(e);
         }
