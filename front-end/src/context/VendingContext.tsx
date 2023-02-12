@@ -73,7 +73,7 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
     const _images = []
     try{
       for(let i = 0; i < URIs.length; i++){
-        _images.push(<img className='Image' style={{height: "50px", width: "100px"}} src={URIs[i]}></img>)
+        _images.push(<img className='Image' src={URIs[i]}></img>)
       }
     }catch(e){
       console.log(e)

@@ -16,7 +16,7 @@ const PurchasedItems = () => {
         <div className="Purchased-Items-Inner">
             {images.length === 0
             ?
-            <h3>you currently have no purchased items</h3>
+            <h3 className="Heading-Text">You currently have no purchased items</h3>
             :
             images
             }
