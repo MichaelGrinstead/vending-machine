@@ -3,9 +3,7 @@ import VendingContext from "../context/VendingContext"
 
 const PurchasedItems = () => {
 
-    const {images, imagesLoading} = useContext(VendingContext)
-
-    console.log(images)
+    const {images, imagesLoading, setImagesLoading, showPurchased} = useContext(VendingContext)
     
   return (
     <div className="Purchased-Items">
@@ -22,6 +20,12 @@ const PurchasedItems = () => {
             }
         </div>
         }
+        <button 
+        className="Enter"
+        style={{width: "100%"}}
+        onClick={() => showPurchased()} 
+        >Show
+        </button>
     </div>  
   )
 }

@@ -7,10 +7,7 @@ const Interface = () => {
 
   const {
     currentItemSelected, 
-    setCurrentItemSelected,
-    images,
-    getTokenIds,
-    setImagesLoading
+    setCurrentItemSelected
   } = useContext(VendingContext)
 
   
@@ -128,17 +125,11 @@ const Interface = () => {
       }else{
         setTimeout(() => setPurchaseStatus(status.SELECTING_ITEM), 9000)
       }
-      showPurchased()
+      // showPurchased()
     } 
   }
 
-  const showPurchased = () => {
-    getTokenIds()
-    setImagesLoading(true)
-    setTimeout(() => setImagesLoading(false), 5000)
-  }
-
-  console.log(remainingDeposit)
+  
 
 ///Conditional HTML
 

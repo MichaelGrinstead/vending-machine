@@ -13,13 +13,11 @@ interface VendingContextInterface {
     connectionStatus : connectionState
     setConnectionStatus: React.Dispatch<React.SetStateAction<connectionState>>
     images : any[]
-    tokenIds : any[]
-    getTokenIds : () => Promise<void>
     URIs : any[]
-    getURIs : () => Promise<void>
     getImages : () => void
     imagesLoading : boolean
     setImagesLoading : React.Dispatch<React.SetStateAction<boolean>>
+    showPurchased : () => void
 }
 
 const VendingContext = createContext<VendingContextInterface>({} as VendingContextInterface)
@@ -31,56 +29,41 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
   const [connectionStatus, setConnectionStatus] = useState<connectionState>(connectionState.UNCONNECTED)
 
   const [imagesLoading, setImagesLoading] = useState<boolean>(false)
-
-  const [tokenIds, setTokenIds] = useState<any[]>([])
   
-  const getTokenIds = async () => {
-    let ids
-    const user = await signer.getAddress()
-    try{
-      ids = await VendingContract.fetchIds(user)
-    }catch(e){
-      console.log(e)
-    }finally{
-      setTokenIds(ids)
-      getURIs()
-    }
-  }
-
   const [URIs, setURIs] = useState<any[]>([])
-
-  const getURIs = async () => {
-    let URIArray : any[]= []
-    try{
-      tokenIds.map( async (id) => {
-        const uri = await VendingContract.tokenIdToURI(id)
-        URIArray.push(uri)
-      })
-    }catch(e){
-      console.log(e)
-    }finally{
-      console.log(URIArray)
-      setURIs(URIArray) 
-      getImages()
-    }
-  }
-
-  console.log(URIs)
 
   const [images, setImages] = useState<any>([])
 
   const getImages = () => {
-    const _images = []
-    try{
-      for(let i = 0; i < URIs.length; i++){
-        _images.push(<img className='Image' src={URIs[i]}></img>)
-      }
-    }catch(e){
-      console.log(e)
-    }finally{
-      setImages(_images)
+  const _images = []
+    for(let i = 0; i < URIs.length; i++){
+      _images.push(<img className='Image' src={URIs[i]}></img>)
     } 
+    setImages(_images)
   }
+
+  const retrieveImages = async () => {
+    const user = await signer.getAddress()
+    const ids = await VendingContract.fetchIds(user)
+    const URIArray : any[] = []
+    ids.map( async (id : any) => {
+      const uri = await VendingContract.tokenIdToURI(id)
+      URIArray.push(uri)
+    })
+    setURIs(URIArray)
+    
+  }
+
+  const showPurchased = () => {
+    setImagesLoading(true)
+    retrieveImages()
+    getImages()
+    setTimeout(() => setImagesLoading(false), 5000)
+  }
+
+  console.log(images)
+  
+  console.log(imagesLoading)
 
   return(
     <VendingContext.Provider
@@ -90,13 +73,11 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
         connectionStatus,
         setConnectionStatus,
         images,
-        tokenIds,
-        getTokenIds,
         URIs,
-        getURIs,
         getImages, 
         imagesLoading,
-        setImagesLoading
+        setImagesLoading,
+        showPurchased
       }}
       >
         {children}
