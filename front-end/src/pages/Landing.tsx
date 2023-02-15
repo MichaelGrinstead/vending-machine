@@ -1,6 +1,7 @@
 import {useState, useContext} from 'react'
 import ConnectWallet from "../components/ConnectWallet"
-import { GLTokenContract, GLTokenAddress, VendingAddress } from "../ContractObjects"
+import CopiedAlert from '../components/CopiedAlert'
+import {VendingTokenContract, VendingTokenAddress, VendingAddress } from "../ContractObjects"
 import VendingContext from '../context/VendingContext'
 import { useNavigate } from "react-router-dom"
 import { connectionState } from '../context/VendingContext'
@@ -14,10 +15,14 @@ const Landing = () => {
 
     const [enterLoading, setEnterLoading] = useState<boolean>(false)
 
+    const [copyingTokenAddress, setCopyingTokenAddress] = useState<boolean>(false)
+
+    const [copyingNFTAddress, setCopyingNFTAddress] = useState<boolean>(false)
+
     const enter = async () => {
         setEnterLoading(true)
         try{
-            const mint = await GLTokenContract.mintGL(10000)
+            const mint = await VendingTokenContract.mintGL(10000)
             await mint.wait()
         }catch(e){
             console.log(e)
@@ -44,26 +49,55 @@ const Landing = () => {
         }
     }
 
+    const copyTokenAddress = () => {
+        setCopyingTokenAddress(true)
+        navigator.clipboard.writeText(VendingTokenAddress)
+        setTimeout(() => setCopyingTokenAddress(true), 1000)
+    }
+
+    const copyNFTAddress = () => {
+        setCopyingNFTAddress(true)
+        navigator.clipboard.writeText(VendingAddress)
+        setTimeout(() => setCopyingNFTAddress(false), 1000)
+    }
+
     console.log(connectionStatus)
 
   return (
     <div style={{height: "100%", width: "100%"}}>
         <div className='Landing-Inner'>
-            <h1 className='Heading-Text'>Welcome to the Go Logic NFT Vending Machine</h1>
+            <h1 className='Heading-Text'>Welcome to my Vending Machine</h1>
             <h1 className='Heading-Text'>Please connect your wallet</h1>
-            <br></br>
             {connected()}
             <br></br>
             <br></br>
-            <h1 className='Heading-Text'>Once Connected import GL Token with this address</h1>
+            <h1 className='Heading-Text'>Once Connected import some Vending tokens with this address</h1>
             <br></br>
-            <h1 className='Heading-Text'>{GLTokenAddress}</h1>
+            <div className='Address-Container'>
+                <h1 className='Heading-Text'>{VendingTokenAddress}</h1>
+                {!copyingTokenAddress
+                ?
+                    <button className= 'Copy-Button' onClick={() => copyTokenAddress()}>copy</button>
+                :    
+                    <CopiedAlert/>
+                }
+                
+            </div>
             <br></br>
-            <h1 className='Heading-Text'>And GL NFT with this Address</h1>
+            <h1 className='Heading-Text'>And Vending Items with this Address</h1>
             <br></br>
-            <h1 className='Heading-Text'>{VendingAddress}</h1>
+            <div className='Address-Container'>
+                <h1 className='Heading-Text'>{VendingAddress}</h1>
+                {!copyingNFTAddress
+                ?
+                    <button className= 'Copy-Button' onClick={() => copyNFTAddress()}>copy</button>
+                :    
+                    <CopiedAlert/>
+                }
+                
+            </div>
             <br></br>
-            <h1 className="Heading-Text">And finally click Enter to mint some GL Token and use the Vending Machine</h1>
+            <h1 className="Heading-Text">Click Enter to mint some Vending Tokens and start using the Vending Machine</h1>
             <br></br>
             {enterLoading
             ?
