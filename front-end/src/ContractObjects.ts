@@ -8,14 +8,14 @@ declare var window: any
 
 ///LocalHost
 
-const GLTokenAddress = "0x68B1D87F95878fE05B998F19b66F4baba5De1aed"
-const VendingAddress = "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d"
+const VendingTokenAddress = "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
+const VendingAddress = "0x0165878A594ca255338adfa4d48449f69242Eb8F"
 
 
 
 let provider : ethers.providers.Web3Provider
 let signer : ethers.providers.JsonRpcSigner
-let GLTokenContract : Contract
+let VendingTokenContract : Contract
 let VendingContract : Contract 
 
 
@@ -24,9 +24,9 @@ let VendingContract : Contract
 if(window.ethereum != null) {
     provider  = new ethers.providers.Web3Provider(window.ethereum)
     signer = provider.getSigner()
-    GLTokenContract = new ethers.Contract(GLTokenAddress, GLTokenABI, signer);
+    VendingTokenContract = new ethers.Contract(VendingTokenAddress, GLTokenABI, signer);
     VendingContract = new ethers.Contract(VendingAddress, VendingABI, signer); 
   
 }   
 
-export {provider, signer, VendingContract, GLTokenContract, VendingAddress, GLTokenAddress}
+export {provider, signer, VendingContract, VendingTokenContract, VendingAddress, VendingTokenAddress}

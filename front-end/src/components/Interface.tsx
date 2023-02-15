@@ -1,6 +1,6 @@
 import { ethers, utils } from 'ethers'
 import {useEffect, useState, useContext} from 'react'
-import {VendingContract, GLTokenContract, VendingAddress, signer} from '../ContractObjects'
+import {VendingContract, VendingTokenContract, VendingAddress, signer} from '../ContractObjects'
 import VendingContext from '../context/VendingContext'
 
 const Interface = () => {
@@ -34,7 +34,7 @@ const Interface = () => {
 
   const makeDeposit = async () => {
     try{
-      const approval = await GLTokenContract.approve(VendingAddress, depositValue)
+      const approval = await VendingTokenContract.approve(VendingAddress, depositValue)
       await approval.wait()
     }catch(e){
       console.log(e)
@@ -47,7 +47,7 @@ const Interface = () => {
   }
 
   const getRemainingDeposit = async () => {
-    const changeNumber = await GLTokenContract.allowance(signer.getAddress(), VendingAddress)
+    const changeNumber = await VendingTokenContract.allowance(signer.getAddress(), VendingAddress)
     const changeFormatted = changeNumber/100
     const changeFinal = changeFormatted.toFixed(2)
     setRemainingDeposit(changeFinal)
@@ -82,7 +82,7 @@ const Interface = () => {
     setInputDepositDisplay("00.00")
     setDepositString("")
     setItemSelected(false)
-    await GLTokenContract.approve(VendingAddress, 0)
+    await VendingTokenContract.approve(VendingAddress, 0)
   }
 
   const clearPaymentDisplay = () => {
