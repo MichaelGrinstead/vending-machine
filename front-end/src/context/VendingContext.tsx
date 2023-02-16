@@ -61,9 +61,7 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
     setTimeout(() => setImagesLoading(false), 5000)
   }
 
-  console.log(images)
   
-  console.log(imagesLoading)
 
   return(
     <VendingContext.Provider
