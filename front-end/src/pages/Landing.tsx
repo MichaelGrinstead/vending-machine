@@ -1,6 +1,5 @@
 import {useState, useContext} from 'react'
 import ConnectWallet from "../components/ConnectWallet"
-import CopiedAlert from '../components/CopiedAlert'
 import {VendingTokenContract, VendingTokenAddress, VendingAddress } from "../ContractObjects"
 import VendingContext from '../context/VendingContext'
 import { useNavigate } from "react-router-dom"
@@ -11,13 +10,18 @@ const Landing = () => {
 
     const navigate = useNavigate()
 
-    const {connectionStatus} = useContext(VendingContext)
+    const {
+        connectionStatus,
+        
+    } = useContext(VendingContext)
 
     const [enterLoading, setEnterLoading] = useState<boolean>(false)
 
     const [copyingTokenAddress, setCopyingTokenAddress] = useState<boolean>(false)
-
     const [copyingNFTAddress, setCopyingNFTAddress] = useState<boolean>(false)
+
+    const [tokenAddressHovered, setTokenAddressHovered] = useState<boolean>(false)
+    const [nftAddressHovered, setNftAddressHovered] = useState<boolean>(false)
 
     const enter = async () => {
         setEnterLoading(true)
@@ -50,12 +54,14 @@ const Landing = () => {
     }
 
     const copyTokenAddress = () => {
+        setTokenAddressHovered(false)
         setCopyingTokenAddress(true)
         navigator.clipboard.writeText(VendingTokenAddress)
-        setTimeout(() => setCopyingTokenAddress(true), 1000)
+        setTimeout(() => setCopyingTokenAddress(false), 1000)
     }
 
     const copyNFTAddress = () => {
+        setNftAddressHovered(false)
         setCopyingNFTAddress(true)
         navigator.clipboard.writeText(VendingAddress)
         setTimeout(() => setCopyingNFTAddress(false), 1000)
@@ -64,7 +70,7 @@ const Landing = () => {
     console.log(connectionStatus)
 
   return (
-    <div style={{height: "100%", width: "100%"}}>
+    <div className='Landing'>
         <div className='Landing-Inner'>
             <h1 className='Heading-Text'>Welcome to my Vending Machine</h1>
             <h1 className='Heading-Text'>Please connect your wallet</h1>
@@ -74,27 +80,48 @@ const Landing = () => {
             <h1 className='Heading-Text'>Once Connected import some Vending tokens with this address</h1>
             <br></br>
             <div className='Address-Container'>
-                <h1 className='Heading-Text'>{VendingTokenAddress}</h1>
-                {!copyingTokenAddress
+                <h1 
+                className='Address' 
+                onClick={() => copyTokenAddress()}
+                onMouseOver={() => setTokenAddressHovered(true)}
+                onMouseOut={() => setTokenAddressHovered(false)}
+                >{VendingTokenAddress}
+                </h1>
+                {tokenAddressHovered
+                ?  
+                <h5 className='Copied-Alert'>Copy to clipboard</h5> 
+                :
+                copyingTokenAddress
                 ?
-                    <button className= 'Copy-Button' onClick={() => copyTokenAddress()}>copy</button>
-                :    
-                    <CopiedAlert/>
-                }
+                <h5 className='Copied-Alert' style={{width: "70px"}}>Copied!</h5> 
+                :
+                <h5 style={{height: "16px", backgroundColor: "whitesmoke", margin: "0"}}></h5> 
+                } 
                 
+                    
             </div>
             <br></br>
             <h1 className='Heading-Text'>And Vending Items with this Address</h1>
             <br></br>
             <div className='Address-Container'>
-                <h1 className='Heading-Text'>{VendingAddress}</h1>
-                {!copyingNFTAddress
+                <h1 
+                className={'Address'}
+                onClick={() => copyNFTAddress()}
+                onMouseOver={() => setNftAddressHovered(true)}
+                onMouseOut={() => setNftAddressHovered(false)}
+                >{VendingAddress}
+                </h1>
+                {nftAddressHovered
+                ?  
+                <h5 
+                className={'Copied-Alert'}>Copy to clipboard</h5> 
+                :
+                copyingNFTAddress
                 ?
-                    <button className= 'Copy-Button' onClick={() => copyNFTAddress()}>copy</button>
-                :    
-                    <CopiedAlert/>
+                <h5 className='Copied-Alert' style={{width: "70px"}}>Copied!</h5> 
+                :
+                <h5 style={{height: "16px", backgroundColor: "whitesmoke", margin: "0"}}></h5> 
                 }
-                
             </div>
             <br></br>
             <h1 className="Heading-Text">Click Enter to mint some Vending Tokens and start using the Vending Machine</h1>

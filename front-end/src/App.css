@@ -1,13 +1,16 @@
 #root {
   height: 100vh;
   overflow: hidden;
+  padding: 0;
+  margin: 0;
  
 }
 
 html {
   height: 100%;
   overflow: hidden;
-  
+  padding: 0;
+  margin: 0;
 }
 
 body {
@@ -26,11 +29,15 @@ body {
   width: 50%;
   height: 5%;
   background-color: whitesmoke;
-  color: #171717;
+  color:  #171717;
   border-radius: 20px;
   font-size: large;
   font-weight: bold;
   cursor: pointer;
+}
+
+.Connect:hover {
+  background-color: greenyellow;
 }
 
 .Enter {
@@ -42,6 +49,11 @@ body {
   font-size: large;
   font-weight: bold;
   cursor: pointer;
+}
+
+.Enter:hover {
+  background-color: greenyellow;
+
 }
 
 .Loader {
@@ -62,46 +74,77 @@ body {
 
 /*Landing Page*/
 
+.Landing {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  position: absolute;
+  
+}
+
 .Landing-Inner {
   height: 80%;
   width: 50%;
-  border: solid #171717 2px;
+  border: solid #171717 10px;
   border-radius: 10px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 5%;
   text-align: center;
+  background-color: whitesmoke;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
+
 }
+
+.Landing-Inner:hover {
+  border-color: greenyellow;
+}
+
+.Address-Container {
+  display: flex;
+  flex-direction: column;
+}
+
+.Address-Container h1 {
+  display: inline-block;
+}
+
+.Address-Container:hover h1 {
+  background-color: greenyellow;
+}
+
+.Address-Container h5 {
+  background-color: greenyellow;
+  width: 130px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 
 .Copied-Alert{
   height: 16px;
   animation: fadeIn 0.5s;
-}
+  border-radius: 5px;
+  color: #171717;
+  margin: 0;
+  cursor: pointer;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;}
 
 @keyframes fadeIn {
   0% { opacity: 0; }
   100% { opacity: 1; }
 }
 
-.Copied-Alert h5 {
+.Address {
+  width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5px;
+  font-size: 18px;
   color: #171717;
-  margin: 0;
-}
-
-.Copy-Button {
-  background-color: whitesmoke;
-  color: #171717;
-  height: 20px;
-  border-radius: 10px;
-  font-weight: bold;
   cursor: pointer;
-}
-
-.Address-Container {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  align-items: center;
+  display: inline;
+  border-radius: 5px;
 }
 
 /*Vending Machine*/
