@@ -25,15 +25,22 @@ body {
   font-size: 20px;
 }
 
+.Heading-Text:hover {
+  background-color: greenyellow;
+}
+
 .Connect {
-  width: 50%;
-  height: 5%;
+  width: 40%;
+  height: 10%;
   background-color: whitesmoke;
   color:  #171717;
-  border-radius: 20px;
+  border-radius: 40px;
   font-size: large;
   font-weight: bold;
   cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 150px;
 }
 
 .Connect:hover {
@@ -79,7 +86,45 @@ body {
   width: 100%;
   top: 0;
   position: absolute;
+  display: flex;
+  flex-direction: column;
   
+}
+
+.Landing-Display {
+  font-family:'digital-7';
+  font-size: 100px;
+  height: 200px;
+  width: 80%;
+  background-color: black;
+  color: greenyellow;
+  border: solid greenyellow 5px;
+  border-radius: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5%;
+  position: relative;
+  overflow: hidden;
+}
+
+.Landing-Display-Text {
+  animation: animatedText 13s linear infinite;
+  width: 2500px;
+  position: absolute;
+  text-align: left;
+}
+
+@keyframes animatedText {
+  from {
+    transform: translateX(80%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
 }
 
 .Landing-Inner {

@@ -71,7 +71,11 @@ const Landing = () => {
 
   return (
     <div className='Landing'>
-        <div className='Landing-Inner'>
+        <div className='Landing-Display'>
+            <h1 className='Landing-Display-Text'>Welcome to my Vending machine</h1>
+        </div>
+        {connected()}
+        {/* <div className='Landing-Inner'>
             <h1 className='Heading-Text'>Welcome to my Vending Machine</h1>
             <h1 className='Heading-Text'>Please connect your wallet</h1>
             {connected()}
@@ -144,7 +148,7 @@ const Landing = () => {
 
             
             
-        </div>
+        </div> */}
         
     </div>
   )
