@@ -307,10 +307,13 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10%;
+  gap: 5%;
   position: absolute;
-  top: 20%;
-  right: 20%;
+  top: 12%;
+  right: 8%;
+  border: solid greenyellow 5px;
+  padding: 60px;
+  border-radius: 20px;
 }
 
 .InterfaceSmall {
@@ -319,7 +322,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10%;
+  gap: 5%;
   position: absolute;
   top: 40%;
   right: 45.55%;
@@ -424,6 +427,8 @@ body {
   width: 350px;
   height: 100%;
   font-size: 30px;
+  padding: 10px;
+  border-radius: 10px;
   /* border: solid greenyellow 5px; */
 }
 

@@ -223,7 +223,7 @@ const Interface = () => {
   }, [])
 
  return (
-    <div className='Interface'>
+    <div className={lightMode ? 'L-Interface' : 'Interface'}>
         {purchaseStatus === status.ENTERING_DEPOSIT
         ?
           <div className={lightMode ? 'L-Display' : 'Display'}>

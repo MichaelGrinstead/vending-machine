@@ -122,7 +122,7 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    background-color: whitesmoke;
+    background-color: #ecca00;
   }
   
   .L-Landing-Display-First {
@@ -282,7 +282,7 @@
     position: relative;
     height: 95%;
     width: 95%;
-    background-color: whitesmoke;
+    background-color: #ecca00;
     border-radius: 10px;
     padding-top: 5%;
     border: solid whitesmoke 5px;
@@ -306,10 +306,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10%;
+    gap: 5%;
     position: absolute;
-    top: 20%;
-    right: 20%;
+    top: 12%;
+    right: 8%;
+    border: solid #ecca00 5px;
+    background-color: #f80000;
+    padding: 60px;
+    border-radius: 20px;
   }
   
   .L-InterfaceSmall {
@@ -318,11 +322,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10%;
+    gap: 5%;
     position: absolute;
     top: 40%;
     right: 45.55%;
-    border: solid whitesmoke 2px;
+    border: solid #ecca00 2px;
     border-radius: 10px;
     padding: 20px
   }
@@ -423,6 +427,9 @@
     width: 350px;
     height: 100%;
     font-size: 30px;
+    background-color: #ecca00;
+    padding: 10px;
+    border-radius: 10px;
     /* border: solid #f80000 5px; */
   }
   
@@ -432,6 +439,9 @@
     grid-template-columns: 30% 30% 30%;
     width: 100px;
     height: 125px;
+    background-color: #ecca00;
+    padding: 5px;
+    border-radius: 5px;
   }
   
   .L-Key {
@@ -461,11 +471,12 @@
     height: 100%;
     padding: 5%;
     text-align: center;
-    border: solid #f80000 0.5px;
+    border: solid #f80000 2px;
     border-radius: 3px;
-    font-weight: lighter;
+    font-weight: bold;
     font-size: smaller;
     cursor: pointer;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.3);
   }
   
   .L-KeySmall:hover {
@@ -489,7 +500,7 @@
   }
   
   .L-Item {
-    background-color: whitesmoke;
+    background-color: white;
     width: 100px;
     height: 100px;
     padding: 5%;

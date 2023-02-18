@@ -17,7 +17,7 @@ const Vending = () => {
               <Items/>
             </div>
           </div>
-          <PurchasedItems/>
+          {/* <PurchasedItems/> */}
           <Interface/>
           {lightMode
           ?
