@@ -1,0 +1,562 @@
+#root {
+    height: 100vh;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+   
+  }
+  
+  html {
+    height: 100%;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+  }
+  
+  body {
+    height: 100%;
+    width: 100%;
+    background-color: whitesmoke;
+    color: white;
+  }
+
+/*////////////////////////////////LIGHT MODE/////////////////////////////////////////*/
+
+.L-Switch-Theme {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: #f80000;
+  border: solid whitesmoke 5px;
+  color: whitesmoke;
+  border-radius: 100px;
+  font-family:'digital-7';
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.L-Switch-Theme:hover {
+  background-color: whitesmoke;
+  color: #f80000;
+  border: solid #f80000 5px;
+}
+  
+  .L-Heading-Text {
+    color: #f80000;
+    font-size: 20px;
+  }
+  
+  .L-Heading-Text:hover {
+    background-color: #f80000;
+  }
+  
+  .L-Connect {
+    width: 40%;
+    height: 10%;
+    background-color: whitesmoke;
+    color:  #f80000;
+    border: solid #f80000 5px;
+    border-radius: 40px;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30%;
+    font-family:'digital-7';
+  }
+  
+  .L-Connect:hover {
+    background-color: #f80000;
+    color: whitesmoke;
+    border: whitesmoke solid 5px;
+  }
+  
+  .L-Enter {
+    width: 50%;
+    height: 40px;
+    background-color: #f80000;
+    color: whitesmoke;
+    border: solid whitesmoke;
+    border-radius: 20px;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    font-family:'digital-7';
+  }
+  
+  .L-Enter:hover {
+    background-color: whitesmoke;
+    color: #f80000;
+    border-color: #f80000;
+  
+  }
+  
+  .L-Loader {
+    border: solid #f80000 2px; 
+    border-top: solid #171717;
+    border-right: solid #171717; 
+    border-left: solid #171717;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /*Landing Page*/
+  
+  .L-Landing {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+  }
+  
+  .L-Landing-Display-First {
+    font-family:'digital-7';
+    font-size: 100px;
+    height: 200px;
+    width: 1200px;
+    background-color: whitesmoke;
+    color: #f80000;
+    border: solid #f80000 5px;
+    border-radius: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    left: 50%;
+    margin-left: -600px;
+    margin-top: 12%;
+    position: absolute;
+    overflow: hidden;
+  }
+  
+  .L-Landing-Display-Second {
+    font-family:'digital-7';
+    font-size: 100px;
+    height: 200px;
+    width: 1200px;
+    background-color: whitesmoke;
+    color: #f80000;
+    border: solid #f80000 5px;
+    border-radius: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    left: 50%;
+    margin-left: -600px;
+    margin-top: 2%;
+    position: absolute;
+    overflow: hidden;
+  }
+  
+  .L-Landing-Display-First:hover {
+    background-color: #f80000;
+    color: whitesmoke;
+    border: whitesmoke solid 5px;
+  }
+  
+  .L-Landing-Display-Text {
+    animation: animatedText 13s linear infinite;
+    width: 2500px;
+    position: absolute;
+    text-align: left;
+  }
+  
+  @keyframes animatedText {
+    from {
+      transform: translateX(80%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+  
+  .L-Landing-Inner {
+    height: 500px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: solid #f80000 5px;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20%;
+    margin-bottom: 5%;
+    padding: 10px;
+    text-align: center;
+    color: #f80000;
+    background-color: whitesmoke;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
+  
+  }
+  
+  .L-Landing-Inner:hover {
+    border-color: whitesmoke;
+    background-color: #f80000;
+    color: whitesmoke;
+  }
+  
+  .L-Address-Container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .L-Address-Container h1 {
+    display: inline-block;
+  }
+  
+  .L-Address-Container h5 {
+   
+    width: 130px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  
+  .L-Copied-Alert{
+    height: 16px;
+    animation: fadeIn 0.5s;
+    border-radius: 5px;
+    color: whitesmoke;
+    margin: 0;
+    cursor: pointer;
+  }
+  
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  .L-Address {
+    width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 18px;
+    cursor: pointer;
+    display: inline;
+    border-radius: 5px;
+    margin-bottom: 1px;
+  }
+  
+  /*Vending Machine*/
+  
+  .L-Vending {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    background-color: whitesmoke;
+    position: absolute;
+  }
+  
+  .L-Vending-Outer {
+    margin-left: 3%;
+    margin-top: 4%;
+    width: 40%;
+    height: 80%;
+    background-color: #f80000;
+    padding: 2%;
+    padding-right: 10%;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    border: solid #f80000 5px;
+  }
+  
+  .L-Vending-Inner {
+    position: relative;
+    height: 95%;
+    width: 95%;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    padding-top: 5%;
+    border: solid whitesmoke 5px;
+   
+  }
+  
+  .L-Show-Items {
+    color: #171717;
+    font-size: 20px;
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    cursor: pointer;
+  }
+  
+  /*Interface*/
+  
+  .L-Interface {
+    height: 60%;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10%;
+    position: absolute;
+    top: 20%;
+    right: 20%;
+  }
+  
+  .L-InterfaceSmall {
+    height: 140px;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10%;
+    position: absolute;
+    top: 40%;
+    right: 45.55%;
+    border: solid whitesmoke 2px;
+    border-radius: 10px;
+    padding: 20px
+  }
+  
+  .L-Display {
+    font-family:'digital-7';
+    background-color: whitesmoke;
+    color: #f80000;
+    border: solid #f80000 2px;
+    width: 350px;
+    height: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+    text-align: right;
+    overflow: hidden;
+    position: relative;
+    font-size: 30px;
+    padding: 4% 0 0 0;
+    text-align: center;
+  
+  }
+  
+  .L-Display:hover {
+    background-color: #f80000;
+    color: whitesmoke;
+  }
+  
+  .L-Display h3 {
+    margin-bottom: 0;
+  }
+  
+  .L-DisplaySmall {
+    font-family:'digital-7';
+    background-color: whitesmoke;
+    color: #f80000;
+    border: solid #f80000 0.5px;
+    width: 100px;
+    height: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    border-radius: 3px;
+    font-weight: bold;
+    text-align: right;
+    overflow: hidden;
+    position: relative;
+    font-size: 30px;
+    text-align: center;
+  }
+  
+  .L-Selection-Text-Moving {
+    position: absolute;
+    width: 500px;
+    animation: Display 9.5s linear infinite;
+    margin: 0
+  }
+  
+  .L-Selection-Text-Moving-Longer {
+    position: absolute;
+    width: 800px;
+    animation: Display 9s linear infinite;
+    margin: 0
+  }
+  
+  .L-Selection-Text-Moving-Small {
+    position: absolute;
+    width: 150px;
+    animation: Display 9.5s linear infinite;
+    margin: 0;
+    font-size: 9px;
+  }
+  
+  .L-Selection-Text-Moving-Longer-Small {
+    position: absolute;
+    width: 150px;
+    animation: Display 9s linear infinite;
+    margin: 0
+  }
+  
+  
+  @keyframes Display {
+    from {
+      left: 120%;
+    }
+    to {
+      left: -180%;
+    }
+  }
+  
+  .L-Keypad {
+    display: grid;
+    gap: 5%;
+    grid-template-columns: 30% 30% 30%;
+    width: 350px;
+    height: 100%;
+    font-size: 30px;
+    /* border: solid #f80000 5px; */
+  }
+  
+  .L-KeypadSmall {
+    display: grid;
+    gap: 5%;
+    grid-template-columns: 30% 30% 30%;
+    width: 100px;
+    height: 125px;
+  }
+  
+  .L-Key {
+    background-color: whitesmoke;
+    color: #f80000;
+    width: 100%;
+    height: 100%;
+    padding: 5%;
+    text-align: center;
+    border: solid #f80000 5px;
+    font-weight: bold;
+    font-size: larger;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
+  }
+  
+  .L-Key:hover {
+    background-color: #f80000;
+    color: whitesmoke;
+  }
+  
+  .L-KeySmall {
+    background-color: whitesmoke;
+    color: #f80000;
+    width: 100%;
+    height: 100%;
+    padding: 5%;
+    text-align: center;
+    border: solid #f80000 0.5px;
+    border-radius: 3px;
+    font-weight: lighter;
+    font-size: smaller;
+    cursor: pointer;
+  }
+  
+  .L-KeySmall:hover {
+    background-color: #f80000;
+    color: whitesmoke;
+  }
+  
+  
+  
+  /*Vending Items*/
+  
+  .L-Vending-Items {
+    display: grid;
+    gap: 5%;
+    grid-template-columns: 20% 20% 20% 20%;
+    width: 90%;
+    height: 90%;
+    font-size: 30px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .L-Item {
+    background-color: whitesmoke;
+    width: 100px;
+    height: 100px;
+    padding: 5%;
+    text-align: center;
+    border: solid #f80000;
+    font-weight: bold;
+    font-size: larger;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
+  }
+  
+  .L-Item:hover {
+    color: #f80000
+  }
+  
+  .L-ItemSelected {
+    /* scale: 1.1; */
+    background-color: whitesmoke;
+    border: solid #f80000 5px;
+    color: whitesmoke;
+    width: 100px;
+    height: 100px;
+    padding: 5%;
+    text-align: center;
+    font-weight: bold;
+    font-size: larger;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+    position: relative;
+  }
+  
+  .L-Purchased-Items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 20%;
+    right: 3%;
+    width: 127px;
+    color: #f80000;
+    justify-content: center;
+    border: solid #f80000 5px;
+    background-color: whitesmoke;
+    z-index: 1;
+    border-radius: 10px;
+    padding: 15px;
+  }
+  
+  .L-Purchased-Items-Inner {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+  }
+  
+  .L-Image {
+    margin-bottom: 5%;
+    margin-top: 5%;
+    height: 100px;
+    width: 100px;
+    border: solid whitesmoke 6px;
+    border-radius: 10px;
+  }
+  
+  

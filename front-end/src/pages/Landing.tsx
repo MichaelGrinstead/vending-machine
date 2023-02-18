@@ -12,7 +12,8 @@ const Landing = () => {
 
     const {
         connectionStatus,
-        
+        lightMode,
+        setLightMode
     } = useContext(VendingContext)
 
     const [enterLoading, setEnterLoading] = useState<boolean>(false)
@@ -42,14 +43,72 @@ const Landing = () => {
             return  <ConnectWallet/>
         }else if(connectionStatus === connectionState.NO_WALLET){
             return  <button 
-                    className="Connect"
+                    className={lightMode ? "L-Connect" : 'Connect'}
+                    onClick={() => { window.location.href =' https://metamask.io/download/'}} 
                     >Please Install Metamask
                     </button>
         }else if(connectionStatus === connectionState.CONNECTED){
-            return  <button 
-                    className="Connect"
-                    >YOU ARE CONNECTED
-                    </button>
+
+            return   <div className={lightMode ? 'L-Landing-Inner' : 'Landing-Inner'}>
+                        <h3 style={{marginTop: 0}}>Add these addressess in your wallet and click enter to mint some tokens and use the vending machine</h3>
+                        <div className={lightMode ? 'L-Address-Container' : 'Address-Container'}>
+                            <h3 style={{marginBottom: "5px", marginTop: "5px"}}>Vending Token</h3>   
+                            <h1 
+                            className={lightMode ? 'L-Address' : 'Address'} 
+                            onClick={() => copyTokenAddress()}
+                            onMouseOver={() => setTokenAddressHovered(true)}
+                            onMouseOut={() => setTokenAddressHovered(false)}
+                            >{VendingTokenAddress}
+                            </h1>
+                            {tokenAddressHovered
+                            ?  
+                            <h5 className={lightMode ? 'L-Copied-Alert' : 'Copied-Alert'}>Copy to clipboard</h5> 
+                            :
+                            copyingTokenAddress
+                            ?
+                            <h5 className={lightMode ? 'L-Copied-Alert' : 'Copied-Alert'} style={{width: "70px"}}>Copied!</h5> 
+                            :
+                            <h5 className= {lightMode ? 'L-Copied-Alert' : 'Copied-Alert'} style={{margin: 0}}></h5>
+                            }      
+                        </div>
+                        <br></br>
+                        <div className={lightMode ? 'L-Address-Container' : 'Address-Container'}>
+                            <h3 style={{marginBottom: "5px", marginTop: "5px"}}>Vending Item</h3>
+                            <h1 
+                            className={lightMode ? 'L-Address' : 'Address'}
+                            onClick={() => copyNFTAddress()}
+                            onMouseOver={() => setNftAddressHovered(true)}
+                            onMouseOut={() => setNftAddressHovered(false)}
+                            >{VendingAddress}
+                            </h1>
+                            {nftAddressHovered
+                            ?  
+                            <h5 
+                            className={lightMode ? 'L-Copied-Alert' : 'Copied-Alert'}>Copy to clipboard</h5> 
+                            :
+                            copyingNFTAddress
+                            ?
+                            <h5 className={lightMode ? 'L-Copied-Alert' : 'Copied-Alert'} style={{width: "70px"}}>Copied!</h5> 
+                            :
+                            <h5 className= {lightMode ? 'L-Copied-Alert' : 'Copied-Alert'} style={{margin: 0}}></h5>
+                            }
+                        </div>
+                        <br></br>
+                        {enterLoading
+                        ?
+                        <button 
+                        className={lightMode ? "L-Enter" : 'Enter'}
+                        onClick={enter}
+                        ><div className="Loader" style={{marginLeft: "auto", marginRight: "auto"}}></div>
+                        </button>
+                        :
+                        <button 
+                        className={lightMode ? "L-Enter" : 'Enter'}
+                        onClick={enter}
+                        >ENTER
+                        </button>
+                        }
+                    </div>
         }
     }
 
@@ -69,87 +128,42 @@ const Landing = () => {
 
     console.log(connectionStatus)
 
+
   return (
-    <div className='Landing'>
-        <div className='Landing-Display'>
+    <div className={lightMode ? 'L-Landing' : 'Landing'}>
+        {lightMode
+        ?
+        <div className={connectionStatus === connectionState.UNCONNECTED || connectionStatus === connectionState.NO_WALLET
+            ?   
+            'L-Landing-Display-First'
+            :
+            'L-Landing-Display-Second'
+            }>
+
+
+            <h1 className='L-Landing-Display-Text'>Welcome to my Vending machine</h1>
+        </div>
+        :
+        <div className={connectionStatus === connectionState.UNCONNECTED || connectionStatus === connectionState.NO_WALLET
+            ?   
+            'Landing-Display-First'
+            :
+            'Landing-Display-Second'
+            }>
+
+
             <h1 className='Landing-Display-Text'>Welcome to my Vending machine</h1>
         </div>
+        }
         {connected()}
-        {/* <div className='Landing-Inner'>
-            <h1 className='Heading-Text'>Welcome to my Vending Machine</h1>
-            <h1 className='Heading-Text'>Please connect your wallet</h1>
-            {connected()}
-            <br></br>
-            <br></br>
-            <h1 className='Heading-Text'>Once Connected import some Vending tokens with this address</h1>
-            <br></br>
-            <div className='Address-Container'>
-                <h1 
-                className='Address' 
-                onClick={() => copyTokenAddress()}
-                onMouseOver={() => setTokenAddressHovered(true)}
-                onMouseOut={() => setTokenAddressHovered(false)}
-                >{VendingTokenAddress}
-                </h1>
-                {tokenAddressHovered
-                ?  
-                <h5 className='Copied-Alert'>Copy to clipboard</h5> 
-                :
-                copyingTokenAddress
-                ?
-                <h5 className='Copied-Alert' style={{width: "70px"}}>Copied!</h5> 
-                :
-                <h5 style={{height: "16px", backgroundColor: "whitesmoke", margin: "0"}}></h5> 
-                } 
-                
-                    
-            </div>
-            <br></br>
-            <h1 className='Heading-Text'>And Vending Items with this Address</h1>
-            <br></br>
-            <div className='Address-Container'>
-                <h1 
-                className={'Address'}
-                onClick={() => copyNFTAddress()}
-                onMouseOver={() => setNftAddressHovered(true)}
-                onMouseOut={() => setNftAddressHovered(false)}
-                >{VendingAddress}
-                </h1>
-                {nftAddressHovered
-                ?  
-                <h5 
-                className={'Copied-Alert'}>Copy to clipboard</h5> 
-                :
-                copyingNFTAddress
-                ?
-                <h5 className='Copied-Alert' style={{width: "70px"}}>Copied!</h5> 
-                :
-                <h5 style={{height: "16px", backgroundColor: "whitesmoke", margin: "0"}}></h5> 
-                }
-            </div>
-            <br></br>
-            <h1 className="Heading-Text">Click Enter to mint some Vending Tokens and start using the Vending Machine</h1>
-            <br></br>
-            {enterLoading
-            ?
-            <button 
-            className="Enter"
-            onClick={enter}
-            ><div className="Loader" style={{marginLeft: "auto", marginRight: "auto"}}></div>
-            </button>
-            :
-            <button 
-            className="Enter"
-            onClick={enter}
-            >ENTER
-            </button>
-            }
-            
 
-            
-            
-        </div> */}
-        
+        {lightMode
+        ?
+        <button className='L-Switch-Theme' onClick={() => {setLightMode(false)}} >Dark</button>
+        :
+        <button className='Switch-Theme' onClick={() => {setLightMode(true)}}>Light</button>
+        }
+
     </div>
   )
 }

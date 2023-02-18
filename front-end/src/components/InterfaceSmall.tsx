@@ -3,7 +3,7 @@ import {useEffect, useState, useContext} from 'react'
 import {VendingContract, VendingTokenContract, VendingAddress, signer} from '../ContractObjects'
 import VendingContext from '../context/VendingContext'
 
-const Interface = () => {
+const InterfaceSmall = () => {
 
   const {
     currentItemSelected, 
@@ -136,17 +136,17 @@ const Interface = () => {
 
   const selectionText = () => {
     if(purchaseStatus === status.ENTERING_DEPOSIT){
-      return <h3 className={lightMode ? 'L-Selection-Text-Moving' : 'Selection-Text-Moving'}>Please enter an amount to deposit</h3>
+      return <h3 className={lightMode ? 'L-Selection-Text-Moving-Small' : 'Selection-Text-Moving-Small'}>Please enter an amount to deposit</h3>
     }else if(purchaseStatus === status.DISPLAYING_DEPOSIT){
-      return <h3 className={lightMode ? 'L-Selection-Text-Moving' : 'Selection-Text-Moving'}>You have deposited ${depositDisplay}</h3>
+      return <h3 className={lightMode ? 'L-Selection-Text-Moving-Small' : 'Selection-Text-Moving-Small'}>You have deposited ${depositDisplay}</h3>
     }else if(purchaseStatus === status.SELECTING_ITEM){
-      return <h3 className={lightMode ? 'L-Selection-Text-Moving-Longer' : 'Selection-Text-Moving-Longer'}>Please make your selection or press clear to end</h3>
+      return <h3 className={lightMode ? 'L-Selection-Text-Moving-Longer-Small' : 'Selection-Text-Moving-Longer-Small'}>Please make your selection or press clear to end</h3>
     }else if(purchaseStatus === status.ITEM_SELECTED){
-      return <h3 className={lightMode ? 'L-Selection-Text-Moving' : 'Selection-Text-Moving'}>You have selected item {currentItemSelected}</h3> 
+      return <h3 className={lightMode ? 'L-Selection-Text-Moving-Small' : 'Selection-Text-Moving-Small'}>You have selected item {currentItemSelected}</h3> 
     }else if(purchaseStatus === status.DISPLAYING_COST){
-      return <h3 className={lightMode ? 'L-Selection-Text-Moving-Longer' : 'Selection-Text-Moving-Longer'}>The cost is ${cost}&nbsp;&nbsp;&nbsp;Press enter to confirm</h3>
+      return <h3 className={lightMode ? 'L-Selection-Text-Moving-Longer-Small' : 'Selection-Text-Moving-Longer-Small'}>The cost is ${cost}&nbsp;&nbsp;&nbsp;Press enter to confirm</h3>
     }else if(purchaseStatus === status.DISPLAYING_REMAINING_DEPOSIT){
-      return <h3 className={lightMode ? 'L-Selection-Text-Moving' : 'Selection-Text-Moving'}>You have ${remainingDeposit} remaining</h3>
+      return <h3 className={lightMode ? 'L-Selection-Text-Moving-Small' : 'Selection-Text-Moving-Small'}>You have ${remainingDeposit} remaining</h3>
     }
     
     
@@ -155,32 +155,32 @@ const Interface = () => {
   const enterButton = () => {
     if(purchaseStatus === status.ENTERING_DEPOSIT){
       return  <button 
-              className={lightMode ? 'L-Key' : 'Key'} 
-              style={{fontSize: "30px"}} 
+              className={lightMode ? 'L-KeySmall': 'KeySmall'} 
+              style={{fontSize: "7px"}} 
               onClick={() => makeDeposit()}
               >Enter
               </button>
 
     }else if(purchaseStatus === status.SELECTING_ITEM){
       return  <button 
-              className={lightMode ? 'L-Key' : 'Key'} 
-              style={{fontSize: "30px"}} 
+              className={lightMode ? 'L-KeySmall': 'KeySmall'} 
+              style={{fontSize: "7px"}} 
               onClick={() => enterOrder()}
               >Enter
               </button>
 
     }else if(purchaseStatus === status.DISPLAYING_COST){
       return  <button 
-              className={lightMode ? 'L-Key' : 'Key'} 
-              style={{fontSize: "30px"}} 
+              className={lightMode ? 'L-KeySmall': 'KeySmall'} 
+              style={{fontSize: "7px"}} 
               onClick={() => payOrder()}
               >Enter
               </button>
 
     }else{
       return  <button 
-              className={lightMode ? 'L-Key' : 'Key'} 
-              style={{fontSize: "30px"}}
+              className={lightMode ? 'L-KeySmall': 'KeySmall'} 
+              style={{fontSize: "7px"}}
               >Enter
               </button>
     }
@@ -189,24 +189,24 @@ const Interface = () => {
   const clearButton = () => {
     if(purchaseStatus === status.ENTERING_DEPOSIT){
       return  <button 
-              className={lightMode ? 'L-Key' : 'Key'}
-              style={{fontSize: "30px"}}
+              className={lightMode ? 'L-KeySmall': 'KeySmall'}
+              style={{fontSize: "7px"}}
               onClick={() => clearPaymentDisplay()}
               >Clear
               </button>
 
     }else if(purchaseStatus === status.SELECTING_ITEM){
       return  <button 
-              className={lightMode ? 'L-Key' : 'Key'}
-              style={{fontSize: "30px"}}
+              className={lightMode ? 'L-KeySmall': 'KeySmall'}
+              style={{fontSize: "7px"}}
               onClick={() => clearOrder()}
               >Clear
               </button>
 
     }else{
       return  <button 
-              className={lightMode ? 'L-Key' : 'Key'}
-              style={{fontSize: "30px"}}
+              className={lightMode ? 'L-KeySmall': 'KeySmall'}
+              style={{fontSize: "7px"}}
               >Clear
               </button>
     }
@@ -223,10 +223,10 @@ const Interface = () => {
   }, [])
 
  return (
-    <div className='Interface'>
+    <div className={lightMode ? 'L-InterfaceSmall' : 'InterfaceSmall'}>
         {purchaseStatus === status.ENTERING_DEPOSIT
         ?
-          <div className={lightMode ? 'L-Display' : 'Display'}>
+          <div className={lightMode ? 'L-DisplaySmall' : 'DisplaySmall'}>
             {inputDepositDisplay === "00.00"
             ?
             selectionText()
@@ -236,7 +236,7 @@ const Interface = () => {
             
           </div>
         :
-         <div className={lightMode ? 'L-Display' : 'Display'}>
+         <div className={lightMode ? 'L-DisplaySmall' : 'DisplaySmall'}>
             {itemDisplay === ""
             ?
             selectionText()
@@ -246,16 +246,17 @@ const Interface = () => {
             
           </div>
         }
-        <div className={lightMode ? 'L-Keypad' : 'Keypad'}>
+        <div className={lightMode ? 'L-KeypadSmall' : 'KeypadSmall'}>
           {purchaseStatus === status.ENTERING_DEPOSIT
           ?
             <button 
-            className={lightMode ? 'L-Key' : 'Key'}
+            className={lightMode ? 'L-KeySmall': 'KeySmall'}
+            style={{fontSize: "9px"}}
             onClick={() => inputPayment("1")}
             >1</button>
           :
             <button 
-            className={lightMode ? 'L-Key' : 'Key'}
+            className={lightMode ? 'L-KeySmall': 'KeySmall'}
             onClick={() => updateOrder("1")}
             >1</button>
           }
@@ -263,96 +264,104 @@ const Interface = () => {
           {purchaseStatus === status.ENTERING_DEPOSIT
           ?
             <button 
-            className={lightMode ? 'L-Key' : 'Key'}
+            className={lightMode ? 'L-KeySmall': 'KeySmall'}
+            style={{fontSize: "9px"}}
             onClick={() => inputPayment("2")}
             >2</button>
           :
             <button 
-            className={lightMode ? 'L-Key' : 'Key'}
+            className={lightMode ? 'L-KeySmall': 'KeySmall'}
             onClick={() => updateOrder("2")}
             >2</button>
           }
           {purchaseStatus === status.ENTERING_DEPOSIT
           ?
             <button 
-            className={lightMode ? 'L-Key' : 'Key'}
+            className={lightMode ? 'L-KeySmall': 'KeySmall'}
+            style={{fontSize: "9px"}}
             onClick={() => inputPayment("3")}
             >3</button>
           :
             <button 
-            className={lightMode ? 'L-Key' : 'Key'}
+            className={lightMode ? 'L-KeySmall': 'KeySmall'}
             onClick={() => updateOrder("3")}
             >3</button>
           }
           {purchaseStatus === status.ENTERING_DEPOSIT
           ?
             <button 
-            className={lightMode ? 'L-Key' : 'Key'}
+            className={lightMode ? 'L-KeySmall': 'KeySmall'}
+            style={{fontSize: "9px"}}
             onClick={() => inputPayment("4")}
             >4</button>
           :
             <button 
-            className={lightMode ? 'L-Key' : 'Key'}
+            className={lightMode ? 'L-KeySmall': 'KeySmall'}
             onClick={() => updateOrder("4")}
             >4</button>
           }
           {purchaseStatus === status.ENTERING_DEPOSIT
           ?
             <button 
-            className={lightMode ? 'L-Key' : 'Key'}
+            className={lightMode ? 'L-KeySmall': 'KeySmall'}
+            style={{fontSize: "9px"}}
             onClick={() => inputPayment("5")}
             >5</button>
           :
             <button 
-            className={lightMode ? 'L-Key' : 'Key'}
+            className={lightMode ? 'L-KeySmall': 'KeySmall'}
             onClick={() => updateOrder("5")}
             >5</button>
           }
           {purchaseStatus === status.ENTERING_DEPOSIT
           ?
             <button 
-            className={lightMode ? 'L-Key' : 'Key'}
+            className={lightMode ? 'L-KeySmall': 'KeySmall'}
+            style={{fontSize: "9px"}}
             onClick={() => inputPayment("6")}
             >6</button>
           :
             <button 
-            className={lightMode ? 'L-Key' : 'Key'}
+            className={lightMode ? 'L-KeySmall': 'KeySmall'}
             onClick={() => updateOrder("6")}
             >6</button>
           }
           {purchaseStatus === status.ENTERING_DEPOSIT
           ?
             <button 
-            className={lightMode ? 'L-Key' : 'Key'}
+            className={lightMode ? 'L-KeySmall': 'KeySmall'}
+            style={{fontSize: "9px"}}
             onClick={() => inputPayment("7")}
             >7</button>
           :
             <button 
-            className={lightMode ? 'L-Key' : 'Key'}
+            className={lightMode ? 'L-KeySmall': 'KeySmall'}
             onClick={() => updateOrder("7")}
             >7</button>
           }
           {purchaseStatus === status.ENTERING_DEPOSIT
           ?
             <button 
-            className={lightMode ? 'L-Key' : 'Key'}
+            className={lightMode ? 'L-KeySmall': 'KeySmall'}
+            style={{fontSize: "9px"}}
             onClick={() => inputPayment("8")}
             >8</button>
           :
             <button 
-            className={lightMode ? 'L-Key' : 'Key'}
+            className={lightMode ? 'L-KeySmall': 'KeySmall'}
             onClick={() => updateOrder("8")}
             >8</button>
           }
           {purchaseStatus === status.ENTERING_DEPOSIT
           ?
             <button 
-            className={lightMode ? 'L-Key' : 'Key'}
+            className={lightMode ? 'L-KeySmall': 'KeySmall'}
+            style={{fontSize: "9px"}}
             onClick={() => inputPayment("9")}
             >9</button>
           :
             <button 
-            className={lightMode ? 'L-Key' : 'Key'}
+            className={lightMode ? 'L-KeySmall': 'KeySmall'}
             onClick={() => updateOrder("9")}
             >9</button>
           }
@@ -360,12 +369,13 @@ const Interface = () => {
           {purchaseStatus === status.ENTERING_DEPOSIT
           ?
             <button 
-            className={lightMode ? 'L-Key' : 'Key'}
+            className={lightMode ? 'L-KeySmall': 'KeySmall'}
+            style={{fontSize: "9px"}}
             onClick={() => inputPayment("0")}
             >0</button>
           :
             <button 
-            className={lightMode ? 'L-Key' : 'Key'}
+            className={lightMode ? 'L-KeySmall': 'KeySmall'}
             onClick={() => updateOrder("0")}
             >0</button>
           }
@@ -376,4 +386,4 @@ const Interface = () => {
   )
 }
 
-export default Interface
+export default InterfaceSmall

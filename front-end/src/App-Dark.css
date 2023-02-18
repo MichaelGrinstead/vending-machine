@@ -20,6 +20,29 @@ body {
   color: white;
 }
 
+/*////////////////////////////////DARK MODE/////////////////////////////////////////*/
+
+.Switch-Theme {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: greenyellow;
+  border: solid black 5px;
+  border-radius: 100px;
+  font-family:'digital-7';
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.Switch-Theme:hover {
+  background-color: black;
+  color: greenyellow;
+  border: solid greenyellow 5px;
+}
+
 .Heading-Text {
   color: #171717;
   font-size: 20px;
@@ -32,39 +55,49 @@ body {
 .Connect {
   width: 40%;
   height: 10%;
-  background-color: whitesmoke;
-  color:  #171717;
+  background-color: black;
+  color:  greenyellow;
+  border: solid greenyellow 5px;
   border-radius: 40px;
-  font-size: large;
+  font-size: 40px;
   font-weight: bold;
   cursor: pointer;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 150px;
+  margin-top: 30%;
+  font-family:'digital-7';
 }
 
 .Connect:hover {
   background-color: greenyellow;
+  color: black;
+  border: black solid 5px;
 }
 
 .Enter {
   width: 50%;
-  height: 5%;
-  background-color: whitesmoke;
-  color: #171717;
+  height: 40px;
+  background-color: greenyellow;
+  color: black;
+  border: solid black;
   border-radius: 20px;
-  font-size: large;
+  font-size: 25px;
   font-weight: bold;
   cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
+  font-family:'digital-7';
 }
 
 .Enter:hover {
-  background-color: greenyellow;
+  background-color: black;
+  color: greenyellow;
+  border-color: greenyellow;
 
 }
 
 .Loader {
-  border: solid whitesmoke 2px; 
+  border: solid greenyellow 2px; 
   border-top: solid #171717;
   border-right: solid #171717; 
   border-left: solid #171717;
@@ -88,14 +121,16 @@ body {
   position: absolute;
   display: flex;
   flex-direction: column;
+  background-color: black;
+  
   
 }
 
-.Landing-Display {
+.Landing-Display-First {
   font-family:'digital-7';
   font-size: 100px;
   height: 200px;
-  width: 80%;
+  width: 1200px;
   background-color: black;
   color: greenyellow;
   border: solid greenyellow 5px;
@@ -104,11 +139,37 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5%;
-  position: relative;
+  left: 50%;
+  margin-left: -600px;
+  margin-top: 12%;
+  position: absolute;
   overflow: hidden;
+}
+
+.Landing-Display-Second {
+  font-family:'digital-7';
+  font-size: 100px;
+  height: 200px;
+  width: 1200px;
+  background-color: black;
+  color: greenyellow;
+  border: solid greenyellow 5px;
+  border-radius: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  left: 50%;
+  margin-left: -600px;
+  margin-top: 2%;
+  position: absolute;
+  overflow: hidden;
+}
+
+.Landing-Display-First:hover {
+  background-color: greenyellow;
+  color: black;
+  border: black solid 5px;
 }
 
 .Landing-Display-Text {
@@ -128,21 +189,29 @@ body {
 }
 
 .Landing-Inner {
-  height: 80%;
-  width: 50%;
-  border: solid #171717 10px;
+  height: 500px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: solid greenyellow 5px;
   border-radius: 10px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 5%;
+  margin-top: 20%;
+  margin-bottom: 5%;
+  padding: 10px;
   text-align: center;
-  background-color: whitesmoke;
+  color: greenyellow;
+  background-color: black;
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
 
 }
 
 .Landing-Inner:hover {
-  border-color: greenyellow;
+  border-color: black;
+  background-color: greenyellow;
+  color: black;
 }
 
 .Address-Container {
@@ -154,12 +223,8 @@ body {
   display: inline-block;
 }
 
-.Address-Container:hover h1 {
-  background-color: greenyellow;
-}
-
 .Address-Container h5 {
-  background-color: greenyellow;
+ 
   width: 130px;
   margin-left: auto;
   margin-right: auto;
@@ -173,7 +238,7 @@ body {
   color: #171717;
   margin: 0;
   cursor: pointer;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;}
+}
 
 @keyframes fadeIn {
   0% { opacity: 0; }
@@ -184,34 +249,44 @@ body {
   width: 480px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 5px;
   font-size: 18px;
-  color: #171717;
   cursor: pointer;
   display: inline;
   border-radius: 5px;
+  margin-bottom: 1px;
 }
 
 /*Vending Machine*/
 
 .Vending {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  background-color: black;
+  position: absolute;
+}
+
+.Vending-Outer {
   margin-left: 3%;
-  margin-top: 5%;
+  margin-top: 4%;
+  margin-bottom: 5%;
   width: 40%;
   height: 80%;
-  background-color: #171717;
+  background-color: black;
   padding: 2%;
   padding-right: 10%;
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
+  border: solid greenyellow 5px;
 }
 
 .Vending-Inner {
   height: 95%;
   width: 95%;
-  background-color: whitesmoke;
+  background-color: black;
   border-radius: 10px;
   padding-top: 5%;
+  border: solid greenyellow 5px;
  
 }
 
@@ -238,11 +313,26 @@ body {
   right: 20%;
 }
 
+.InterfaceSmall {
+  height: 140px;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10%;
+  position: absolute;
+  top: 40%;
+  right: 45.55%;
+  border: solid greenyellow 2px;
+  border-radius: 10px;
+  padding: 20px
+}
+
 .Display {
   font-family:'digital-7';
   background-color: black;
   color: greenyellow;
-  border: solid black;
+  border: solid greenyellow 2px;
   width: 350px;
   height: 25px;
   display: flex;
@@ -260,14 +350,37 @@ body {
 
 }
 
+.Display:hover {
+  background-color: greenyellow;
+  color: black;
+}
+
 .Display h3 {
   margin-bottom: 0;
+}
+
+.DisplaySmall {
+  font-family:'digital-7';
+  background-color: black;
+  color: greenyellow;
+  border: solid greenyellow 0.5px;
+  width: 100px;
+  height: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  border-radius: 3px;
+  font-weight: bold;
+  text-align: right;
+  overflow: hidden;
+  position: relative;
+  font-size: 30px;
+  text-align: center;
 }
 
 .Selection-Text-Moving {
   position: absolute;
   width: 500px;
-  color: greenyellow;
   animation: Display 9.5s linear infinite;
   margin: 0
 }
@@ -275,18 +388,25 @@ body {
 .Selection-Text-Moving-Longer {
   position: absolute;
   width: 800px;
-  color: greenyellow;
   animation: Display 9s linear infinite;
   margin: 0
 }
 
-.Selection-Text-Moving-Third {
+.Selection-Text-Moving-Small {
   position: absolute;
-  width: 150%;
-  color: greenyellow;
-  animation: Display 9.5s linear infinite; 
+  width: 150px;
+  animation: Display 9.5s linear infinite;
+  margin: 0;
+  font-size: 9px;
+}
+
+.Selection-Text-Moving-Longer-Small {
+  position: absolute;
+  width: 150px;
+  animation: Display 9s linear infinite;
   margin: 0
 }
+
 
 @keyframes Display {
   from {
@@ -304,16 +424,25 @@ body {
   width: 350px;
   height: 100%;
   font-size: 30px;
+  /* border: solid greenyellow 5px; */
+}
+
+.KeypadSmall {
+  display: grid;
+  gap: 5%;
+  grid-template-columns: 30% 30% 30%;
+  width: 100px;
+  height: 125px;
 }
 
 .Key {
   background-color: black;
-  color: whitesmoke;
+  color: greenyellow;
   width: 100%;
   height: 100%;
   padding: 5%;
   text-align: center;
-  border: solid black;
+  border: solid greenyellow 5px;
   font-weight: bold;
   font-size: larger;
   cursor: pointer;
@@ -322,8 +451,30 @@ body {
 }
 
 .Key:hover {
-  color: greenyellow;
+  background-color: greenyellow;
+  color: black;
 }
+
+.KeySmall {
+  background-color: black;
+  color: greenyellow;
+  width: 100%;
+  height: 100%;
+  padding: 5%;
+  text-align: center;
+  border: solid greenyellow 0.5px;
+  border-radius: 3px;
+  font-weight: lighter;
+  font-size: smaller;
+  cursor: pointer;
+}
+
+.KeySmall:hover {
+  background-color: greenyellow;
+  color: black;
+}
+
+
 
 /*Vending Items*/
 
@@ -340,12 +491,11 @@ body {
 
 .Item {
   background-color: black;
-  color: whitesmoke;
   width: 100px;
   height: 100px;
   padding: 5%;
   text-align: center;
-  border: solid black;
+  border: solid greenyellow;
   font-weight: bold;
   font-size: larger;
   cursor: pointer;
@@ -358,8 +508,9 @@ body {
 }
 
 .ItemSelected {
-  scale: 1.1;
-  background-color: greenyellow;
+  /* scale: 1.1; */
+  background-color: black;
+  border: solid greenyellow 5px;
   color: black;
   width: 100px;
   height: 100px;
@@ -383,12 +534,14 @@ body {
   right: 3%;
   width: 127px;
   justify-content: center;
-  border: solid #171717 5px;
-  background-color: whitesmoke;
+  border: solid greenyellow 5px;
+  background-color: black;
+  color: greenyellow;
   z-index: 1;
   border-radius: 10px;
   padding: 15px;
 }
+
 
 .Purchased-Items-Inner {
   display: inline-flex;

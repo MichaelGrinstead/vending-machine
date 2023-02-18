@@ -1,22 +1,31 @@
-import {useEffect, useState, useContext} from 'react'
+import {useContext} from 'react'
 import Interface from '../components/Interface'
+import InterfaceSmall from '../components/InterfaceSmall'
 import Items from '../components/Items'
 import PurchasedItems from '../components/PurchasedItems'
 import VendingContext from '../context/VendingContext'
 
 const Vending = () => {
 
+  const {lightMode, setLightMode} = useContext(VendingContext)
+
   return (
-    <div
-        style={{height: "100%", width: "100%"}}
-        >
-          <div className='Vending'>
-            <div className='Vending-Inner'>
+    <div className={lightMode ? 'L-Vending' : 'Vending'}>
+          <div className={lightMode ? 'L-Vending-Outer' : 'Vending-Outer'}>
+            <InterfaceSmall/>
+            <div className={lightMode ? 'L-Vending-Inner' : 'Vending-Inner'}>
               <Items/>
             </div>
           </div>
           <PurchasedItems/>
           <Interface/>
+          {lightMode
+          ?
+          <button className='L-Switch-Theme' onClick={() => {setLightMode(false)}} >Dark</button>
+          :
+          <button className='Switch-Theme' onClick={() => {setLightMode(true)}}>Light</button>
+          }
+
 
         </div>
   )

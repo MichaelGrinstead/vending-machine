@@ -7,7 +7,7 @@ declare var window : any
 
 const ConnectWallet : FC = () : ReactElement => {
 
-  const {connectionStatus, setConnectionStatus} = useContext(VendingContext)
+  const {connectionStatus, setConnectionStatus, lightMode} = useContext(VendingContext)
 
   const connect = async () =>  {
     console.log(connectionStatus)
@@ -15,10 +15,15 @@ const ConnectWallet : FC = () : ReactElement => {
       await provider.send("eth_requestAccounts", [])
     }catch(e){
       console.log(e)
+      
       setConnectionStatus(connectionState.NO_WALLET)
       console.log(connectionStatus)
     }finally{
-      setConnectionStatus(connectionState.CONNECTED)
+      if(!window.ethereum.isConnected()){
+        setConnectionStatus(connectionState.NO_WALLET)
+      }else{
+        setConnectionStatus(connectionState.CONNECTED)
+      }
     }
   }
 
@@ -27,7 +32,7 @@ const ConnectWallet : FC = () : ReactElement => {
 
   return (
     <button
-    className= 'Connect'
+    className= {lightMode ? 'L-Connect' : 'Connect'}
     onClick= {connect}
     >
       CONNECT WALLET

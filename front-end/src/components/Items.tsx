@@ -1,119 +1,131 @@
 import {useContext} from 'react'
 import VendingContext from '../context/VendingContext'
-import cherry_ripe from '../images/cherry_ripe.jpeg'
-import mi_goreng from '../images/mi_goreng.jpg'
-import protein_bar from '../images/protein_bar.jpeg'
-import nurofen from '../images/nurofen.jpeg'
-import goat_beer from '../images/goat_beer.png'
-import coffee from '../images/coffee.jpeg'
-import tuna from '../images/tuna.jpg'
-import broccolini from '../images/broccolini.jpeg'
-import peanuts from '../images/peanuts.jpg'
-import egg from '../images/egg.jpeg'
-import sriracha from '../images/sriracha.jpeg'
-import bhuja from '../images/bhuja.jpeg'
+import cherry_ripe_B from '../images-BlackBG/cherry_ripe.png'
+import cherry_ripe_W from '../images/cherry_ripe.jpeg'
+import mi_goreng_B from '../images-BlackBG/mi_goreng.png'
+import mi_goreng_W from '../images/mi_goreng.jpg'
+import protein_bar_B from '../images-BlackBG/protein_bar.png'
+import protein_bar_W from '../images/protein_bar.jpeg'
+import nurofen_B from '../images-BlackBG/nurofen.png'
+import nurofen_W from '../images/nurofen.jpeg'
+import goat_beer_B from '../images-BlackBG/goat_beer.png'
+import goat_beer_W from '../images/goat_beer.png'
+import coffee_B from '../images-BlackBG/coffee.png'
+import coffee_W from '../images/coffee.jpeg'
+import tuna_B from '../images-BlackBG/tuna.png'
+import tuna_W from '../images/tuna.jpg'
+import broccolini_B from '../images-BlackBG/broccolini.png'
+import broccolini_W from '../images/broccolini.jpeg'
+import peanuts_B from '../images-BlackBG/peanuts.png'
+import peanuts_W from '../images/peanuts.jpg'
+import egg_B from '../images-BlackBG/egg.png'
+import egg_W from '../images/egg.jpeg'
+import sriracha_B from '../images-BlackBG/sriracha.png'
+import sriracha_W from '../images/sriracha.jpeg'
+import bhuja_B from '../images-BlackBG/bhuja.png'
+import bhuja_W from '../images/bhuja.jpeg'
 
 const Items = () => {
 
-    const {currentItemSelected, setCurrentItemSelected} = useContext(VendingContext)
+    const {currentItemSelected, setCurrentItemSelected, lightMode} = useContext(VendingContext)
     
 
 
   return (
-        <div className='Vending-Items'>
+        <div className={lightMode ? 'L-Vending-Items' : 'Vending-Items'}>
         {currentItemSelected === "1"
         ?
-        <img src={cherry_ripe} className='ItemSelected'></img>
+        <img src={lightMode ? cherry_ripe_W : cherry_ripe_B} className={lightMode ? 'L-ItemSelected' : 'ItemSelected'}></img>
         :
-        <img src={cherry_ripe} className='Item' onClick={() => setCurrentItemSelected("1")}></img>
+        <img src={lightMode ? cherry_ripe_W : cherry_ripe_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("1")}></img>
 
         }  
 
         {currentItemSelected === "2"
         ?
-        <img src={mi_goreng} className='ItemSelected'></img>
+        <img src={lightMode ? mi_goreng_W : mi_goreng_B} className={lightMode ? 'L-ItemSelected' : 'ItemSelected'}></img>
         :
-        <img src={mi_goreng} className='Item' onClick={() => setCurrentItemSelected("2")}></img>
+        <img src={lightMode ? mi_goreng_W : mi_goreng_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("2")}></img>
 
         }  
 
         {currentItemSelected === "3"
         ?
-        <img src={protein_bar} className='ItemSelected'></img>
+        <img src={lightMode ? protein_bar_W : protein_bar_B} className={lightMode ? 'L-ItemSelected' : 'ItemSelected'}></img>
         :
-        <img src={protein_bar} className='Item' onClick={() => setCurrentItemSelected("3")}></img>
+        <img src={lightMode ? protein_bar_W : protein_bar_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("3")}></img>
 
         } 
 
         {currentItemSelected === "4"
         ?
-        <img src= {nurofen} className='ItemSelected'></img>
+        <img src= {lightMode ? nurofen_W : nurofen_B} className={lightMode ? 'L-ItemSelected' : 'ItemSelected'}></img>
         :
-        <img src= {nurofen} className='Item' onClick={() => setCurrentItemSelected("4")}></img>
+        <img src= {lightMode ? nurofen_W : nurofen_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("4")}></img>
 
         } 
 
         {currentItemSelected === "5"
         ?
-        <img src={goat_beer} className='ItemSelected'></img>
+        <img src={lightMode ? goat_beer_W : goat_beer_B} className={lightMode ? 'L-ItemSelected' : 'ItemSelected'}></img>
         :
-        <img src={goat_beer} className='Item' onClick={() => setCurrentItemSelected("5")}></img>
+        <img src={lightMode ? goat_beer_W : goat_beer_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("5")}></img>
 
         } 
         
         {currentItemSelected === "6"
         ?
-        <img src={coffee} className='ItemSelected'></img>
+        <img src={lightMode ? coffee_W : coffee_B} className={lightMode ? 'L-ItemSelected' : 'ItemSelected'}></img>
         :
-        <img src={coffee} className='Item' onClick={() => setCurrentItemSelected("6")}></img>
+        <img src={lightMode ? coffee_W : coffee_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("6")}></img>
 
         } 
 
         {currentItemSelected === "7"
         ?
-        <img src={tuna} className='ItemSelected'></img>
+        <img src={lightMode ? tuna_W : tuna_B} className={lightMode ? 'L-ItemSelected' : 'ItemSelected'}></img>
         :
-        <img src={tuna} className='Item' onClick={() => setCurrentItemSelected("7")}></img>
+        <img src={lightMode ? tuna_W : tuna_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("7")}></img>
 
         } 
         
         {currentItemSelected === "8"
         ?
-        <img src={broccolini} className='ItemSelected'></img>
+        <img src={lightMode ? broccolini_W : broccolini_B} className={lightMode ? 'L-ItemSelected' : 'ItemSelected'}></img>
         :
-        <img src={broccolini} className='Item' onClick={() => setCurrentItemSelected("8")}></img>
+        <img src={lightMode ? broccolini_W : broccolini_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("8")}></img>
 
         } 
 
         {currentItemSelected === "9"
         ?
-        <img src={peanuts} className='ItemSelected'></img>
+        <img src={lightMode ? peanuts_W : peanuts_B} className={lightMode ? 'L-ItemSelected' : 'ItemSelected'}></img>
         :
-        <img src={peanuts} className='Item' onClick={() => setCurrentItemSelected("9")}></img>
+        <img src={lightMode ? peanuts_W : peanuts_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("9")}></img>
 
         } 
 
         {currentItemSelected === "10"
         ?
-        <img src={egg} className='ItemSelected'></img>
+        <img src={lightMode ? egg_W : egg_B} className={lightMode ? 'L-ItemSelected' : 'ItemSelected'}></img>
         :
-        <img src={egg} className='Item' onClick={() => setCurrentItemSelected("10")}></img>
+        <img src={lightMode ? egg_W : egg_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("10")}></img>
 
         } 
 
         {currentItemSelected === "11"
         ?
-        <img src={sriracha} className='ItemSelected'></img>
+        <img src={lightMode ? sriracha_W : sriracha_B} className={lightMode ? 'L-ItemSelected' : 'ItemSelected'}></img>
         :
-        <img src={sriracha} className='Item' onClick={() => setCurrentItemSelected("11")}></img>
+        <img src={lightMode ? sriracha_W : sriracha_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("11")}></img>
 
         } 
 
         {currentItemSelected === "12"
         ?
-        <img src={bhuja} className='ItemSelected'></img>
+        <img src={lightMode ? bhuja_W : bhuja_B} className={lightMode ? 'L-ItemSelected' : 'ItemSelected'}></img>
         :
-        <img src={bhuja} className='Item' onClick={() => setCurrentItemSelected("12")}></img>
+        <img src={lightMode ? bhuja_W : bhuja_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("12")}></img>
 
         } 
     </div>

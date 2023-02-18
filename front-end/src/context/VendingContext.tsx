@@ -18,11 +18,15 @@ interface VendingContextInterface {
     imagesLoading : boolean
     setImagesLoading : React.Dispatch<React.SetStateAction<boolean>>
     showPurchased : () => void
+    lightMode : boolean
+    setLightMode : React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const VendingContext = createContext<VendingContextInterface>({} as VendingContextInterface)
 
 export const VendingProvider  = ({children} : {children : ReactNode}) => {
+
+  const [lightMode, setLightMode] = useState<boolean>(false)
 
   const [currentItemSelected, setCurrentItemSelected] = useState<string>("")
 
@@ -75,7 +79,9 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
         getImages, 
         imagesLoading,
         setImagesLoading,
-        showPurchased
+        showPurchased,
+        lightMode,
+        setLightMode
       }}
       >
         {children}
