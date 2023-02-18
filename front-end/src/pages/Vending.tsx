@@ -12,10 +12,10 @@ const Vending = () => {
   return (
     <div className={lightMode ? 'L-Vending' : 'Vending'}>
           <div className={lightMode ? 'L-Vending-Outer' : 'Vending-Outer'}>
-            <InterfaceSmall/>
             <div className={lightMode ? 'L-Vending-Inner' : 'Vending-Inner'}>
               <Items/>
             </div>
+            <InterfaceSmall/>
           </div>
           {/* <PurchasedItems/> */}
           <Interface/>
