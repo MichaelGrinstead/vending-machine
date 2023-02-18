@@ -33,41 +33,90 @@ const Items = () => {
 
   return (
         <div className={lightMode ? 'L-Vending-Items' : 'Vending-Items'}>
-        {currentItemSelected === "1"
-        ?
-        <img src={lightMode ? cherry_ripe_W : cherry_ripe_B} className={lightMode ? 'L-ItemSelected' : 'ItemSelected'}></img>
-        :
-        <img src={lightMode ? cherry_ripe_W : cherry_ripe_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("1")}></img>
+        
 
-        }  
+          {currentItemSelected === "1"
+          ?
+          <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
+            <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
+              <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>1</div> 
+              <img src={lightMode ? cherry_ripe_W : cherry_ripe_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+            </div>
+            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$2.00</div>
+          </div>
+          :
+          <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
+            <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
+              <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>1</div> 
+              <img src={lightMode ? cherry_ripe_W : cherry_ripe_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("1")}></img> 
+            </div>
+            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$2.00</div>  
+          </div>
+          }  
+          
+        
 
         {currentItemSelected === "2"
         ?
-        <img src={lightMode ? mi_goreng_W : mi_goreng_B} className={lightMode ? 'L-ItemSelected' : 'ItemSelected'}></img>
+        <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
+        <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
+          <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>2</div> 
+            <img src={lightMode ? mi_goreng_W : mi_goreng_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+          </div>
+            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$2.00</div>
+        </div>
         :
-        <img src={lightMode ? mi_goreng_W : mi_goreng_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("2")}></img>
-
+        <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
+          <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
+            <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>2</div> 
+            <img src={lightMode ? mi_goreng_W : mi_goreng_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("2")}></img>
+          </div>
+            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$2.00</div>  
+          </div>
         }  
 
         {currentItemSelected === "3"
         ?
-        <img src={lightMode ? protein_bar_W : protein_bar_B} className={lightMode ? 'L-ItemSelected' : 'ItemSelected'}></img>
+        <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
+          <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
+            <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>3</div> 
+            <img src={lightMode ? protein_bar_W : protein_bar_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+          </div>
+            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$2.00</div>
+        </div>
         :
-        <img src={lightMode ? protein_bar_W : protein_bar_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("3")}></img>
-
-        } 
+        <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
+          <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
+            <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>3</div> 
+            <img src={lightMode ? protein_bar_W : protein_bar_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("3")}></img>
+          </div>
+            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$2.00</div>  
+        </div>
+        }
 
         {currentItemSelected === "4"
         ?
-        <img src= {lightMode ? nurofen_W : nurofen_B} className={lightMode ? 'L-ItemSelected' : 'ItemSelected'}></img>
+        <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
+          <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
+            <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>4</div> 
+            <img src= {lightMode ? nurofen_W : nurofen_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+          </div>
+            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$2.00</div>
+        </div>
         :
-        <img src= {lightMode ? nurofen_W : nurofen_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("4")}></img>
-
+        <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
+          <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
+            <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>4</div> 
+            <img src= {lightMode ? nurofen_W : nurofen_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("4")}></img>
+          </div>
+            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$2.00</div>  
+        </div>
         } 
+
 
         {currentItemSelected === "5"
         ?
-        <img src={lightMode ? goat_beer_W : goat_beer_B} className={lightMode ? 'L-ItemSelected' : 'ItemSelected'}></img>
+        <img src={lightMode ? goat_beer_W : goat_beer_B} className={lightMode ? 'L-Item' : 'Item'}></img>
         :
         <img src={lightMode ? goat_beer_W : goat_beer_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("5")}></img>
 
@@ -75,7 +124,7 @@ const Items = () => {
         
         {currentItemSelected === "6"
         ?
-        <img src={lightMode ? coffee_W : coffee_B} className={lightMode ? 'L-ItemSelected' : 'ItemSelected'}></img>
+        <img src={lightMode ? coffee_W : coffee_B} className={lightMode ? 'L-Item' : 'Item'}></img>
         :
         <img src={lightMode ? coffee_W : coffee_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("6")}></img>
 
@@ -83,7 +132,7 @@ const Items = () => {
 
         {currentItemSelected === "7"
         ?
-        <img src={lightMode ? tuna_W : tuna_B} className={lightMode ? 'L-ItemSelected' : 'ItemSelected'}></img>
+        <img src={lightMode ? tuna_W : tuna_B} className={lightMode ? 'L-Item' : 'Item'}></img>
         :
         <img src={lightMode ? tuna_W : tuna_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("7")}></img>
 
@@ -91,7 +140,7 @@ const Items = () => {
         
         {currentItemSelected === "8"
         ?
-        <img src={lightMode ? broccolini_W : broccolini_B} className={lightMode ? 'L-ItemSelected' : 'ItemSelected'}></img>
+        <img src={lightMode ? broccolini_W : broccolini_B} className={lightMode ? 'L-Item' : 'Item'}></img>
         :
         <img src={lightMode ? broccolini_W : broccolini_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("8")}></img>
 
@@ -99,7 +148,7 @@ const Items = () => {
 
         {currentItemSelected === "9"
         ?
-        <img src={lightMode ? peanuts_W : peanuts_B} className={lightMode ? 'L-ItemSelected' : 'ItemSelected'}></img>
+        <img src={lightMode ? peanuts_W : peanuts_B} className={lightMode ? 'L-Item' : 'Item'}></img>
         :
         <img src={lightMode ? peanuts_W : peanuts_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("9")}></img>
 
@@ -107,7 +156,7 @@ const Items = () => {
 
         {currentItemSelected === "10"
         ?
-        <img src={lightMode ? egg_W : egg_B} className={lightMode ? 'L-ItemSelected' : 'ItemSelected'}></img>
+        <img src={lightMode ? egg_W : egg_B} className={lightMode ? 'L-Item' : 'Item'}></img>
         :
         <img src={lightMode ? egg_W : egg_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("10")}></img>
 
@@ -115,7 +164,7 @@ const Items = () => {
 
         {currentItemSelected === "11"
         ?
-        <img src={lightMode ? sriracha_W : sriracha_B} className={lightMode ? 'L-ItemSelected' : 'ItemSelected'}></img>
+        <img src={lightMode ? sriracha_W : sriracha_B} className={lightMode ? 'L-Item' : 'Item'}></img>
         :
         <img src={lightMode ? sriracha_W : sriracha_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("11")}></img>
 
@@ -123,7 +172,7 @@ const Items = () => {
 
         {currentItemSelected === "12"
         ?
-        <img src={lightMode ? bhuja_W : bhuja_B} className={lightMode ? 'L-ItemSelected' : 'ItemSelected'}></img>
+        <img src={lightMode ? bhuja_W : bhuja_B} className={lightMode ? 'L-Item' : 'Item'}></img>
         :
         <img src={lightMode ? bhuja_W : bhuja_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("12")}></img>
 

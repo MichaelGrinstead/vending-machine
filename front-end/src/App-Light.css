@@ -28,7 +28,7 @@
   right: 20px;
   width: 60px;
   height: 60px;
-  background-color: #f80000;
+  background-color: #f54029;
   border: solid whitesmoke 5px;
   color: whitesmoke;
   border-radius: 100px;
@@ -40,25 +40,25 @@
 
 .L-Switch-Theme:hover {
   background-color: whitesmoke;
-  color: #f80000;
-  border: solid #f80000 5px;
+  color: #f54029;
+  border: solid #f54029 5px;
 }
   
   .L-Heading-Text {
-    color: #f80000;
+    color: #f54029;
     font-size: 20px;
   }
   
   .L-Heading-Text:hover {
-    background-color: #f80000;
+    background-color: #f54029;
   }
   
   .L-Connect {
     width: 40%;
     height: 10%;
     background-color: whitesmoke;
-    color:  #f80000;
-    border: solid #f80000 5px;
+    color:  #f54029;
+    border: solid #f54029 5px;
     border-radius: 40px;
     font-size: 40px;
     font-weight: bold;
@@ -70,7 +70,7 @@
   }
   
   .L-Connect:hover {
-    background-color: #f80000;
+    background-color: #f54029;
     color: whitesmoke;
     border: whitesmoke solid 5px;
   }
@@ -78,7 +78,7 @@
   .L-Enter {
     width: 50%;
     height: 40px;
-    background-color: #f80000;
+    background-color: #f54029;
     color: whitesmoke;
     border: solid whitesmoke;
     border-radius: 20px;
@@ -92,13 +92,13 @@
   
   .L-Enter:hover {
     background-color: whitesmoke;
-    color: #f80000;
-    border-color: #f80000;
+    color: #f54029;
+    border-color: #f54029;
   
   }
   
   .L-Loader {
-    border: solid #f80000 2px; 
+    border: solid #f54029 2px; 
     border-top: solid #171717;
     border-right: solid #171717; 
     border-left: solid #171717;
@@ -122,7 +122,7 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    background-color: #ecca00;
+    background-color: #FFB52E;
   }
   
   .L-Landing-Display-First {
@@ -131,8 +131,8 @@
     height: 200px;
     width: 1200px;
     background-color: whitesmoke;
-    color: #f80000;
-    border: solid #f80000 5px;
+    color: #f54029;
+    border: solid #f54029 5px;
     border-radius: 100px;
     display: flex;
     flex-direction: column;
@@ -151,8 +151,8 @@
     height: 200px;
     width: 1200px;
     background-color: whitesmoke;
-    color: #f80000;
-    border: solid #f80000 5px;
+    color: #f54029;
+    border: solid #f54029 5px;
     border-radius: 100px;
     display: flex;
     flex-direction: column;
@@ -166,7 +166,7 @@
   }
   
   .L-Landing-Display-First:hover {
-    background-color: #f80000;
+    background-color: #f54029;
     color: whitesmoke;
     border: whitesmoke solid 5px;
   }
@@ -193,15 +193,15 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border: solid #f80000 5px;
-    border-radius: 10px;
+    border: solid #f54029 5px;
+    border-radius: 40px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 20%;
     margin-bottom: 5%;
     padding: 10px;
     text-align: center;
-    color: #f80000;
+    color: #f54029;
     background-color: whitesmoke;
     box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
   
@@ -209,7 +209,7 @@
   
   .L-Landing-Inner:hover {
     border-color: whitesmoke;
-    background-color: #f80000;
+    background-color: #f54029;
     color: whitesmoke;
   }
   
@@ -261,28 +261,28 @@
     height: 100%;
     width: 100%;
     top: 0;
-    background-color: whitesmoke;
+    background-color: #FFB52E;
     position: absolute;
   }
   
   .L-Vending-Outer {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
     margin-left: 3%;
-    margin-top: 4%;
-    width: 40%;
-    height: 80%;
-    background-color: #f80000;
-    padding: 2%;
-    padding-right: 10%;
+    margin-top: 3%;
+    width: 55%;
+    height: 90%;
+    background-color: #f54029;
     box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
-    border: solid #f80000 5px;
+    border: solid #f54029 5px;
   }
   
   .L-Vending-Inner {
-    position: relative;
-    height: 95%;
-    width: 95%;
-    background-color: #ecca00;
+    height: 85%;
+    width: 75%;
+    background-color: #FFB52E;
     border-radius: 10px;
     padding-top: 5%;
     border: solid whitesmoke 5px;
@@ -310,8 +310,8 @@
     position: absolute;
     top: 12%;
     right: 8%;
-    border: solid #ecca00 5px;
-    background-color: #f80000;
+    border: solid #FFB52E 5px;
+    background-color: #f54029;
     padding: 60px;
     border-radius: 20px;
   }
@@ -323,10 +323,8 @@
     flex-direction: column;
     align-items: center;
     gap: 5%;
-    position: absolute;
-    top: 40%;
-    right: 45.55%;
-    border: solid #ecca00 2px;
+    margin-right: 10px;
+    border: solid #FFB52E 2px;
     border-radius: 10px;
     padding: 20px
   }
@@ -334,8 +332,8 @@
   .L-Display {
     font-family:'digital-7';
     background-color: whitesmoke;
-    color: #f80000;
-    border: solid #f80000 2px;
+    color: #f54029;
+    border: solid #f54029 2px;
     width: 350px;
     height: 25px;
     display: flex;
@@ -354,7 +352,7 @@
   }
   
   .L-Display:hover {
-    background-color: #f80000;
+    background-color: #f54029;
     color: whitesmoke;
   }
   
@@ -365,8 +363,8 @@
   .L-DisplaySmall {
     font-family:'digital-7';
     background-color: whitesmoke;
-    color: #f80000;
-    border: solid #f80000 0.5px;
+    color: #f54029;
+    border: solid #f54029 0.5px;
     width: 100px;
     height: 10px;
     display: flex;
@@ -427,10 +425,10 @@
     width: 350px;
     height: 100%;
     font-size: 30px;
-    background-color: #ecca00;
+    background-color: #FFB52E;
     padding: 10px;
     border-radius: 10px;
-    /* border: solid #f80000 5px; */
+    /* border: solid #f54029 5px; */
   }
   
   .L-KeypadSmall {
@@ -439,19 +437,19 @@
     grid-template-columns: 30% 30% 30%;
     width: 100px;
     height: 125px;
-    background-color: #ecca00;
+    background-color: #FFB52E;
     padding: 5px;
     border-radius: 5px;
   }
   
   .L-Key {
     background-color: whitesmoke;
-    color: #f80000;
+    color: #f54029;
     width: 100%;
     height: 100%;
     padding: 5%;
     text-align: center;
-    border: solid #f80000 5px;
+    border: solid #f54029 5px;
     font-weight: bold;
     font-size: larger;
     cursor: pointer;
@@ -460,18 +458,18 @@
   }
   
   .L-Key:hover {
-    background-color: #f80000;
+    background-color: #f54029;
     color: whitesmoke;
   }
   
   .L-KeySmall {
     background-color: whitesmoke;
-    color: #f80000;
+    color: #f54029;
     width: 100%;
     height: 100%;
     padding: 5%;
     text-align: center;
-    border: solid #f80000 2px;
+    border: solid #f54029 2px;
     border-radius: 3px;
     font-weight: bold;
     font-size: smaller;
@@ -480,7 +478,7 @@
   }
   
   .L-KeySmall:hover {
-    background-color: #f80000;
+    background-color: #f54029;
     color: whitesmoke;
   }
   
@@ -490,37 +488,52 @@
   
   .L-Vending-Items {
     display: grid;
-    gap: 5%;
-    grid-template-columns: 20% 20% 20% 20%;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: 25% 25% 25% 25%;
     width: 90%;
     height: 90%;
     font-size: 30px;
     margin-left: auto;
     margin-right: auto;
   }
-  
-  .L-Item {
+
+  .L-Item-Box {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px
+  }
+
+  .L-Item-Container {
     background-color: white;
     width: 100px;
     height: 100px;
     padding: 5%;
     text-align: center;
-    border: solid #f80000;
+    border: solid #f54029;
     font-weight: bold;
     font-size: larger;
     cursor: pointer;
     border-radius: 10px;
     box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
+    position: relative;
+  }
+  
+  .L-Item {
+    width: 100px;
+    height: 100px;
+    z-index: 0;
   }
   
   .L-Item:hover {
-    color: #f80000
+    color: #f54029
   }
   
-  .L-ItemSelected {
-    /* scale: 1.1; */
+  .L-ItemSelected-Container {
     background-color: whitesmoke;
-    border: solid #f80000 5px;
+    border: solid #f54029 5px;
     color: whitesmoke;
     width: 100px;
     height: 100px;
@@ -534,6 +547,37 @@
     z-index: 2;
     position: relative;
   }
+
+  .L-Item-Number {
+    border: solid #f54029 3px;
+    background-color: whitesmoke;
+    color: #f54029;
+    border-radius: 100px;
+    height: 20px;
+    width: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    padding: 2px;
+    float: left;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+  }
+
+  .L-Item-Price{
+    border: solid #f54029 3px;
+    background-color: whitesmoke;
+    color: #f54029;
+    border-radius: 100px;
+    height: 22px;
+    width: 60px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    padding: 2px;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
+  }
   
   .L-Purchased-Items {
     display: flex;
@@ -543,9 +587,9 @@
     top: 20%;
     right: 3%;
     width: 127px;
-    color: #f80000;
+    color: #f54029;
     justify-content: center;
-    border: solid #f80000 5px;
+    border: solid #f54029 5px;
     background-color: whitesmoke;
     z-index: 1;
     border-radius: 10px;
