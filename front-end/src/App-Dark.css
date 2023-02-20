@@ -560,6 +560,23 @@ body {
   left: 2px;
 }
 
+.ItemSelected-Number {
+  border: solid green 3px;
+  background-color: greenyellow;
+  color: black;
+  border-radius: 100px;
+  height: 20px;
+  width: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  padding: 2px;
+  float: left;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+}
+
 .Item-Price{
   border: solid greenyellow 3px;
   background-color: black;
