@@ -561,7 +561,7 @@ body {
 }
 
 .ItemSelected-Number {
-  border: solid green 3px;
+  border: solid greenyellow 3px;
   background-color: greenyellow;
   color: black;
   border-radius: 100px;
