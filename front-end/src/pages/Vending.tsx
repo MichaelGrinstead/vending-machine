@@ -20,7 +20,7 @@ const Vending = () => {
                 <Items/>
               </div>
               }
-            <div className='L-InterfaceSmall-Container'>
+            <div className='InterfaceSmall-Container'>
               <InterfaceSmall/>
               <br></br>
               <br></br>
