@@ -42,7 +42,7 @@ const Items = () => {
               <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>1</div> 
               <img src={lightMode ? cherry_ripe_W : cherry_ripe_B} className={lightMode ? 'L-Item' : 'Item'}></img>
             </div>
-            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$2.00</div>
+            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$2.00</div>
           </div>
           :
           <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
@@ -63,7 +63,7 @@ const Items = () => {
           <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>2</div> 
             <img src={lightMode ? mi_goreng_W : mi_goreng_B} className={lightMode ? 'L-Item' : 'Item'}></img>
           </div>
-            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$2.00</div>
+            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$2.00</div>
         </div>
         :
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
@@ -82,7 +82,7 @@ const Items = () => {
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>3</div> 
             <img src={lightMode ? protein_bar_W : protein_bar_B} className={lightMode ? 'L-Item' : 'Item'}></img>
           </div>
-            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$2.00</div>
+            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$2.00</div>
         </div>
         :
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
@@ -101,7 +101,7 @@ const Items = () => {
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>4</div> 
             <img src= {lightMode ? nurofen_W : nurofen_B} className={lightMode ? 'L-Item' : 'Item'}></img>
           </div>
-            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$2.00</div>
+            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$2.00</div>
         </div>
         :
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
@@ -121,7 +121,7 @@ const Items = () => {
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>5</div> 
             <img src={lightMode ? goat_beer_W : goat_beer_B} className={lightMode ? 'L-Item' : 'Item'}></img>
           </div>          
-            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$4.00</div>
+            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$4.00</div>
         </div>
         :
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
@@ -140,7 +140,7 @@ const Items = () => {
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>6</div> 
             <img src={lightMode ? coffee_W : coffee_B} className={lightMode ? 'L-Item' : 'Item'}></img>
           </div>
-            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$4.00</div>
+            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$4.00</div>
         </div>
         :
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
@@ -160,7 +160,7 @@ const Items = () => {
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>7</div> 
             <img src={lightMode ? tuna_W : tuna_B} className={lightMode ? 'L-Item' : 'Item'}></img>
           </div>
-            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$4.00</div>
+            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$4.00</div>
         </div>
         :
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
@@ -181,7 +181,7 @@ const Items = () => {
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>8</div> 
             <img src={lightMode ? broccolini_W : broccolini_B} className={lightMode ? 'L-Item' : 'Item'}></img>
           </div>
-            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$4.00</div>
+            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$4.00</div>
         </div>
         :
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
@@ -202,7 +202,7 @@ const Items = () => {
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>9</div> 
             <img src={lightMode ? peanuts_W : peanuts_B} className={lightMode ? 'L-Item' : 'Item'}></img>
           </div>
-            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$6.00</div>
+            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$6.00</div>
         </div>
         :
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
@@ -222,7 +222,7 @@ const Items = () => {
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>10</div> 
             <img src={lightMode ? egg_W : egg_B} className={lightMode ? 'L-Item' : 'Item'}></img>
           </div>
-            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$6.00</div>
+            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$6.00</div>
         </div>
         :
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
@@ -242,7 +242,7 @@ const Items = () => {
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>11</div> 
             <img src={lightMode ? sriracha_W : sriracha_B} className={lightMode ? 'L-Item' : 'Item'}></img>
           </div>
-            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$6.00</div>
+            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$6.00</div>
         </div>
         :
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
@@ -261,7 +261,7 @@ const Items = () => {
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>12</div> 
             <img src={lightMode ? bhuja_W : bhuja_B} className={lightMode ? 'L-Item' : 'Item'}></img>
           </div>
-            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$6.00</div>
+            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$6.00</div>
         </div>
         :
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>

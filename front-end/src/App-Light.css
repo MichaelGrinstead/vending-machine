@@ -503,7 +503,9 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    gap: 5px
+    gap: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
   }
 
   .L-Item-Container {
@@ -512,13 +514,14 @@
     height: 100px;
     padding: 5%;
     text-align: center;
-    border: solid #f54029;
+    border: solid #f54029 2px;
     font-weight: bold;
     font-size: larger;
     cursor: pointer;
     border-radius: 10px;
     box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
     position: relative;
+    margin: 3px
   }
   
   .L-Item {
@@ -586,6 +589,20 @@
     border: solid #f54029 3px;
     background-color: whitesmoke;
     color: #f54029;
+    border-radius: 100px;
+    height: 22px;
+    width: 60px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    padding: 2px;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
+  }
+
+  .L-ItemSelected-Price{
+    border: solid #f54029 3px;
+    background-color: #f54029;
+    color: whitesmoke;
     border-radius: 100px;
     height: 22px;
     width: 60px;
