@@ -1,4 +1,4 @@
-import React, {createContext, useState, ReactNode} from 'react'
+import React, {createContext, useState, ReactNode, useTransition} from 'react'
 import { VendingContract, signer } from '../ContractObjects'
 
 export const enum connectionState {
@@ -20,6 +20,8 @@ interface VendingContextInterface {
     showPurchased : () => void
     lightMode : boolean
     setLightMode : React.Dispatch<React.SetStateAction<boolean>>
+    showItems : boolean
+    setShowItems : React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const VendingContext = createContext<VendingContextInterface>({} as VendingContextInterface)
@@ -30,6 +32,8 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
 
   const [currentItemSelected, setCurrentItemSelected] = useState<string>("")
 
+  const [showItems, setShowItems] = useState<boolean>(false)
+  
   const [connectionStatus, setConnectionStatus] = useState<connectionState>(connectionState.UNCONNECTED)
 
   const [imagesLoading, setImagesLoading] = useState<boolean>(false)
@@ -81,7 +85,9 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
         setImagesLoading,
         showPurchased,
         lightMode,
-        setLightMode
+        setLightMode,
+        showItems,
+        setShowItems
       }}
       >
         {children}

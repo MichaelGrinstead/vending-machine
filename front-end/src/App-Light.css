@@ -289,15 +289,6 @@
    
   }
   
-  .L-Show-Items {
-    color: #171717;
-    font-size: 20px;
-    position: absolute;
-    top: 2%;
-    right: 2%;
-    cursor: pointer;
-  }
-  
   /*Interface*/
   
   .L-Interface {
@@ -314,6 +305,14 @@
     background-color: #f54029;
     padding: 60px;
     border-radius: 20px;
+  }
+
+  .L-InterfaceSmall-Container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20%
   }
   
   .L-InterfaceSmall {
@@ -614,29 +613,33 @@
   }
   
   .L-Purchased-Items {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: absolute;
-    top: 20%;
-    right: 3%;
-    width: 127px;
-    color: #f54029;
-    justify-content: center;
-    border: solid #f54029 5px;
-    background-color: whitesmoke;
-    z-index: 1;
+    height: 85%;
+    width: 75%;
+    background-color: #FFB52E;
     border-radius: 10px;
-    padding: 15px;
+    padding-top: 5%;
+    border: solid whitesmoke 5px;
+  }
+
+  .L-Purchased-Items-Outer {
+    height: 100%;
+    width: 100%;
+    text-align: center;
   }
   
   .L-Purchased-Items-Inner {
-    display: inline-flex;
-    flex-direction: column;
-    gap: 5px;
+    display: grid;
     align-items: center;
-    justify-content: flex-start;
+    justify-items: center;
+    grid-template-columns: 25% 25% 25% 25%;
     text-align: center;
+    height: 100%;
+    width: 100%;
+  }
+
+  .L-No-Purchased-Items {
+    margin-top: 35%;
+    color: #f54029;
   }
   
   .L-Image {
@@ -646,6 +649,31 @@
     width: 100px;
     border: solid whitesmoke 6px;
     border-radius: 10px;
+  }
+
+
+
+  .L-Show-Items {
+    height: 60px;
+    width: 150px;
+    background-color: whitesmoke;
+    border: solid #FFB52E 3px;
+    border-radius: 30px;
+    color: #f54029;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .L-Show-Items:hover {
+    height: 60px;
+    width: 150px;
+    background-color: #f54029;
+    border: solid whitesmoke 3px;
+    border-radius: 30px;
+    color: whitesmoke;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
   }
   
   

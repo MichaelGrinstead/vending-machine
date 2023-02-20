@@ -7,15 +7,44 @@ import VendingContext from '../context/VendingContext'
 
 const Vending = () => {
 
-  const {lightMode, setLightMode} = useContext(VendingContext)
+  const {lightMode, setLightMode, showItems, setShowItems} = useContext(VendingContext)
 
   return (
     <div className={lightMode ? 'L-Vending' : 'Vending'}>
           <div className={lightMode ? 'L-Vending-Outer' : 'Vending-Outer'}>
-            <div className={lightMode ? 'L-Vending-Inner' : 'Vending-Inner'}>
-              <Items/>
+            {showItems
+              ?
+              <PurchasedItems/>
+              :  
+              <div className={lightMode ? 'L-Vending-Inner' : 'Vending-Inner'}>
+                <Items/>
+              </div>
+              }
+            <div className='L-InterfaceSmall-Container'>
+              <InterfaceSmall/>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              {showItems
+              ?
+                <button 
+                className={lightMode ? 'L-Show-Items' : 'Show-Items'}
+                onClick={() => setShowItems(false)}
+                >Show Items
+                </button>
+              :
+                <button 
+                className={lightMode ? 'L-Show-Items' : 'Show-Items'}
+                onClick={() => setShowItems(true)}
+                >Show Purchased
+                </button>
+
+              }
+              
             </div>
-            <InterfaceSmall/>
           </div>
           {/* <PurchasedItems/> */}
           <Interface/>

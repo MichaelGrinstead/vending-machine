@@ -290,15 +290,6 @@ body {
  
 }
 
-.Show-Items {
-  color: #171717;
-  font-size: 20px;
-  position: absolute;
-  top: 2%;
-  right: 2%;
-  cursor: pointer;
-}
-
 /*Interface*/
 
 .Interface {
@@ -610,30 +601,35 @@ body {
 
 
 .Purchased-Items {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: absolute;
-  top: 20%;
-  right: 3%;
-  width: 127px;
-  justify-content: center;
-  border: solid greenyellow 5px;
+  height: 85%;
+  width: 75%;
   background-color: black;
-  color: greenyellow;
-  z-index: 1;
   border-radius: 10px;
-  padding: 15px;
+  padding-top: 5%;
+  border: solid greenyellow 5px;
+  
+}
+
+.Purchased-Items-Outer {
+  height: 100%;
+  width: 100%;
+  text-align: center;
 }
 
 
 .Purchased-Items-Inner {
-  display: inline-flex;
-  flex-direction: column;
-  gap: 5px;
+  display: grid;
   align-items: center;
-  justify-content: flex-start;
+  justify-items: center;
+  grid-template-columns: 25% 25% 25% 25%;
   text-align: center;
+  height: 100%;
+  width: 100%;
+}
+
+.No-Purchased-Items {
+  margin-top: 35%;
+  color: greenyellow;
 }
 
 .Image {
@@ -643,5 +639,28 @@ body {
   width: 100px;
   border: solid black 6px;
   border-radius: 10px;
+}
+
+.Show-Items {
+  height: 60px;
+  width: 150px;
+  background-color: black;
+  border: solid greenyellow 3px;
+  border-radius: 30px;
+  color: greenyellow;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.Show-Items:hover {
+  height: 60px;
+  width: 150px;
+  background-color: greenyellow;
+  border: solid greenyellow 3px;
+  border-radius: 30px;
+  color: black;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
 }
 
