@@ -3,7 +3,7 @@ import VendingContext from "../context/VendingContext"
 
 const PurchasedItems = () => {
 
-    const {images, imagesLoading, showPurchased, lightMode} = useContext(VendingContext)
+    const {images, imagesLoading, lightMode} = useContext(VendingContext)
     
   return (
     <div className={lightMode ? "L-Purchased-Items" : 'Purchased-Items'}>
