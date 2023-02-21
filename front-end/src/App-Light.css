@@ -367,6 +367,7 @@
     position: relative;
     font-size: 30px;
     text-align: center;
+    margin-bottom: 5px;
   }
   
   .L-Selection-Text-Moving {

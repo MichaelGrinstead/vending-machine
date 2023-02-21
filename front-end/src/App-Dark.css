@@ -376,6 +376,7 @@ body {
   position: relative;
   font-size: 30px;
   text-align: center;
+  margin-bottom: 5px;
 }
 
 .Selection-Text-Moving {
