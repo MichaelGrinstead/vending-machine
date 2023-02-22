@@ -45,7 +45,7 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
   const getImages = () => {
   const _images = []
     for(let i = 0; i < URIs.length; i++){
-      _images.push(<img className='Image' src={URIs[i]}></img>)
+      _images.push(<img className={lightMode ? 'L-Image' : 'Image'} src={URIs[i]}></img>)
     } 
     setImages(_images)
   }
@@ -63,6 +63,7 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
   }
 
   const showPurchased = () => {
+    setShowItems(true)
     setImagesLoading(true)
     retrieveImages()
     getImages()
