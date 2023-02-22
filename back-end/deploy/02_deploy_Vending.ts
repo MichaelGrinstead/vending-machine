@@ -13,19 +13,19 @@ const func : DeployFunction = async (hre : HardhatRuntimeEnvironment) => {
 
     const [user] = await ethers.getSigners()
 
-    const GLToken : Contract = await ethers.getContract("VendingToken")
+    // const VendingToken : Contract = await ethers.getContract("VendingToken")
 
     await deploy("Vending", {
         from: deployer,
-        args: [GLToken.address],
+        args: ['0xE7BAc446Ca699463a99A9F860331Cf28AC8b6183'],
         log: true
         
     })
 
-    const Vending = await ethers.getContract("Vending")
+    // const Vending = await ethers.getContract("Vending")
 
-    await GLToken.approve(Vending.address, 1000)
-    console.log(Vending.address)
+    // await VendingToken.approve(Vending.address, 1000)
+    // console.log(Vending.address)
  
 }   
 export default func
