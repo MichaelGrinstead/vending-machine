@@ -373,14 +373,14 @@
   .L-Selection-Text-Moving {
     position: absolute;
     width: 500px;
-    animation: Display 9.5s linear infinite;
+    animation: Display 9s linear infinite;
     margin: 0
   }
   
   .L-Selection-Text-Moving-Longer {
     position: absolute;
     width: 800px;
-    animation: Display 9s linear infinite;
+    animation: DisplayLonger 9s linear infinite;
     margin: 0
   }
   
@@ -406,6 +406,15 @@
     }
     to {
       left: -180%;
+    }
+  }
+  
+  @keyframes DisplayLonger {
+    from {
+      left: 120%;
+    }
+    to {
+      left: -220%;
     }
   }
   
@@ -505,14 +514,14 @@
     height: 100px;
     padding: 5%;
     text-align: center;
-    border: solid #f54029 2px;
+    border: solid #f54029 3px;
     font-weight: bold;
     font-size: larger;
     cursor: pointer;
     border-radius: 10px;
     box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
     position: relative;
-    margin: 3px
+    margin: 2px
   }
   
   .L-Item {
@@ -639,7 +648,7 @@
     margin-top: 5%;
     height: 100px;
     width: 100px;
-    border: solid whitesmoke 6px;
+    border: solid #f54029 5px;
     border-radius: 10px;
   }
 

@@ -314,6 +314,7 @@ body {
   align-items: center;
   gap: 20%;
   margin-right: 10px;
+  margin-top: 10%;
 }
 
 .InterfaceSmall {
@@ -382,14 +383,14 @@ body {
 .Selection-Text-Moving {
   position: absolute;
   width: 500px;
-  animation: Display 9.5s linear infinite;
+  animation: Display 9s linear infinite;
   margin: 0
 }
 
 .Selection-Text-Moving-Longer {
   position: absolute;
   width: 800px;
-  animation: Display 9s linear infinite;
+  animation: DisplayLonger 9s linear infinite;
   margin: 0
 }
 
@@ -416,7 +417,17 @@ body {
   to {
     left: -180%;
   }
+} 
+
+@keyframes DisplayLonger {
+  from {
+    left: 120%;
+  }
+  to {
+    left: -220%;
+  }
 }
+
 
 .Keypad {
   display: grid;
@@ -507,14 +518,14 @@ body {
   height: 100px;
   padding: 5%;
   text-align: center;
-  border: solid greenyellow 2px;
+  border: solid greenyellow 3px;
   font-weight: bold;
   font-size: larger;
   cursor: pointer;
   border-radius: 10px;
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
   position: relative;
-  margin: 3px;
+  margin: 2px;
 }
 
 .Item {
@@ -646,7 +657,7 @@ body {
   margin-top: 5%;
   height: 100px;
   width: 100px;
-  border: solid black 6px;
+  border: solid greenyellow 5px;
   border-radius: 10px;
 }
 
