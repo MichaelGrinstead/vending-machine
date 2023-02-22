@@ -42,7 +42,7 @@ const Interface = () => {
     }finally{
       setPurchaseStatus(status.DISPLAYING_DEPOSIT)
       setDepositDisplay(inputDepositDisplay)
-      setTimeout(() => setPurchaseStatus(status.SELECTING_ITEM), 12000)
+      setTimeout(() => setPurchaseStatus(status.SELECTING_ITEM), 9000)
     
     } 
   }
@@ -126,11 +126,11 @@ const Interface = () => {
       }else{
         setTimeout(() => setPurchaseStatus(status.SELECTING_ITEM), 9000)
       }
-      // showPurchased()
     } 
   }
 
-  
+  console.log(purchaseStatus)
+  console.log(remainingDeposit)
 
 ///Conditional HTML
 
