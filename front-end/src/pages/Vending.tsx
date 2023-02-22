@@ -7,7 +7,7 @@ import VendingContext from '../context/VendingContext'
 
 const Vending = () => {
 
-  const {lightMode, setLightMode, showItems, setShowItems} = useContext(VendingContext)
+  const {lightMode, setLightMode, showItems, setShowItems, showPurchased} = useContext(VendingContext)
 
   return (
     <div className={lightMode ? 'L-Vending' : 'Vending'}>
@@ -38,15 +38,30 @@ const Vending = () => {
               :
                 <button 
                 className={lightMode ? 'L-Show-Items' : 'Show-Items'}
-                onClick={() => setShowItems(true)}
+                onClick={() => showPurchased()}
                 >Show Purchased
                 </button>
 
               }
+              <br></br>
+              <br></br>
+              {showItems
+              ?
+              <button 
+              className={lightMode ? 'L-Show-Items' : 'Show-Items'}
+              onClick={() => showPurchased()}
+              >Refresh
+              </button>
+              :
+              <button 
+              className={lightMode ? 'L-Show-Items' : 'Show-Items'}
+              style={{color: "transparent",  backgroundColor: "transparent", borderColor: "transparent"}}
+              >
+              </button>
+              }
               
             </div>
           </div>
-          {/* <PurchasedItems/> */}
           <Interface/>
           {lightMode
           ?
