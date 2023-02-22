@@ -13,12 +13,12 @@ const func : DeployFunction = async (hre : HardhatRuntimeEnvironment) => {
 
     const [user] = await ethers.getSigners()
 
-    await deploy("GLToken", {
+    await deploy("VendingToken", {
         from: deployer,
         log: true
     })
 
-    const GLToken : Contract = await ethers.getContract("GLToken")
+    const GLToken : Contract = await ethers.getContract("VendingToken")
 
     await GLToken.connect(user).mintGL(1000)
     console.log(user.address)
@@ -26,4 +26,4 @@ const func : DeployFunction = async (hre : HardhatRuntimeEnvironment) => {
 }   
 export default func
 
-func.tags = ["GLToken"]
+func.tags = ["VendingToken"]

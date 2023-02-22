@@ -13,7 +13,7 @@ const func : DeployFunction = async (hre : HardhatRuntimeEnvironment) => {
 
     const [user] = await ethers.getSigners()
 
-    const GLToken : Contract = await ethers.getContract("GLToken")
+    const GLToken : Contract = await ethers.getContract("VendingToken")
 
     await deploy("Vending", {
         from: deployer,

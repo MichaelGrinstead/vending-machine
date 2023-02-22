@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: GPL-3.0
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "./GLToken.sol";
+import "./VendingToken.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 pragma solidity 0.8.17;
 
-contract Vending is ERC721("Go Logic NFT", "GLNFT") {
+contract Vending is ERC721("Vending Item", "V-ITEM") {
     using Strings for uint256;
 
-    GLToken token;
+    VendingToken token;
 
     uint256 tokenId = 1;
 
@@ -38,7 +38,7 @@ contract Vending is ERC721("Go Logic NFT", "GLNFT") {
 
 
     constructor(address _GLTokenAddress) {
-        token = GLToken(_GLTokenAddress);
+        token = VendingToken(_GLTokenAddress);
     }
 
     function fetchIds(address _owner) view external returns(uint[] memory){
