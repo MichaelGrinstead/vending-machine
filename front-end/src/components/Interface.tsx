@@ -1,4 +1,3 @@
-import { ethers, utils } from 'ethers'
 import {useEffect, useState, useContext} from 'react'
 import {VendingContract, VendingTokenContract, VendingAddress, signer} from '../ContractObjects'
 import VendingContext from '../context/VendingContext'
