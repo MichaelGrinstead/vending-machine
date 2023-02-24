@@ -4,6 +4,7 @@ import { VendingContract, signer } from '../ContractObjects'
 export const enum connectionState {
   UNCONNECTED,
   NO_WALLET,
+  INCORRECT_NETWORK,
   CONNECTED
 }
 

@@ -47,6 +47,13 @@ const Landing = () => {
                     onClick={() => { window.location.href =' https://metamask.io/download/'}} 
                     >Please Install Metamask
                     </button>
+        }else if(connectionStatus === connectionState.INCORRECT_NETWORK){
+
+            return   <div className={lightMode ? 'L-Landing-Inner' : 'Landing-Inner'}>
+                        <h3>Incorrect Network</h3>
+                    </div>
+
+        
         }else if(connectionStatus === connectionState.CONNECTED){
 
             return   <div className={lightMode ? 'L-Landing-Inner' : 'Landing-Inner'}>
@@ -110,6 +117,10 @@ const Landing = () => {
                         }
                     </div>
         }
+        
+        
+        
+        
     }
 
     const copyTokenAddress = () => {

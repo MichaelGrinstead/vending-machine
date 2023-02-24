@@ -19,10 +19,12 @@ const ConnectWallet : FC = () : ReactElement => {
       setConnectionStatus(connectionState.NO_WALLET)
       console.log(connectionStatus)
     }finally{
-      if(!window.ethereum.isConnected()){
+      if(!window.ethereum.isConnected() ){
         setConnectionStatus(connectionState.NO_WALLET)
-      }else{
+      }else if(window.ethereum.isConnected() && window.ethereum.networkVersion === "80001"){
         setConnectionStatus(connectionState.CONNECTED)
+      }else if(window.ethereum.isConnected() && window.ethereum.networkVersion !== "80001"){
+        setConnectionStatus(connectionState.INCORRECT_NETWORK)
       }
     }
   }
