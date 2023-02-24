@@ -50,7 +50,11 @@ const Landing = () => {
         }else if(connectionStatus === connectionState.INCORRECT_NETWORK){
 
             return   <div className={lightMode ? 'L-Landing-Inner' : 'Landing-Inner'}>
-                        <h3>Incorrect Network</h3>
+                        <h2 className='HeaderText'>Please switch to the Mumbai Network</h2>
+                        <h3 className='HeaderText'>Network Name: Mumbai Testnet</h3>
+                        <h3 className='HeaderText'>RPC URL: https://rpc-mumbai.maticvigil.com/</h3>
+                        <h3 className='HeaderText'>Chain Id: 80001</h3>
+                        <h3 className='HeaderText'>Currency Symbol: MATIC</h3>
                     </div>
 
         
