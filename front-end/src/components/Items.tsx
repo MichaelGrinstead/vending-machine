@@ -1,5 +1,8 @@
-import {useContext} from 'react'
+import {useContext, useState} from 'react'
 import VendingContext from '../context/VendingContext'
+import { VendingContract } from '../ContractObjects'
+import {create} from 'ipfs-http-client'
+import {Buffer} from 'buffer'
 import cherry_ripe_B from '../images-BlackBG/cherry_ripe.png'
 import cherry_ripe_W from '../images/cherry_ripe.jpeg'
 import mi_goreng_B from '../images-BlackBG/mi_goreng.png'
@@ -25,11 +28,46 @@ import sriracha_W from '../images/sriracha.jpeg'
 import bhuja_B from '../images-BlackBG/bhuja.png'
 import bhuja_W from '../images/bhuja.jpeg'
 
+const ID = process.env.REACT_APP_INFURA_PROJECT_ID
+const SECRET = process.env.REACT_APP_INFURA_PROJECT_SECRET
+
+console.log(ID)
+console.log(SECRET)
+
 const Items = () => {
 
     const {currentItemSelected, setCurrentItemSelected, lightMode} = useContext(VendingContext)
-    
 
+    
+    const auth = 'Basic ' + Buffer.from(ID + ':' + SECRET).toString('base64');
+    const client = create({
+    host: 'ipfs.infura.io',
+    port: 5001,
+    protocol: 'https',
+    apiPath: '/api/v0',
+    headers: {
+        authorization: auth,
+    }
+  })
+    const handleItemUpload = async (e : any) => {
+      const item : any = e.target.files[0]
+      const itemNumber = e.target.name
+      console.log(item)
+      console.log(itemNumber)
+      try{
+          const added = await client.add(item)
+          console.log(added.path)
+          console.log(`https://personal-project-storage.infura-ipfs.io/ipfs/${added.path}`)
+         
+          await VendingContract.addCID(parseInt(itemNumber), added.path)
+      }catch(error){
+          console.log(error)
+      }finally{
+        console.log(await VendingContract.tokenURI(1))
+      }
+  }
+
+  
 
   return (
         <div className={lightMode ? 'L-Vending-Items' : 'Vending-Items'}>
@@ -40,7 +78,10 @@ const Items = () => {
           <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
             <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
               <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>1</div> 
-              <img src={lightMode ? cherry_ripe_W : cherry_ripe_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+              <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file1'>
+                <input style= {{display: 'none'}} type='file' id='file1' name='1' onChange={handleItemUpload}></input>
+                Upload Image
+              </label>            
             </div>
             <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$2.00</div>
           </div>
@@ -48,7 +89,10 @@ const Items = () => {
           <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
             <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
               <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>1</div> 
-              <img src={lightMode ? cherry_ripe_W : cherry_ripe_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("1")}></img> 
+              <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file1'>
+                <input style= {{display: 'none'}} type='file' id='file1' name='1' onChange={handleItemUpload}></input>
+                Upload Image 
+              </label>
             </div>
             <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$2.00</div>  
           </div>
@@ -61,7 +105,10 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
         <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
           <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>2</div> 
-            <img src={lightMode ? mi_goreng_W : mi_goreng_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+          <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file2'>
+            <input style= {{display: 'none'}} type='file' id='file2' name='2' onChange={handleItemUpload}></input>
+            Upload Image
+          </label> 
           </div>
             <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$2.00</div>
         </div>
@@ -69,7 +116,10 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
             <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>2</div> 
-            <img src={lightMode ? mi_goreng_W : mi_goreng_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("2")}></img>
+            <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file2'>
+              <input style= {{display: 'none'}} type='file' id='file2' name='2' onChange={handleItemUpload}></input>
+              Upload Image
+            </label>
           </div>
             <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$2.00</div>  
           </div>
@@ -80,7 +130,10 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>3</div> 
-            <img src={lightMode ? protein_bar_W : protein_bar_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+            <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file3'>
+              <input style= {{display: 'none'}} type='file' id='file3' name='3' onChange={handleItemUpload}></input>
+              Upload Image
+            </label>
           </div>
             <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$2.00</div>
         </div>
@@ -88,7 +141,10 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
             <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>3</div> 
-            <img src={lightMode ? protein_bar_W : protein_bar_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("3")}></img>
+            <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file3'>
+              <input style= {{display: 'none'}} type='file' id='file3' name='3' onChange={handleItemUpload}></input>
+              Upload Image
+            </label>
           </div>
             <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$2.00</div>  
         </div>
@@ -99,7 +155,10 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>4</div> 
-            <img src= {lightMode ? nurofen_W : nurofen_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+            <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file4'>
+              <input style= {{display: 'none'}} type='file' id='file4' name='4' onChange={handleItemUpload}></input>
+              Upload Image
+            </label>
           </div>
             <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$2.00</div>
         </div>
@@ -107,7 +166,10 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
             <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>4</div> 
-            <img src= {lightMode ? nurofen_W : nurofen_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("4")}></img>
+            <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file4'>
+              <input style= {{display: 'none'}} type='file' id='file4' name='4' onChange={handleItemUpload}></input>
+              Upload Image
+            </label>
           </div>
             <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$2.00</div>  
         </div>
@@ -119,7 +181,10 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>5</div> 
-            <img src={lightMode ? goat_beer_W : goat_beer_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+            <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file5'>
+              <input style= {{display: 'none'}} type='file' id='file5' name='5' onChange={handleItemUpload}></input>
+              Upload Image
+            </label>
           </div>          
             <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$4.00</div>
         </div>
@@ -127,7 +192,10 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
             <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>5</div> 
-            <img src={lightMode ? goat_beer_W : goat_beer_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("5")}></img>
+            <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file5'>
+              <input style= {{display: 'none'}} type='file' id='file5' name='5' onChange={handleItemUpload}></input>
+              Upload Image
+            </label>
           </div>
             <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$4.00</div>  
         </div>
@@ -138,7 +206,10 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>6</div> 
-            <img src={lightMode ? coffee_W : coffee_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+            <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file6'>
+              <input style= {{display: 'none'}} type='file' id='file6' name='6' onChange={handleItemUpload}></input>
+              Upload Image
+            </label>
           </div>
             <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$4.00</div>
         </div>
@@ -146,7 +217,10 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
             <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>6</div> 
-            <img src={lightMode ? coffee_W : coffee_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("6")}></img>
+            <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file6'>
+              <input style= {{display: 'none'}} type='file' id='file6' name='6' onChange={handleItemUpload}></input>
+              Upload Imag6
+            </label>
           </div>
             <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$4.00</div>  
         </div>
@@ -158,7 +232,10 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>7</div> 
-            <img src={lightMode ? tuna_W : tuna_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+            <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file7'>
+              <input style= {{display: 'none'}} type='file' id='file7' name='7' onChange={handleItemUpload}></input>
+              Upload Image
+            </label>
           </div>
             <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$4.00</div>
         </div>
@@ -166,7 +243,10 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
             <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>7</div> 
-            <img src={lightMode ? tuna_W : tuna_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("7")}></img>
+             <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file7'>
+              <input style= {{display: 'none'}} type='file' id='file7' name='7' onChange={handleItemUpload}></input>
+              Upload Image
+            </label>
           </div>
             <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$4.00</div>  
         </div>
@@ -179,7 +259,10 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>8</div> 
-            <img src={lightMode ? broccolini_W : broccolini_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+            <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file8'>
+              <input style= {{display: 'none'}} type='file' id='file8' name='8' onChange={handleItemUpload}></input>
+              Upload Image
+            </label>
           </div>
             <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$4.00</div>
         </div>
@@ -187,7 +270,10 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
             <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>8</div> 
-            <img src={lightMode ? broccolini_W : broccolini_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("8")}></img>
+            <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file8'>
+              <input style= {{display: 'none'}} type='file' id='file8' name='8' onChange={handleItemUpload}></input>
+              Upload Image
+            </label>
           </div>
             <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$4.00</div>  
         </div>
@@ -200,7 +286,10 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>9</div> 
-            <img src={lightMode ? peanuts_W : peanuts_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+            <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file9'>
+              <input style= {{display: 'none'}} type='file' id='file9' name='9' onChange={handleItemUpload}></input>
+              Upload Image
+            </label> 
           </div>
             <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$6.00</div>
         </div>
@@ -208,7 +297,10 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
             <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>9</div> 
-            <img src={lightMode ? peanuts_W : peanuts_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("9")}></img>
+            <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file9'>
+              <input style= {{display: 'none'}} type='file' id='file9' name='9' onChange={handleItemUpload}></input>
+              Upload Image
+            </label>
           </div>
             <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$6.00</div>  
         </div>
@@ -220,7 +312,10 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>10</div> 
-            <img src={lightMode ? egg_W : egg_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+             <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file10'>
+              <input style= {{display: 'none'}} type='file' id='file10' name='10' onChange={handleItemUpload}></input>
+              Upload Image
+            </label>
           </div>
             <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$6.00</div>
         </div>
@@ -228,7 +323,10 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
             <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>10</div> 
-            <img src={lightMode ? egg_W : egg_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("10")}></img>
+            <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file10'>
+              <input style= {{display: 'none'}} type='file' id='file10' name='10' onChange={handleItemUpload}></input>
+              Upload Image
+            </label>
           </div>
             <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$6.00</div>  
         </div>
@@ -240,7 +338,10 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>11</div> 
-            <img src={lightMode ? sriracha_W : sriracha_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+            <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file11'>
+              <input style= {{display: 'none'}} type='file' id='file11' name='11' onChange={handleItemUpload}></input>
+              Upload Image
+            </label>
           </div>
             <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$6.00</div>
         </div>
@@ -248,7 +349,10 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
             <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>11</div> 
-            <img src={lightMode ? sriracha_W : sriracha_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("11")}></img>
+            <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file11'>
+              <input style= {{display: 'none'}} type='file' id='file11' name='11' onChange={handleItemUpload}></input>
+              Upload Image
+            </label>
           </div>
             <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$6.00</div>  
         </div>
@@ -259,7 +363,10 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>12</div> 
-            <img src={lightMode ? bhuja_W : bhuja_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+            <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file12'>
+              <input style= {{display: 'none'}} type='file' id='file12' name='12' onChange={handleItemUpload}></input>
+              Upload Image
+            </label>
           </div>
             <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$6.00</div>
         </div>
@@ -267,7 +374,10 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
             <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>12</div> 
-            <img src={lightMode ? bhuja_W : bhuja_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("12")}></img>
+            <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file12'>
+              <input style= {{display: 'none'}} type='file' id='file12' name='12' onChange={handleItemUpload}></input>
+              Upload Image
+            </label>
           </div>
             <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$6.00</div>  
         </div>
