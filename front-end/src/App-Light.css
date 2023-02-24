@@ -634,8 +634,10 @@
     justify-items: center;
     grid-template-columns: 25% 25% 25% 25%;
     text-align: center;
-    height: 100%;
-    width: 100%;
+    height: 90%;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .L-No-Purchased-Items {
