@@ -4,7 +4,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "./VendingToken.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-pragma solidity 0.8.17;
+pragma solidity 0.8.19;
 
 contract Vending is ERC721("Vending Item", "V-ITEM") {
     using Strings for uint256;
@@ -13,29 +13,8 @@ contract Vending is ERC721("Vending Item", "V-ITEM") {
 
     uint256 tokenId = 1;
 
-    uint256 public itemTierOneAmount = 20;
-    uint256 public itemTierTwoAmount = 20;
-    uint256 public itemTierThreeAmount = 20;
-
     mapping(uint => string) public tokenIdToURI;
-
-    string[] public CIDs = 
-        [
-        "QmPJCZbenCkYbDrHj9PPmvUHGbfgQUBGSK3BRTsmXRj3MR",
-        "QmSi49oEboHGKiBrjRp5PkKEeXLE83j5fJG9TwVmfgcPcj",
-        "QmRpCrsKQeCuXxfPCrVrk2Er6DgZ7grVinhHrwNbZC68yS",
-        "QmSffb8DKjeMQoTUtBJq2XA72z4jemjuBQGmDtJd7DfPc9",
-        "QmW9GYYZ3wb8tYA3Hpr3jnTD5uNbjDbd3TR7UbQm7qe4KJ",
-        "QmUGTj9F9Qqx1FbwY7fVfGNZrGJnpopRJjdgvxNUVZF5yt",
-        "Qmba2N1sMDpVFXVoPjS2CJxhqZXbquaKRwCkCMh1kW964x",
-        "Qmbc1QogbULNZaM8UcBWPxxY6VFtqbXLduiPVpYLe5begu",
-        "QmVkBC6VPuatf686sVEKPmEUoWfJruCmBMkV3NXGDGaY9M",
-        "QmPjefQnS1W5Lj1SnBH8n16uWVCRX3JPmZxb4d2ReLpJa2",
-        "QmWHy5Ffz7R9y6JWjrYPtMTF4qXu9esm7P1RvQNGYJ3LLB",
-        "QmTWg4eRpQoMUc5pwnfvLNjjSu6RCBFKdAhgL717L6kN4z"
-        ];
-                
-
+    mapping(uint => string) public itemNumberToCID;
 
     constructor(address _GLTokenAddress) {
         token = VendingToken(_GLTokenAddress);
@@ -53,6 +32,10 @@ contract Vending is ERC721("Vending Item", "V-ITEM") {
         return ids;
     }
 
+    function addCID(uint _itemNumber, string memory _CID) external {
+        itemNumberToCID[_itemNumber] = _CID;
+    }
+
 
     function purchase(address _to, uint _itemNumber, uint _amount) external {
         require(_itemNumber <= 12 && _itemNumber > 0);
@@ -62,16 +45,11 @@ contract Vending is ERC721("Vending Item", "V-ITEM") {
 
         if(_itemNumber >= 1 && _itemNumber <= 4){
             require(_amount >= 200);
-            require(itemTierOneAmount > 0);
-            itemTierOneAmount --;
         }else if(_itemNumber >= 5 && _itemNumber <= 8) {
             require(_amount >= 400);
-            require(itemTierTwoAmount > 0);
-            itemTierTwoAmount --;
         }else if(_itemNumber >= 9 && _itemNumber <= 12){
             require(_amount >= 600);
-            require(itemTierThreeAmount > 0);
-            itemTierThreeAmount --;
+            
         }
         _safeMint(_to, tokenId);
         string memory uri = tokenURI(_itemNumber);
@@ -84,7 +62,7 @@ contract Vending is ERC721("Vending Item", "V-ITEM") {
         _requireMinted(tokenId);
 
         string memory baseURI = _baseURI();
-        return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, CIDs[_itemNumber - 1])) : "";
+        return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, itemNumberToCID[_itemNumber])) : "";
     }
 
 
