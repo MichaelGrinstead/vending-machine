@@ -34,8 +34,6 @@ const Items = () => {
       console.log(itemNumber)
       try{
           const added = await client.add(item)
-          console.log(added.path)
-          console.log(`https://personal-project-storage.infura-ipfs.io/ipfs/${added.path}`)
          
           const add = await VendingContract.addCID(parseInt(itemNumber), added.path)
           await add.wait()
