@@ -21,14 +21,15 @@ const ConnectWallet : FC = () : ReactElement => {
     }finally{
       if(!window.ethereum.isConnected() ){
         setConnectionStatus(connectionState.NO_WALLET)
-      }else if(window.ethereum.isConnected() && window.ethereum.networkVersion === "80001"){
-        setConnectionStatus(connectionState.CONNECTED)
-      }else if(window.ethereum.isConnected() && window.ethereum.networkVersion !== "80001"){
-        setConnectionStatus(connectionState.INCORRECT_NETWORK)
+      }else if(window.ethereum.isConnected() 
+        && (window.ethereum.networkVersion === "80001" || window.ethereum.networkVersion === "31337")){
+          setConnectionStatus(connectionState.CONNECTED)
+      }else if(window.ethereum.isConnected() 
+        && (window.ethereum.networkVersion !== "80001" || window.ethereum.networkVersion !== "31337")){
+          setConnectionStatus(connectionState.INCORRECT_NETWORK)
       }
     }
   }
-
   
 
 

@@ -8,8 +8,14 @@ declare var window: any
 
 ///LocalHost
 
-const VendingTokenAddress = "0xE7BAc446Ca699463a99A9F860331Cf28AC8b6183"
-const VendingAddress = "0xe7b905Cf4D172ba8E364916D07e74e1fF9a99034"
+// const VendingTokenAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+// const VendingAddress = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+
+//Mumbai
+
+const VendingTokenAddress = "0x961c835b6D4713F390a01B0358059C84c9b5773F"
+const VendingAddress = "0xd07C90b4dFd6CCD7AfaDAB0E1500AAF0A89EEeFb"
+
 
 
 

@@ -517,7 +517,6 @@
     border: solid #f54029 3px;
     font-weight: bold;
     font-size: larger;
-    cursor: pointer;
     border-radius: 10px;
     box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
     position: relative;
@@ -677,6 +676,24 @@
     font-weight: bold;
     font-size: 16px;
     cursor: pointer;
+  }
+
+  .L-Item-Upload-Label {
+    background-color: transparent;
+    color: #f54029;
+    width: 50%;
+    height: 50%;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 20px;
+    padding: 5px;
+    top: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25%;
   }
   
   

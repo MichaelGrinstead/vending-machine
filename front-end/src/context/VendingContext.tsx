@@ -1,4 +1,4 @@
-import React, {createContext, useState, ReactNode, useTransition} from 'react'
+import React, {createContext, useState, ReactNode} from 'react'
 import { VendingContract, signer } from '../ContractObjects'
 
 export const enum connectionState {

@@ -1,35 +1,64 @@
-import {useContext} from 'react'
+import {useContext, useState, useEffect} from 'react'
 import VendingContext from '../context/VendingContext'
-import cherry_ripe_B from '../images-BlackBG/cherry_ripe.png'
-import cherry_ripe_W from '../images/cherry_ripe.jpeg'
-import mi_goreng_B from '../images-BlackBG/mi_goreng.png'
-import mi_goreng_W from '../images/mi_goreng.jpg'
-import protein_bar_B from '../images-BlackBG/protein_bar.png'
-import protein_bar_W from '../images/protein_bar.jpeg'
-import nurofen_B from '../images-BlackBG/nurofen.png'
-import nurofen_W from '../images/nurofen.jpeg'
-import goat_beer_B from '../images-BlackBG/goat_beer.png'
-import goat_beer_W from '../images/goat_beer.png'
-import coffee_B from '../images-BlackBG/coffee.png'
-import coffee_W from '../images/coffee.jpeg'
-import tuna_B from '../images-BlackBG/tuna.png'
-import tuna_W from '../images/tuna.jpg'
-import broccolini_B from '../images-BlackBG/broccolini.png'
-import broccolini_W from '../images/broccolini.jpeg'
-import peanuts_B from '../images-BlackBG/peanuts.png'
-import peanuts_W from '../images/peanuts.jpg'
-import egg_B from '../images-BlackBG/egg.png'
-import egg_W from '../images/egg.jpeg'
-import sriracha_B from '../images-BlackBG/sriracha.png'
-import sriracha_W from '../images/sriracha.jpeg'
-import bhuja_B from '../images-BlackBG/bhuja.png'
-import bhuja_W from '../images/bhuja.jpeg'
+import { VendingContract } from '../ContractObjects'
+import {create} from 'ipfs-http-client'
+import {Buffer} from 'buffer'
+
+const ID = process.env.REACT_APP_INFURA_PROJECT_ID
+const SECRET = process.env.REACT_APP_INFURA_PROJECT_SECRET
 
 const Items = () => {
 
     const {currentItemSelected, setCurrentItemSelected, lightMode} = useContext(VendingContext)
-    
 
+    const [CIDS, setCIDS] = useState<any[]>([])
+
+    
+    const auth = 'Basic ' + Buffer.from(ID + ':' + SECRET).toString('base64');
+    const client = create({
+    host: 'ipfs.infura.io',
+    port: 5001,
+    protocol: 'https',
+    apiPath: '/api/v0',
+    headers: {
+        authorization: auth,
+    }
+  })
+    const handleItemUpload = async (e : any) => {
+      const item : any = e.target.files[0]
+      const itemNumber = e.target.name
+      console.log(item)
+      console.log(itemNumber)
+      try{
+          const added = await client.add(item)
+         
+          const add = await VendingContract.addCID(parseInt(itemNumber), added.path)
+          await add.wait()
+
+      }catch(error){
+          console.log(error)
+      }finally{
+        window.location.reload();
+      }
+  }
+
+  const fetchItems = async () => {
+    const _CIDS = []
+    for(let i = 1; i <= 12; i++){
+      const CID = await VendingContract.itemNumberToCID(i)
+    _CIDS.push(CID)
+    }
+    setCIDS(_CIDS)
+    
+  }
+
+  ///useEffect
+
+  useEffect(() => {
+    fetchItems()
+  }, [])
+
+  
 
   return (
         <div className={lightMode ? 'L-Vending-Items' : 'Vending-Items'}>
@@ -40,7 +69,15 @@ const Items = () => {
           <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
             <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
               <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>1</div> 
-              <img src={lightMode ? cherry_ripe_W : cherry_ripe_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+                {CIDS[0] === ""
+                ?
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file1'>
+                    <input style= {{display: 'none'}} type='file' id='file1' name='1' onChange={handleItemUpload}></input>
+                    Upload Image
+                  </label>
+                :
+                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[0]}`}/>             
+                }
             </div>
             <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$2.00</div>
           </div>
@@ -48,7 +85,15 @@ const Items = () => {
           <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
             <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
               <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>1</div> 
-              <img src={lightMode ? cherry_ripe_W : cherry_ripe_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("1")}></img> 
+                {CIDS[0] === ""
+                ?
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file1'>
+                    <input style= {{display: 'none'}} type='file' id='file1' name='1' onChange={handleItemUpload}></input>
+                    Upload Image
+                  </label>
+                :
+                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[0]}`}/>             
+                }
             </div>
             <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$2.00</div>  
           </div>
@@ -61,7 +106,15 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
         <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
           <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>2</div> 
-            <img src={lightMode ? mi_goreng_W : mi_goreng_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+                {CIDS[1] === ""
+                ?
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file2'>
+                    <input style= {{display: 'none'}} type='file' id='file2' name='2' onChange={handleItemUpload}></input>
+                    Upload Image
+                  </label>
+                :
+                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[1]}`}/>             
+                }
           </div>
             <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$2.00</div>
         </div>
@@ -69,7 +122,15 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
             <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>2</div> 
-            <img src={lightMode ? mi_goreng_W : mi_goreng_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("2")}></img>
+                {CIDS[1] === ""
+                ?
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file2'>
+                    <input style= {{display: 'none'}} type='file' id='file2' name='2' onChange={handleItemUpload}></input>
+                    Upload Image
+                  </label>
+                :
+                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[1]}`}/>             
+                }
           </div>
             <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$2.00</div>  
           </div>
@@ -80,7 +141,15 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>3</div> 
-            <img src={lightMode ? protein_bar_W : protein_bar_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+                {CIDS[2] === ""
+                ?
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file3'>
+                    <input style= {{display: 'none'}} type='file' id='file3' name='3' onChange={handleItemUpload}></input>
+                    Upload Image
+                  </label>
+                :
+                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[2]}`}/>             
+                }
           </div>
             <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$2.00</div>
         </div>
@@ -88,7 +157,15 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
             <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>3</div> 
-            <img src={lightMode ? protein_bar_W : protein_bar_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("3")}></img>
+                {CIDS[2] === ""
+                ?
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file3'>
+                    <input style= {{display: 'none'}} type='file' id='file3' name='3' onChange={handleItemUpload}></input>
+                    Upload Image
+                  </label>
+                :
+                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[2]}`}/>             
+                }
           </div>
             <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$2.00</div>  
         </div>
@@ -99,7 +176,15 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>4</div> 
-            <img src= {lightMode ? nurofen_W : nurofen_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+              {CIDS[3] === ""
+                ?
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file4'>
+                    <input style= {{display: 'none'}} type='file' id='file4' name='4' onChange={handleItemUpload}></input>
+                    Upload Image
+                  </label>
+                :
+                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[3]}`}/>             
+                }
           </div>
             <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$2.00</div>
         </div>
@@ -107,7 +192,15 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
             <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>4</div> 
-            <img src= {lightMode ? nurofen_W : nurofen_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("4")}></img>
+              {CIDS[3] === ""
+                ?
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file4'>
+                    <input style= {{display: 'none'}} type='file' id='file4' name='4' onChange={handleItemUpload}></input>
+                    Upload Image
+                  </label>
+                :
+                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[3]}`}/>             
+                }
           </div>
             <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$2.00</div>  
         </div>
@@ -119,7 +212,15 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>5</div> 
-            <img src={lightMode ? goat_beer_W : goat_beer_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+              {CIDS[4] === ""
+                ?
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file5'>
+                    <input style= {{display: 'none'}} type='file' id='file5' name='5' onChange={handleItemUpload}></input>
+                    Upload Image
+                  </label>
+                :
+                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[4]}`}/>             
+                }
           </div>          
             <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$4.00</div>
         </div>
@@ -127,7 +228,15 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
             <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>5</div> 
-            <img src={lightMode ? goat_beer_W : goat_beer_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("5")}></img>
+              {CIDS[4] === ""
+                ?
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file5'>
+                    <input style= {{display: 'none'}} type='file' id='file5' name='5' onChange={handleItemUpload}></input>
+                    Upload Image
+                  </label>
+                :
+                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[4]}`}/>             
+                }
           </div>
             <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$4.00</div>  
         </div>
@@ -138,7 +247,15 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>6</div> 
-            <img src={lightMode ? coffee_W : coffee_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+              {CIDS[5] === ""
+                ?
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file6'>
+                    <input style= {{display: 'none'}} type='file' id='file6' name='6' onChange={handleItemUpload}></input>
+                    Upload Image
+                  </label>
+                :
+                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[5]}`}/>             
+                }
           </div>
             <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$4.00</div>
         </div>
@@ -146,7 +263,15 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
             <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>6</div> 
-            <img src={lightMode ? coffee_W : coffee_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("6")}></img>
+             {CIDS[5] === ""
+                ?
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file6'>
+                    <input style= {{display: 'none'}} type='file' id='file6' name='6' onChange={handleItemUpload}></input>
+                    Upload Image
+                  </label>
+                :
+                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[5]}`}/>             
+                }
           </div>
             <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$4.00</div>  
         </div>
@@ -158,7 +283,15 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>7</div> 
-            <img src={lightMode ? tuna_W : tuna_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+                {CIDS[6] === ""
+                ?
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file7'>
+                    <input style= {{display: 'none'}} type='file' id='file7' name='7' onChange={handleItemUpload}></input>
+                    Upload Image
+                  </label>
+                :
+                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[6]}`}/>             
+                }
           </div>
             <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$4.00</div>
         </div>
@@ -166,7 +299,15 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
             <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>7</div> 
-            <img src={lightMode ? tuna_W : tuna_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("7")}></img>
+                {CIDS[6] === ""
+                ?
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file7'>
+                    <input style= {{display: 'none'}} type='file' id='file7' name='7' onChange={handleItemUpload}></input>
+                    Upload Image
+                  </label>
+                :
+                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[6]}`}/>             
+                }
           </div>
             <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$4.00</div>  
         </div>
@@ -179,7 +320,15 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>8</div> 
-            <img src={lightMode ? broccolini_W : broccolini_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+                {CIDS[7] === ""
+                ?
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file8'>
+                    <input style= {{display: 'none'}} type='file' id='file8' name='8' onChange={handleItemUpload}></input>
+                    Upload Image
+                  </label>
+                :
+                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[7]}`}/>             
+                }
           </div>
             <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$4.00</div>
         </div>
@@ -187,7 +336,15 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
             <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>8</div> 
-            <img src={lightMode ? broccolini_W : broccolini_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("8")}></img>
+                {CIDS[7] === ""
+                ?
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file8'>
+                    <input style= {{display: 'none'}} type='file' id='file8' name='8' onChange={handleItemUpload}></input>
+                    Upload Image
+                  </label>
+                :
+                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[7]}`}/>             
+                }
           </div>
             <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$4.00</div>  
         </div>
@@ -200,7 +357,15 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>9</div> 
-            <img src={lightMode ? peanuts_W : peanuts_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+                {CIDS[8] === ""
+                ?
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file9'>
+                    <input style= {{display: 'none'}} type='file' id='file9' name='9' onChange={handleItemUpload}></input>
+                    Upload Image
+                  </label>
+                :
+                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[8]}`}/>             
+                } 
           </div>
             <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$6.00</div>
         </div>
@@ -208,7 +373,15 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
             <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>9</div> 
-            <img src={lightMode ? peanuts_W : peanuts_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("9")}></img>
+                {CIDS[8] === ""
+                ?
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file9'>
+                    <input style= {{display: 'none'}} type='file' id='file9' name='9' onChange={handleItemUpload}></input>
+                    Upload Image
+                  </label>
+                :
+                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[8]}`}/>             
+                }
           </div>
             <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$6.00</div>  
         </div>
@@ -220,7 +393,15 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>10</div> 
-            <img src={lightMode ? egg_W : egg_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+                {CIDS[9] === ""
+                ?
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file10'>
+                    <input style= {{display: 'none'}} type='file' id='file10' name='10' onChange={handleItemUpload}></input>
+                    Upload Image
+                  </label>
+                :
+                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[9]}`}/>             
+                }
           </div>
             <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$6.00</div>
         </div>
@@ -228,7 +409,15 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
             <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>10</div> 
-            <img src={lightMode ? egg_W : egg_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("10")}></img>
+                {CIDS[9] === ""
+                ?
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file10'>
+                    <input style= {{display: 'none'}} type='file' id='file10' name='10' onChange={handleItemUpload}></input>
+                    Upload Image
+                  </label>
+                :
+                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[9]}`}/>             
+                }
           </div>
             <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$6.00</div>  
         </div>
@@ -240,7 +429,15 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>11</div> 
-            <img src={lightMode ? sriracha_W : sriracha_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+                {CIDS[10] === ""
+                ?
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file11'>
+                    <input style= {{display: 'none'}} type='file' id='file11' name='11' onChange={handleItemUpload}></input>
+                    Upload Image
+                  </label>
+                :
+                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[10]}`}/>             
+                }
           </div>
             <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$6.00</div>
         </div>
@@ -248,7 +445,15 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
             <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>11</div> 
-            <img src={lightMode ? sriracha_W : sriracha_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("11")}></img>
+                {CIDS[10] === ""
+                ?
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file11'>
+                    <input style= {{display: 'none'}} type='file' id='file11' name='11' onChange={handleItemUpload}></input>
+                    Upload Image
+                  </label>
+                :
+                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[10]}`}/>             
+                }
           </div>
             <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$6.00</div>  
         </div>
@@ -259,7 +464,15 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-ItemSelected-Container' : 'ItemSelected-Container'}>
             <div className={lightMode ? 'L-ItemSelected-Number' : 'ItemSelected-Number'}>12</div> 
-            <img src={lightMode ? bhuja_W : bhuja_B} className={lightMode ? 'L-Item' : 'Item'}></img>
+                {CIDS[11] === ""
+                ?
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file12'>
+                    <input style= {{display: 'none'}} type='file' id='file12' name='12' onChange={handleItemUpload}></input>
+                    Upload Image
+                  </label>
+                :
+                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[11]}`}/>             
+                }
           </div>
             <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$6.00</div>
         </div>
@@ -267,7 +480,15 @@ const Items = () => {
         <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
           <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
             <div className={lightMode ? 'L-Item-Number' : 'Item-Number'}>12</div> 
-            <img src={lightMode ? bhuja_W : bhuja_B} className={lightMode ? 'L-Item' : 'Item'} onClick={() => setCurrentItemSelected("12")}></img>
+                {CIDS[11] === ""
+                ?
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file12'>
+                    <input style= {{display: 'none'}} type='file' id='file12' name='12' onChange={handleItemUpload}></input>
+                    Upload Image
+                  </label>
+                :
+                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[11]}`}/>             
+                }
           </div>
             <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$6.00</div>  
         </div>

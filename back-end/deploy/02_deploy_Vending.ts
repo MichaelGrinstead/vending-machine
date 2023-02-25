@@ -17,7 +17,7 @@ const func : DeployFunction = async (hre : HardhatRuntimeEnvironment) => {
 
     await deploy("Vending", {
         from: deployer,
-        args: ['0xE7BAc446Ca699463a99A9F860331Cf28AC8b6183'],
+        args: ['0x961c835b6D4713F390a01B0358059C84c9b5773F'],
         log: true
         
     })
