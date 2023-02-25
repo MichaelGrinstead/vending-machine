@@ -7,9 +7,6 @@ import {Buffer} from 'buffer'
 const ID = process.env.REACT_APP_INFURA_PROJECT_ID
 const SECRET = process.env.REACT_APP_INFURA_PROJECT_SECRET
 
-console.log(ID)
-console.log(SECRET)
-
 const Items = () => {
 
     const {currentItemSelected, setCurrentItemSelected, lightMode} = useContext(VendingContext)
