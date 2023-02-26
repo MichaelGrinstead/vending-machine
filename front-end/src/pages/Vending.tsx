@@ -1,9 +1,11 @@
-import {useContext} from 'react'
+import {useContext, useEffect} from 'react'
 import Interface from '../components/Interface'
 import InterfaceSmall from '../components/InterfaceSmall'
 import Items from '../components/Items'
 import PurchasedItems from '../components/PurchasedItems'
 import VendingContext from '../context/VendingContext'
+
+declare var window : any
 
 const Vending = () => {
 
@@ -12,9 +14,17 @@ const Vending = () => {
     setLightMode, 
     showItems, 
     setShowItems, 
-    showPurchased, 
+    loadPurchased, 
     remainingDeposit
   } = useContext(VendingContext)
+
+  useEffect(() => {
+    if(window.ethereum){
+      window.ethereum.on('accountsChanged', () => {
+        window.location.reload();
+      })
+    }
+  },[])
 
   return (
     <div className={lightMode ? 'L-Vending' : 'Vending'}>
@@ -32,10 +42,7 @@ const Vending = () => {
               <div className={lightMode ? 'L-Change-Display': 'Change-Display'}><h4>${remainingDeposit}</h4></div>
               <br></br>
               <br></br>
-              <br></br>
               <InterfaceSmall/>
-              <br></br>
-              <br></br>
               <br></br>
               <br></br>
               <br></br>
@@ -50,7 +57,7 @@ const Vending = () => {
               :
                 <button 
                 className={lightMode ? 'L-Show-Items' : 'Show-Items'}
-                onClick={() => showPurchased()}
+                onClick={() => loadPurchased()}
                 >Show Purchased
                 </button>
 
@@ -61,7 +68,7 @@ const Vending = () => {
               ?
               <button 
               className={lightMode ? 'L-Show-Items' : 'Show-Items'}
-              onClick={() => showPurchased()}
+              onClick={() => loadPurchased()}
               >Refresh
               </button>
               :
