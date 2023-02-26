@@ -18,13 +18,14 @@ interface VendingContextInterface {
     getImages : () => void
     imagesLoading : boolean
     setImagesLoading : React.Dispatch<React.SetStateAction<boolean>>
-    showPurchased : () => void
+    loadPurchased : () => void
     lightMode : boolean
     setLightMode : React.Dispatch<React.SetStateAction<boolean>>
     showItems : boolean
     setShowItems : React.Dispatch<React.SetStateAction<boolean>>
     remainingDeposit : string
     setRemainingDeposit : React.Dispatch<React.SetStateAction<string>>
+    retrieveImages : () => Promise<void>
 }
 
 const VendingContext = createContext<VendingContextInterface>({} as VendingContextInterface)
@@ -67,10 +68,13 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
     
   }
 
+  const loadPurchased = () => {
+    setImagesLoading(true)
+    setTimeout(() => showPurchased(), 5000)
+  }
+
   const showPurchased = () => {
     setShowItems(true)
-    setImagesLoading(true)
-    retrieveImages()
     getImages()
     setTimeout(() => setImagesLoading(false), 5000)
   }
@@ -89,13 +93,14 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
         getImages, 
         imagesLoading,
         setImagesLoading,
-        showPurchased,
+        loadPurchased,
         lightMode,
         setLightMode,
         showItems,
         setShowItems,
         remainingDeposit,
-        setRemainingDeposit
+        setRemainingDeposit,
+        retrieveImages
       }}
       >
         {children}

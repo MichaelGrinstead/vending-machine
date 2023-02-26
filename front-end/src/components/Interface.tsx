@@ -9,7 +9,8 @@ const Interface = () => {
     setCurrentItemSelected,
     lightMode,
     remainingDeposit,
-    setRemainingDeposit
+    setRemainingDeposit,
+    retrieveImages
   } = useContext(VendingContext)
 
   
@@ -51,9 +52,13 @@ const Interface = () => {
 
   const getRemainingDeposit = async () => {
     const changeNumber = await VendingTokenContract.allowance(signer.getAddress(), VendingAddress)
+    if(changeNumber > 200){
+      setPurchaseStatus(status.SELECTING_ITEM)
+    }
     const changeFormatted = changeNumber/100
     const changeFinal = changeFormatted.toFixed(2)
     setRemainingDeposit(changeFinal)
+    
   }
 
   const updateOrder = (value : string) => {
@@ -122,13 +127,14 @@ const Interface = () => {
       getRemainingDeposit()
       setPurchaseStatus(status.DISPLAYING_REMAINING_DEPOSIT)
       setCurrentItemSelected("")
+      setInputDepositDisplay("00.00")
   
       if(remainingDeposit === "0.00"){
         setTimeout(() => setPurchaseStatus(status.ENTERING_DEPOSIT), 9000)
-        setInputDepositDisplay("00.00")
       }else{
         setTimeout(() => setPurchaseStatus(status.SELECTING_ITEM), 9000)
       }
+      window.location.reload()
     } 
   }
 
@@ -224,6 +230,12 @@ const Interface = () => {
   useEffect(() => {
     getRemainingDeposit()
   }, [])
+
+  useEffect(() => {
+    retrieveImages()
+    
+  }, [])
+  
 
  return (
     <div className={lightMode ? 'L-Interface' : 'Interface'}>

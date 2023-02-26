@@ -3,9 +3,11 @@ import VendingContext from "../context/VendingContext"
 
 const PurchasedItems = () => {
 
-    const {images, imagesLoading, lightMode} = useContext(VendingContext)
+    const {images, imagesLoading, loadPurchased, setImagesLoading, retrieveImages, lightMode} = useContext(VendingContext)
 
+    console.log(imagesLoading)
     console.log(images)
+
     
   return (
     <div className={lightMode ? "L-Purchased-Items" : 'Purchased-Items'}>
@@ -33,10 +35,6 @@ const PurchasedItems = () => {
             <div>{images[10]}</div>
             <div>{images[11]}</div>
             <div>{images[12]}</div>
-            <div>{images[13]}</div>
-            <div>{images[14]}</div>
-            <div>{images[15]}</div>
-            <div>{images[16]}</div>
           </div>
           }
         </div>
