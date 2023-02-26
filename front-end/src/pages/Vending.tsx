@@ -7,7 +7,14 @@ import VendingContext from '../context/VendingContext'
 
 const Vending = () => {
 
-  const {lightMode, setLightMode, showItems, setShowItems, showPurchased} = useContext(VendingContext)
+  const {
+    lightMode, 
+    setLightMode, 
+    showItems, 
+    setShowItems, 
+    showPurchased, 
+    remainingDeposit
+  } = useContext(VendingContext)
 
   return (
     <div className={lightMode ? 'L-Vending' : 'Vending'}>
@@ -20,7 +27,12 @@ const Vending = () => {
                 <Items/>
               </div>
               }
-            <div className='InterfaceSmall-Container'>
+            <div className='Vending-Side-Container'>
+
+              <div className={lightMode ? 'L-Change-Display': 'Change-Display'}><h4>${remainingDeposit}</h4></div>
+              <br></br>
+              <br></br>
+              <br></br>
               <InterfaceSmall/>
               <br></br>
               <br></br>

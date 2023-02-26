@@ -23,6 +23,8 @@ interface VendingContextInterface {
     setLightMode : React.Dispatch<React.SetStateAction<boolean>>
     showItems : boolean
     setShowItems : React.Dispatch<React.SetStateAction<boolean>>
+    remainingDeposit : string
+    setRemainingDeposit : React.Dispatch<React.SetStateAction<string>>
 }
 
 const VendingContext = createContext<VendingContextInterface>({} as VendingContextInterface)
@@ -42,6 +44,8 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
   const [URIs, setURIs] = useState<any[]>([])
 
   const [images, setImages] = useState<any>([])
+
+  const [remainingDeposit, setRemainingDeposit] = useState<string>("")
 
   const getImages = () => {
   const _images = []
@@ -89,7 +93,9 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
         lightMode,
         setLightMode,
         showItems,
-        setShowItems
+        setShowItems,
+        remainingDeposit,
+        setRemainingDeposit
       }}
       >
         {children}

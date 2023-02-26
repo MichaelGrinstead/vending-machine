@@ -7,7 +7,9 @@ const Interface = () => {
   const {
     currentItemSelected, 
     setCurrentItemSelected,
-    lightMode
+    lightMode,
+    remainingDeposit,
+    setRemainingDeposit
   } = useContext(VendingContext)
 
   
@@ -29,7 +31,7 @@ const Interface = () => {
   const [depositDisplay, setDepositDisplay] = useState<string>("")
   const [purchaseStatus, setPurchaseStatus] = useState<status>(status.ENTERING_DEPOSIT)
   const [itemSelected, setItemSelected] = useState<boolean>(false)
-  const [remainingDeposit, setRemainingDeposit] = useState<string>("")
+  
 
 
   const makeDeposit = async () => {
@@ -41,6 +43,7 @@ const Interface = () => {
     }finally{
       setPurchaseStatus(status.DISPLAYING_DEPOSIT)
       setDepositDisplay(inputDepositDisplay)
+      getRemainingDeposit()
       setTimeout(() => setPurchaseStatus(status.SELECTING_ITEM), 9000)
     
     } 
@@ -118,6 +121,7 @@ const Interface = () => {
     }finally{
       getRemainingDeposit()
       setPurchaseStatus(status.DISPLAYING_REMAINING_DEPOSIT)
+      setCurrentItemSelected("")
   
       if(remainingDeposit === "0.00"){
         setTimeout(() => setPurchaseStatus(status.ENTERING_DEPOSIT), 9000)

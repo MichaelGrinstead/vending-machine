@@ -306,6 +306,27 @@
     padding: 60px;
     border-radius: 20px;
   }
+
+  .L-Change-Display {
+    font-family:'digital-7';
+    background-color: whitesmoke;
+    color: #f54029;
+    border: solid #f54029 2px;
+    width: 70px;
+    height: 25px;
+    display: flex;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+    font-size: 25px;
+    padding: 2% 0 2% 0;
+    text-align: center;
+  }
+
+  .L-Change-Display h4 {
+    margin: 0;
+    width: 70px;;
+  }
   
   .L-InterfaceSmall {
     height: 140px;
