@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 
 pragma solidity 0.8.19;
 
-contract Vending is ERC721("Vending Item", "V-ITEM") {
+contract Vending is ERC721 {
     using Strings for uint256;
 
     VendingToken token;
@@ -16,8 +16,8 @@ contract Vending is ERC721("Vending Item", "V-ITEM") {
     mapping(uint => string) public tokenIdToURI;
     mapping(uint => string) public itemNumberToCID;
 
-    constructor(address _GLTokenAddress) {
-        token = VendingToken(_GLTokenAddress);
+    constructor(address _VendingTokenAddress, string memory _name, string memory _symbol) ERC721(_name, _symbol) {
+        token = VendingToken(_VendingTokenAddress);
     }
 
     function fetchIds(address _owner) view external returns(uint[] memory){
