@@ -29,6 +29,7 @@ const Landing = () => {
         try{
             const mint = await VendingTokenContract.mintGL(10000)
             await mint.wait()
+            
         }catch(e){
             console.log(e)
             navigate('/')
@@ -83,7 +84,22 @@ const Landing = () => {
                             }      
                         </div>
                         <br></br>
-                        <div className={lightMode ? 'L-Address-Container' : 'Address-Container'}>
+                        <div>
+                            <h3>Enter the name and symbol for your vending items</h3>
+                            <input
+                            className={lightMode ? 'L-Landing-Page-Input' : 'Landing-Page-Input'}
+                            name='name'
+                            placeholder='name'
+                            ></input>
+                            <br></br>
+                            <input
+                            className={lightMode ? 'L-Landing-Page-Input' : 'Landing-Page-Input'}
+                            name= 'symbol'
+                            placeholder='symbol'
+                            ></input>
+
+                        </div>
+                        {/* <div className={lightMode ? 'L-Address-Container' : 'Address-Container'}>
                             <h3 style={{marginBottom: "5px", marginTop: "5px"}}>Vending Item</h3>
                             <h1 
                             className={lightMode ? 'L-Address' : 'Address'}
@@ -103,7 +119,7 @@ const Landing = () => {
                             :
                             <h5 className= {lightMode ? 'L-Copied-Alert' : 'Copied-Alert'} style={{margin: 0}}></h5>
                             }
-                        </div>
+                        </div> */}
                         <br></br>
                         {enterLoading
                         ?
