@@ -228,6 +228,16 @@
     margin-left: auto;
     margin-right: auto;
   }
+
+  .L-Landing-Page-Input{
+    background-color: whitesmoke;
+    border: solid 1px #f54029;
+    border-radius: 5px;
+  }
+  
+  .L-Landing-Page-Input::placeholder {
+    color: #f54029
+  }
   
   
   .L-Copied-Alert{
@@ -254,6 +264,8 @@
     border-radius: 5px;
     margin-bottom: 1px;
   }
+
+
   
   /*Vending Machine*/
   

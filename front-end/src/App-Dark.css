@@ -230,6 +230,16 @@ body {
   margin-right: auto;
 }
 
+.Landing-Page-Input{
+  background-color: black;
+  border: solid 1px greenyellow;
+  border-radius: 5px;
+}
+
+.Landing-Page-Input::placeholder {
+  color: greenyellow
+}
+
 
 .Copied-Alert{
   height: 16px;
@@ -442,10 +452,10 @@ body {
 
 @keyframes DisplayLonger {
   from {
-    left: 120%;
+    left: 100%;
   }
   to {
-    left: -220%;
+    left: -500%;
   }
 }
 
@@ -676,10 +686,9 @@ body {
 
 .Image {
   margin-bottom: 5%;
-  margin-top: 5%;
   height: 100px;
   width: 100px;
-  border: solid greenyellow 5px;
+  border: solid greenyellow 3px;
   border-radius: 10px;
 }
 
