@@ -1,6 +1,6 @@
 import {useState, useContext} from 'react'
 import ConnectWallet from "../components/ConnectWallet"
-import {VendingTokenContract, VendingTokenAddress, VendingAddress } from "../ContractObjects"
+import {VendingFactoryContract, VendingTokenContract, VendingTokenAddress } from "../ContractObjects"
 import VendingContext from '../context/VendingContext'
 import { useNavigate } from "react-router-dom"
 import { connectionState } from '../context/VendingContext'
@@ -13,10 +13,12 @@ const Landing = () => {
     const {
         connectionStatus,
         lightMode,
-        setLightMode
+        setLightMode,
+        vendingAddress
     } = useContext(VendingContext)
 
     const [enterLoading, setEnterLoading] = useState<boolean>(false)
+    const [mintLoading, setMintLoading] = useState<boolean>(false)
 
     const [copyingTokenAddress, setCopyingTokenAddress] = useState<boolean>(false)
     const [copyingNFTAddress, setCopyingNFTAddress] = useState<boolean>(false)
@@ -24,10 +26,38 @@ const Landing = () => {
     const [tokenAddressHovered, setTokenAddressHovered] = useState<boolean>(false)
     const [nftAddressHovered, setNftAddressHovered] = useState<boolean>(false)
 
+    const [formData, setFormData] = useState({
+        name: "",
+        symbol: ""
+    })
+
+    const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+        setFormData(prevFormData => {
+            return{
+                ...prevFormData,
+                [e.target.name] : e.target.value
+            }
+
+
+        })
+    }
+
+    const create = async () => {
+        try{
+            const create = await VendingFactoryContract.createVending(VendingTokenAddress, formData.name, formData.symbol)
+            await create.wait()
+        }catch(e){
+            console.log(e)
+        }finally{
+            enter()
+        }
+    }
+
     const enter = async () => {
         setEnterLoading(true)
         try{
-            const mint = await VendingTokenContract.mintGL(10000)
+            const mint = await VendingTokenContract.mintVendingToken(10000)
+           
             await mint.wait()
             
         }catch(e){
@@ -61,10 +91,11 @@ const Landing = () => {
         
         }else if(connectionStatus === connectionState.CONNECTED){
 
-            return   <div className={lightMode ? 'L-Landing-Inner' : 'Landing-Inner'}>
-                        <h3 style={{marginTop: 0}}>Add these addressess in your wallet and click enter to mint some tokens and use the vending machine</h3>
+            return  <div className={lightMode ? 'L-Landing-Inner' : 'Landing-Inner'}>
+                    <div className={lightMode ? 'L-Landing-Inner-Container' : 'Landing-Inner-Container'}>
+                        <h3 style={{marginTop: "5px"}}>Add the Vending Token Address to your Wallet and click Mint</h3>
                         <div className={lightMode ? 'L-Address-Container' : 'Address-Container'}>
-                            <h3 style={{marginBottom: "5px", marginTop: "5px"}}>Vending Token</h3>   
+                            <h3 style={{marginBottom: "0", marginTop: "0"}}>Vending Token</h3>   
                             <h1 
                             className={lightMode ? 'L-Address' : 'Address'} 
                             onClick={() => copyTokenAddress()}
@@ -83,19 +114,44 @@ const Landing = () => {
                             <h5 className= {lightMode ? 'L-Copied-Alert' : 'Copied-Alert'} style={{margin: 0}}></h5>
                             }      
                         </div>
+                        
+                        {mintLoading
+                        ?
+                        <button 
+                        className={lightMode ? "L-Enter" : 'Enter'}
+                        style={{marginTop: "10px"}}
+                        onClick={enter}
+                        ><div className="Loader" style={{marginLeft: "auto", marginRight: "auto"}}></div>
+                        </button>
+                        :
+                        <button 
+                        className={lightMode ? "L-Enter" : 'Enter'}
+                        style={{marginTop: "10px"}}
+                        onClick={create}
+                        >MINT
+                        </button>
+                        }
+                    </div>    
                         <br></br>
+
+                    <div className={lightMode ? 'L-Landing-Inner-Container' : 'Landing-Inner-Container'}>    
                         <div>
-                            <h3>Enter the name and symbol for your vending items</h3>
+                            <h3 style={{marginTop: "5px"}}>Enter the name and symbol for your vending items and click enter to launch an NFT contract and begin vending</h3>
                             <input
                             className={lightMode ? 'L-Landing-Page-Input' : 'Landing-Page-Input'}
                             name='name'
+                            onChange={handleChange}
                             placeholder='name'
+                            autoComplete='off'
                             ></input>
                             <br></br>
+
                             <input
                             className={lightMode ? 'L-Landing-Page-Input' : 'Landing-Page-Input'}
                             name= 'symbol'
+                            onChange={handleChange}
                             placeholder='symbol'
+                            autoComplete='off'
                             ></input>
 
                         </div>
@@ -131,11 +187,13 @@ const Landing = () => {
                         :
                         <button 
                         className={lightMode ? "L-Enter" : 'Enter'}
-                        onClick={enter}
+                        onClick={create}
                         >ENTER
                         </button>
                         }
                     </div>
+                </div>
+                    
         }
         
         
@@ -153,7 +211,7 @@ const Landing = () => {
     const copyNFTAddress = () => {
         setNftAddressHovered(false)
         setCopyingNFTAddress(true)
-        navigator.clipboard.writeText(VendingAddress)
+        navigator.clipboard.writeText(vendingAddress)
         setTimeout(() => setCopyingNFTAddress(false), 1000)
     }
 
@@ -172,7 +230,7 @@ const Landing = () => {
             }>
 
 
-            <h1 className='L-Landing-Display-Text'>Welcome to my Vending machine</h1>
+            <h1 className='L-Landing-Display-Text'>Welcome to the NFT Vending machine</h1>
         </div>
         :
         <div className={connectionStatus === connectionState.UNCONNECTED || connectionStatus === connectionState.NO_WALLET
@@ -183,7 +241,7 @@ const Landing = () => {
             }>
 
 
-            <h1 className='Landing-Display-Text'>Welcome to my Vending machine</h1>
+            <h1 className='Landing-Display-Text'>Welcome to the NFT Vending machine</h1>
         </div>
         }
         {connected()}
