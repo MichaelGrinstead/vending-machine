@@ -1,4 +1,4 @@
-import {useContext, useEffect} from 'react'
+import {useContext, useEffect, useState} from 'react'
 import Interface from '../components/Interface'
 import InterfaceSmall from '../components/InterfaceSmall'
 import Items from '../components/Items'
@@ -15,8 +15,26 @@ const Vending = () => {
     showItems, 
     setShowItems, 
     loadPurchased, 
-    remainingDeposit
+    remainingDeposit,
+    vendingAddress,
+    createVendingContractInstance,
+    getVendingContractAddress
   } = useContext(VendingContext)
+
+  const [name, setName] = useState<string>("")
+  const [symbol, setSymbol] = useState<string>("")
+
+  const getName = async () => {
+    const contract = createVendingContractInstance(vendingAddress)
+    const name = await contract.name()
+    setName(name)
+  }
+
+  const getSymbol = async () => {
+    const contract = createVendingContractInstance(vendingAddress)
+    const symbol = await contract.symbol()
+    setSymbol(symbol)
+  }  
 
   useEffect(() => {
     if(window.ethereum){
@@ -24,7 +42,13 @@ const Vending = () => {
         window.location.reload();
       })
     }
+    getVendingContractAddress()
   },[])
+
+  useEffect(() => {
+    getName()
+    getSymbol()
+  },[vendingAddress])
 
   return (
     <div className={lightMode ? 'L-Vending' : 'Vending'}>
@@ -80,6 +104,14 @@ const Vending = () => {
               }
               
             </div>
+          </div>
+          <div
+          className={lightMode ? 'L-Contract-Information' : 'Contract-Information'}>
+
+            <h3>Contract Address: {vendingAddress}</h3>
+            <h3>Token Name: {name}</h3>
+            <h3>Token Symbol: {symbol}</h3>
+
           </div>
           <Interface/>
           {lightMode
