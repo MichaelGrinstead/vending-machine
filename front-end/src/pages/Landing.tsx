@@ -42,19 +42,22 @@ const Landing = () => {
         })
     }
 
-    const create = async () => {
+    const enter = async () => {
+        setEnterLoading(true)
         try{
             const create = await VendingFactoryContract.createVending(VendingTokenAddress, formData.name, formData.symbol)
             await create.wait()
+            
         }catch(e){
             console.log(e)
         }finally{
-            enter()
+            setEnterLoading(false)
+            navigate("/Vending")
         }
     }
 
-    const enter = async () => {
-        setEnterLoading(true)
+    const mint = async () => {
+        setMintLoading(true)
         try{
             const mint = await VendingTokenContract.mintVendingToken(10000)
            
@@ -64,8 +67,8 @@ const Landing = () => {
             console.log(e)
             navigate('/')
         }finally{
-            navigate("/Vending")
-            setEnterLoading(false)
+            setMintLoading(false)
+            
         }
     }
 
@@ -120,14 +123,13 @@ const Landing = () => {
                         <button 
                         className={lightMode ? "L-Enter" : 'Enter'}
                         style={{marginTop: "10px"}}
-                        onClick={enter}
                         ><div className="Loader" style={{marginLeft: "auto", marginRight: "auto"}}></div>
                         </button>
                         :
                         <button 
                         className={lightMode ? "L-Enter" : 'Enter'}
                         style={{marginTop: "10px"}}
-                        onClick={create}
+                        onClick={mint}
                         >MINT
                         </button>
                         }
@@ -155,39 +157,17 @@ const Landing = () => {
                             ></input>
 
                         </div>
-                        {/* <div className={lightMode ? 'L-Address-Container' : 'Address-Container'}>
-                            <h3 style={{marginBottom: "5px", marginTop: "5px"}}>Vending Item</h3>
-                            <h1 
-                            className={lightMode ? 'L-Address' : 'Address'}
-                            onClick={() => copyNFTAddress()}
-                            onMouseOver={() => setNftAddressHovered(true)}
-                            onMouseOut={() => setNftAddressHovered(false)}
-                            >{VendingAddress}
-                            </h1>
-                            {nftAddressHovered
-                            ?  
-                            <h5 
-                            className={lightMode ? 'L-Copied-Alert' : 'Copied-Alert'}>Copy to clipboard</h5> 
-                            :
-                            copyingNFTAddress
-                            ?
-                            <h5 className={lightMode ? 'L-Copied-Alert' : 'Copied-Alert'} style={{width: "70px"}}>Copied!</h5> 
-                            :
-                            <h5 className= {lightMode ? 'L-Copied-Alert' : 'Copied-Alert'} style={{margin: 0}}></h5>
-                            }
-                        </div> */}
                         <br></br>
                         {enterLoading
                         ?
                         <button 
                         className={lightMode ? "L-Enter" : 'Enter'}
-                        onClick={enter}
                         ><div className="Loader" style={{marginLeft: "auto", marginRight: "auto"}}></div>
                         </button>
                         :
                         <button 
                         className={lightMode ? "L-Enter" : 'Enter'}
-                        onClick={create}
+                        onClick={enter}
                         >ENTER
                         </button>
                         }
@@ -206,13 +186,6 @@ const Landing = () => {
         setCopyingTokenAddress(true)
         navigator.clipboard.writeText(VendingTokenAddress)
         setTimeout(() => setCopyingTokenAddress(false), 1000)
-    }
-
-    const copyNFTAddress = () => {
-        setNftAddressHovered(false)
-        setCopyingNFTAddress(true)
-        navigator.clipboard.writeText(vendingAddress)
-        setTimeout(() => setCopyingNFTAddress(false), 1000)
     }
 
     console.log(connectionStatus)
