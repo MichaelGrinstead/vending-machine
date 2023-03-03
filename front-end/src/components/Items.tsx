@@ -1,6 +1,6 @@
 import {useContext, useState, useEffect} from 'react'
 import VendingContext from '../context/VendingContext'
-import { VendingContract } from '../ContractObjects'
+import { VendingFactoryContract, signer } from '../ContractObjects'
 import {create} from 'ipfs-http-client'
 import {Buffer} from 'buffer'
 
@@ -9,9 +9,23 @@ const SECRET = process.env.REACT_APP_INFURA_PROJECT_SECRET
 
 const Items = () => {
 
-    const {currentItemSelected, setCurrentItemSelected, lightMode} = useContext(VendingContext)
+    const {currentItemSelected,
+       setCurrentItemSelected,
+        lightMode,
+        setVendingAddress,
+        vendingAddress,
+        createVendingContractInstance
+      } = useContext(VendingContext)
 
     const [CIDS, setCIDS] = useState<any[]>([])
+
+    const getVendingContractAddress = async () => {
+      const owner = await signer.getAddress()
+      const address = await VendingFactoryContract.ownerToVendingContract(owner)
+      setVendingAddress(address)
+    }
+  
+    const VendingContract = createVendingContractInstance(vendingAddress)
 
     
     const auth = 'Basic ' + Buffer.from(ID + ':' + SECRET).toString('base64');
@@ -56,6 +70,7 @@ const Items = () => {
 
   useEffect(() => {
     fetchItems()
+    getVendingContractAddress()
   }, [])
 
   

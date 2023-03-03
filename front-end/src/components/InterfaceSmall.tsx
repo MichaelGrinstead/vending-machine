@@ -1,6 +1,6 @@
 import { ethers, utils } from 'ethers'
 import {useEffect, useState, useContext} from 'react'
-import {VendingContract, VendingTokenContract, VendingAddress, signer} from '../ContractObjects'
+import {VendingFactoryContract, VendingTokenContract, signer} from '../ContractObjects'
 import VendingContext from '../context/VendingContext'
 
 const InterfaceSmall = () => {
@@ -8,7 +8,10 @@ const InterfaceSmall = () => {
   const {
     currentItemSelected, 
     setCurrentItemSelected,
-    lightMode
+    lightMode,
+    vendingAddress,
+    setVendingAddress,
+    createVendingContractInstance
   } = useContext(VendingContext)
 
   
@@ -32,10 +35,18 @@ const InterfaceSmall = () => {
   const [itemSelected, setItemSelected] = useState<boolean>(false)
   const [remainingDeposit, setRemainingDeposit] = useState<string>("")
 
+  const getVendingContractAddress = async () => {
+    const owner = await signer.getAddress()
+    const address = await VendingFactoryContract.ownerToVendingContract(owner)
+    setVendingAddress(address)
+  }
+
+  const VendingContract = createVendingContractInstance(vendingAddress)
+
 
   const makeDeposit = async () => {
     try{
-      const approval = await VendingTokenContract.approve(VendingAddress, depositValue)
+      const approval = await VendingTokenContract.approve(vendingAddress, depositValue)
       await approval.wait()
     }catch(e){
       console.log(e)
@@ -48,7 +59,7 @@ const InterfaceSmall = () => {
   }
 
   const getRemainingDeposit = async () => {
-    const changeNumber = await VendingTokenContract.allowance(signer.getAddress(), VendingAddress)
+    const changeNumber = await VendingTokenContract.allowance(signer.getAddress(), vendingAddress)
     const changeFormatted = changeNumber/100
     const changeFinal = changeFormatted.toFixed(2)
     setRemainingDeposit(changeFinal)
@@ -83,7 +94,7 @@ const InterfaceSmall = () => {
     setInputDepositDisplay("00.00")
     setDepositString("")
     setItemSelected(false)
-    await VendingTokenContract.approve(VendingAddress, 0)
+    await VendingTokenContract.approve(vendingAddress, 0)
   }
 
   const clearPaymentDisplay = () => {

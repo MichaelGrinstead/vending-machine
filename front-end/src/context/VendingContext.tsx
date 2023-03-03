@@ -1,5 +1,7 @@
 import React, {createContext, useState, ReactNode} from 'react'
-import { VendingContract, signer } from '../ContractObjects'
+import {signer, VendingFactoryContract } from '../ContractObjects'
+import VendingABI from '../ABIs/VendingABI'
+import {ethers} from 'ethers'
 
 export const enum connectionState {
   UNCONNECTED,
@@ -9,6 +11,10 @@ export const enum connectionState {
 }
 
 interface VendingContextInterface {
+    createVendingContractInstance : (address: string) => ethers.Contract
+    getVendingContractAddress : () => Promise<void>
+    vendingAddress : string
+    setVendingAddress : React.Dispatch<React.SetStateAction<string>>
     currentItemSelected : string
     setCurrentItemSelected : React.Dispatch<React.SetStateAction<string>>
     connectionStatus : connectionState
@@ -26,11 +32,14 @@ interface VendingContextInterface {
     remainingDeposit : string
     setRemainingDeposit : React.Dispatch<React.SetStateAction<string>>
     retrieveImages : () => Promise<void>
+    tokenIds : any[] 
 }
 
 const VendingContext = createContext<VendingContextInterface>({} as VendingContextInterface)
 
 export const VendingProvider  = ({children} : {children : ReactNode}) => {
+
+  const [vendingAddress, setVendingAddress] = useState<string>("")
 
   const [lightMode, setLightMode] = useState<boolean>(false)
 
@@ -46,27 +55,45 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
 
   const [images, setImages] = useState<any>([])
 
+  const [tokenIds, setTokenIds] = useState<any[]>([])
+
   const [remainingDeposit, setRemainingDeposit] = useState<string>("")
+
+  const createVendingContractInstance = (address : string) => {
+    const Contract = new ethers.Contract(address, VendingABI, signer)
+    return Contract
+  }
+
+  const getVendingContractAddress = async () => {
+    const owner = await signer.getAddress()
+    const address = await VendingFactoryContract.ownerToVendingContract(owner)
+    setVendingAddress(address)
+
+  }
 
   const getImages = () => {
   const _images = []
     for(let i = 0; i < URIs.length; i++){
-      _images.push(<img className={lightMode ? 'L-Image' : 'Image'} src={URIs[i]}></img>)
+      _images.push(<img className={lightMode ? 'L-Image' : 'Image'} style={{border: "none"}} src={URIs[i]}></img>)
     } 
     setImages(_images)
   }
 
   const retrieveImages = async () => {
+    const contract = createVendingContractInstance(vendingAddress)
     const user = await signer.getAddress()
-    const ids = await VendingContract.fetchIds(user)
+    const ids = await contract.fetchIds(user)
+    setTokenIds(ids)
     const URIArray : any[] = []
     ids.map( async (id : any) => {
-      const uri = await VendingContract.tokenIdToURI(id)
+      const uri = await contract.tokenIdToURI(id)
       URIArray.push(uri)
     })
     setURIs(URIArray)
     
   }
+
+  console.log(tokenIds)
 
   const loadPurchased = () => {
     setImagesLoading(true)
@@ -84,6 +111,8 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
   return(
     <VendingContext.Provider
     value={{
+        createVendingContractInstance,
+        getVendingContractAddress,
         currentItemSelected, 
         setCurrentItemSelected,
         connectionStatus,
@@ -100,7 +129,10 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
         setShowItems,
         remainingDeposit,
         setRemainingDeposit,
-        retrieveImages
+        retrieveImages,
+        tokenIds,
+        vendingAddress,
+        setVendingAddress
       }}
       >
         {children}

@@ -1,5 +1,5 @@
 import {useEffect, useState, useContext} from 'react'
-import {VendingContract, VendingTokenContract, VendingAddress, signer} from '../ContractObjects'
+import {VendingTokenContract, signer, VendingFactoryContract} from '../ContractObjects'
 import VendingContext from '../context/VendingContext'
 
 const Interface = () => {
@@ -10,7 +10,10 @@ const Interface = () => {
     lightMode,
     remainingDeposit,
     setRemainingDeposit,
-    retrieveImages
+    retrieveImages,
+    createVendingContractInstance,
+    vendingAddress,
+    getVendingContractAddress
   } = useContext(VendingContext)
 
   
@@ -32,12 +35,17 @@ const Interface = () => {
   const [depositDisplay, setDepositDisplay] = useState<string>("")
   const [purchaseStatus, setPurchaseStatus] = useState<status>(status.ENTERING_DEPOSIT)
   const [itemSelected, setItemSelected] = useState<boolean>(false)
-  
 
+ 
 
+  const VendingContract = createVendingContractInstance(vendingAddress)
+
+  console.log(VendingContract)
+  console.log(vendingAddress
+    )
   const makeDeposit = async () => {
     try{
-      const approval = await VendingTokenContract.approve(VendingAddress, depositValue)
+      const approval = await VendingTokenContract.approve(vendingAddress, depositValue)
       await approval.wait()
     }catch(e){
       console.log(e)
@@ -51,7 +59,7 @@ const Interface = () => {
   }
 
   const getRemainingDeposit = async () => {
-    const changeNumber = await VendingTokenContract.allowance(signer.getAddress(), VendingAddress)
+    const changeNumber = await VendingTokenContract.allowance(signer.getAddress(), vendingAddress)
     if(changeNumber > 200){
       setPurchaseStatus(status.SELECTING_ITEM)
     }
@@ -90,7 +98,7 @@ const Interface = () => {
     setInputDepositDisplay("00.00")
     setDepositString("")
     setItemSelected(false)
-    await VendingTokenContract.approve(VendingAddress, 0)
+    await VendingTokenContract.approve(vendingAddress, 0)
   }
 
   const clearPaymentDisplay = () => {
@@ -151,9 +159,9 @@ const Interface = () => {
     }else if(purchaseStatus === status.SELECTING_ITEM){
       return <h3 className={lightMode ? 'L-Selection-Text-Moving-Longer' : 'Selection-Text-Moving-Longer'}>Please make your selection or press clear to end</h3>
     }else if(purchaseStatus === status.ITEM_SELECTED){
-      return <h3 className={lightMode ? 'L-Selection-Text-Moving' : 'Selection-Text-Moving'}>You have selected item {currentItemSelected}</h3> 
+      return <h3 className={lightMode ? 'L-Selection-Text-Moving' : 'Selection-Text-Moving'} style={{width: '400px'}} >You have selected item {currentItemSelected}</h3> 
     }else if(purchaseStatus === status.DISPLAYING_COST){
-      return <h3 className={lightMode ? 'L-Selection-Text-Moving-Longer' : 'Selection-Text-Moving-Longer'}>The cost is ${cost}&nbsp;&nbsp;&nbsp;Press enter to confirm</h3>
+      return <h3 className={lightMode ? 'L-Selection-Text-Moving-Longer' : 'Selection-Text-Moving-Longer'} style={{width: '900px'}}>The cost is ${cost}&nbsp;&nbsp;&nbsp;Press enter to confirm or clear to cancel</h3>
     }else if(purchaseStatus === status.DISPLAYING_REMAINING_DEPOSIT){
       return <h3 className={lightMode ? 'L-Selection-Text-Moving' : 'Selection-Text-Moving'}>You have ${remainingDeposit} remaining</h3>
     }
@@ -229,6 +237,7 @@ const Interface = () => {
 
   useEffect(() => {
     getRemainingDeposit()
+    getVendingContractAddress()
   }, [])
 
   useEffect(() => {
