@@ -194,7 +194,8 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border: solid greenyellow 5px;
+  border: solid 5px;
+  border-color: greenyellow;
   border-radius: 40px;
   margin-left: auto;
   margin-right: auto;
@@ -214,6 +215,15 @@ body {
   color: black;
 }
 
+.Landing-Inner:hover input {
+  background-color: black;
+  border-color: greenyellow;
+}
+
+.Landing-Inner:hover input::placeholder {
+  color: greenyellow;
+}
+
 .Address-Container {
   display: flex;
   flex-direction: column;
@@ -231,14 +241,19 @@ body {
 }
 
 .Landing-Page-Input{
-  background-color: black;
-  border: solid 1px greenyellow;
+  background-color: greenyellow;
+  color: black;
+  border: solid 1px;
+  border-color: inherit;
   border-radius: 5px;
 }
 
 .Landing-Page-Input::placeholder {
-  color: greenyellow
+  color: black;
+  font-weight: bolder;
 }
+
+
 
 
 .Copied-Alert{
@@ -298,6 +313,25 @@ body {
   padding-top: 5%;
   border: solid greenyellow 5px;
  
+}
+
+.Contract-Information {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: solid 2px greenyellow;
+  color: greenyellow;
+  background-color: black;
+  width: 400px;
+  height: 50px;
+  font-size: 10px;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.Contract-Information h3 {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 /*Interface*/
