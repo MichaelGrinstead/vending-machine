@@ -3,10 +3,11 @@
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "./VendingToken.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 pragma solidity 0.8.19;
 
-contract Vending is ERC721 {
+contract Vending is ERC721, Ownable {
     using Strings for uint256;
 
     VendingToken token;
@@ -15,9 +16,11 @@ contract Vending is ERC721 {
 
     mapping(uint => string) public tokenIdToURI;
     mapping(uint => string) public itemNumberToCID;
+    mapping(uint => uint) public itemNumberToPrice;
 
     constructor(address _VendingTokenAddress, string memory _name, string memory _symbol) ERC721(_name, _symbol) {
         token = VendingToken(_VendingTokenAddress);
+
     }
 
     function fetchIds(address _owner) view external returns(uint[] memory){
@@ -32,25 +35,22 @@ contract Vending is ERC721 {
         return ids;
     }
 
-    function addCID(uint _itemNumber, string memory _CID) external {
+    function addCID(uint _itemNumber, string memory _CID) external onlyOwner {
         itemNumberToCID[_itemNumber] = _CID;
     }
 
+    function setPrice(uint _itemNumber, uint _price) external onlyOwner {
+        itemNumberToPrice[_itemNumber] = _price;
+    }
 
-    function purchase(address _to, uint _itemNumber, uint _amount) external {
+
+    function purchase(address _to, uint _itemNumber) external {
         require(_itemNumber <= 12 && _itemNumber > 0);
+        uint price = itemNumberToPrice[_itemNumber];
 
-        (bool success) = token.transferFrom(msg.sender, payable(address(this)), _amount);
+        (bool success) = token.transferFrom(msg.sender, payable(address(this)), price);
         require(success);
 
-        if(_itemNumber >= 1 && _itemNumber <= 4){
-            require(_amount >= 200);
-        }else if(_itemNumber >= 5 && _itemNumber <= 8) {
-            require(_amount >= 400);
-        }else if(_itemNumber >= 9 && _itemNumber <= 12){
-            require(_amount >= 600);
-            
-        }
         _safeMint(_to, tokenId);
         string memory uri = tokenURI(_itemNumber);
         tokenIdToURI[tokenId] = uri;
