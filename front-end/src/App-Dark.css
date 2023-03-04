@@ -682,7 +682,45 @@ body {
   left: 2px;
 }
 
+.Update-Price {
+  border: solid greenyellow 3px;
+  background-color: black;
+  color: greenyellow;
+  border-radius: 100px;
+  height: 20px;
+  width: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  padding: 2px 3px 4px 2px;
+  float: right;
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  cursor: pointer;
+}
+
+.Update-Price:hover {
+  background-color: greenyellow;
+  color: black;
+}
+
 .Item-Price{
+  border: solid greenyellow 3px;
+  background-color: black;
+  color: greenyellow;
+  border-radius: 100px;
+  height: 22px;
+  width: 60px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  padding: 2px;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.Price-Input {
   border: solid greenyellow 3px;
   background-color: black;
   color: greenyellow;
