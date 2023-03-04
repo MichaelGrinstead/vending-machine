@@ -10,12 +10,20 @@ const Landing = () => {
 
     const navigate = useNavigate()
 
+/*****************************************************************************************************
+ ****************************************Context****************************************************** 
+******************************************************************************************************/    
+
     const {
         connectionStatus,
         lightMode,
         setLightMode,
         vendingAddress
     } = useContext(VendingContext)
+
+/*****************************************************************************************************
+ *****************************************State******************************************************* 
+******************************************************************************************************/       
 
     const [enterLoading, setEnterLoading] = useState<boolean>(false)
     const [mintLoading, setMintLoading] = useState<boolean>(false)
@@ -25,6 +33,10 @@ const Landing = () => {
 
     const [tokenAddressHovered, setTokenAddressHovered] = useState<boolean>(false)
     const [nftAddressHovered, setNftAddressHovered] = useState<boolean>(false)
+
+    const[mintTokens, setMintTokens] = useState<boolean>(false)
+    const[createNFT, setCreateNFT] = useState<boolean>(false)
+    const[search, setSearch] = useState<boolean>(false)
 
     const [formData, setFormData] = useState({
         name: "",
@@ -95,84 +107,163 @@ const Landing = () => {
         }else if(connectionStatus === connectionState.CONNECTED){
 
             return  <div className={lightMode ? 'L-Landing-Inner' : 'Landing-Inner'}>
-                    <div className={lightMode ? 'L-Landing-Inner-Container' : 'Landing-Inner-Container'}>
-                        <h3 style={{marginTop: "5px"}}>Add the Vending Token Address to your Wallet and click Mint</h3>
-                        <div className={lightMode ? 'L-Address-Container' : 'Address-Container'}>
-                            <h3 style={{marginBottom: "0", marginTop: "0"}}>Vending Token</h3>   
-                            <h1 
-                            className={lightMode ? 'L-Address' : 'Address'} 
-                            onClick={() => copyTokenAddress()}
-                            onMouseOver={() => setTokenAddressHovered(true)}
-                            onMouseOut={() => setTokenAddressHovered(false)}
-                            >{VendingTokenAddress}
-                            </h1>
-                            {tokenAddressHovered
-                            ?  
-                            <h5 className={lightMode ? 'L-Copied-Alert' : 'Copied-Alert'}>Copy to clipboard</h5> 
-                            :
-                            copyingTokenAddress
+                        <div style={{width: "30%"}}>
+                            {mintTokens
                             ?
-                            <h5 className={lightMode ? 'L-Copied-Alert' : 'Copied-Alert'} style={{width: "70px"}}>Copied!</h5> 
+                            <></>
                             :
-                            <h5 className= {lightMode ? 'L-Copied-Alert' : 'Copied-Alert'} style={{margin: 0}}></h5>
-                            }      
+                            <button 
+                            className={lightMode ? "L-Mint-Tokens" : 'Mint-Tokens'}
+                            onClick= {() => setMintTokens(!mintTokens)}
+                            >Mint $Tokens
+                            </button>
+                            }
+                            {mintTokens 
+                            ?
+                                <div className={lightMode ? 'L-Landing-Inner-Container-Left' : 'Landing-Inner-Container-Left'}>
+                                <h3 onClick={() => setMintTokens(!mintTokens)}>X</h3>
+                                <h3 style={{marginTop: "5px"}}>Add the Vending Token Address to your Wallet and click Mint</h3>
+                                <div className={lightMode ? 'L-Address-Container' : 'Address-Container'}>
+                                    <h3 style={{marginBottom: "0", marginTop: "0"}}>Vending Token</h3>   
+                                    <h1 
+                                    className={lightMode ? 'L-Address' : 'Address'} 
+                                    onClick={() => copyTokenAddress()}
+                                    onMouseOver={() => setTokenAddressHovered(true)}
+                                    onMouseOut={() => setTokenAddressHovered(false)}
+                                    >{VendingTokenAddress}
+                                    </h1>
+                                    {tokenAddressHovered
+                                    ?  
+                                    <h5 className={lightMode ? 'L-Copied-Alert' : 'Copied-Alert'}>Copy to clipboard</h5> 
+                                    :
+                                    copyingTokenAddress
+                                    ?
+                                    <h5 className={lightMode ? 'L-Copied-Alert' : 'Copied-Alert'} style={{width: "70px"}}>Copied!</h5> 
+                                    :
+                                    <h5 className= {lightMode ? 'L-Copied-Alert' : 'Copied-Alert'} style={{margin: 0}}></h5>
+                                    }      
+                                </div>
+                                
+                                {mintLoading
+                                ?
+                                <button 
+                                className={lightMode ? "L-Enter" : 'Enter'}
+                                style={{marginTop: "10px"}}
+                                ><div className="Loader" style={{marginLeft: "auto", marginRight: "auto"}}></div>
+                                </button>
+                                :
+                                <button 
+                                className={lightMode ? "L-Enter" : 'Enter'}
+                                style={{marginTop: "10px"}}
+                                onClick={mint}
+                                >MINT
+                                </button>
+                                }
+                            </div>
+                            :
+                            <></>
+                            }    
                         </div>
-                        
-                        {mintLoading
-                        ?
-                        <button 
-                        className={lightMode ? "L-Enter" : 'Enter'}
-                        style={{marginTop: "10px"}}
-                        ><div className="Loader" style={{marginLeft: "auto", marginRight: "auto"}}></div>
-                        </button>
-                        :
-                        <button 
-                        className={lightMode ? "L-Enter" : 'Enter'}
-                        style={{marginTop: "10px"}}
-                        onClick={mint}
-                        >MINT
-                        </button>
-                        }
-                    </div>    
-                        <br></br>
 
-                    <div className={lightMode ? 'L-Landing-Inner-Container' : 'Landing-Inner-Container'}>    
-                        <div>
-                            <h3 style={{marginTop: "5px"}}>Enter the name and symbol for your vending items and click enter to launch an NFT contract and begin vending</h3>
-                            <input
-                            className={lightMode ? 'L-Landing-Page-Input' : 'Landing-Page-Input'}
-                            name='name'
-                            onChange={handleChange}
-                            placeholder='name'
-                            autoComplete='off'
-                            ></input>
-                            <br></br>
+                        <div style={{width: "30%"}}>
+                            {createNFT
+                            ?
+                            <></>
+                            :
+                            <button 
+                            className={lightMode ? "L-Create-NFT" : 'Create-NFT'}
+                            onClick= {() => setCreateNFT(!createNFT)}
+                            >Create NFT Contract
+                            </button>
+                            }   
+                            {createNFT
+                            ?
+                            <div className={lightMode ? 'L-Landing-Inner-Container-Middle' : 'Landing-Inner-Container-Middle'}>    
+                                <div>
+                                    <h3 onClick={() => setCreateNFT(!createNFT)}>X</h3>
+                                    <h3 style={{marginTop: "5px"}}>Enter the name and symbol for your vending items and click enter to launch an NFT contract and begin vending</h3>
+                                    <input
+                                    className={lightMode ? 'L-Landing-Page-Input' : 'Landing-Page-Input'}
+                                    name='name'
+                                    onChange={handleChange}
+                                    placeholder='name'
+                                    autoComplete='off'
+                                    ></input>
+                                    <br></br>
 
-                            <input
-                            className={lightMode ? 'L-Landing-Page-Input' : 'Landing-Page-Input'}
-                            name= 'symbol'
-                            onChange={handleChange}
-                            placeholder='symbol'
-                            autoComplete='off'
-                            ></input>
+                                    <input
+                                    className={lightMode ? 'L-Landing-Page-Input' : 'Landing-Page-Input'}
+                                    name= 'symbol'
+                                    onChange={handleChange}
+                                    placeholder='symbol'
+                                    autoComplete='off'
+                                    ></input>
 
+                                </div>
+                                <br></br>
+                                {enterLoading
+                                ?
+                                <button 
+                                className={lightMode ? "L-Enter" : 'Enter'}
+                                ><div className="Loader" style={{marginLeft: "auto", marginRight: "auto"}}></div>
+                                </button>
+                                :
+                                <button 
+                                className={lightMode ? "L-Enter" : 'Enter'}
+                                onClick={enter}
+                                >ENTER
+                                </button>
+                                }
+                            </div>
+                            :
+                            <></>
+                            }
                         </div>
-                        <br></br>
-                        {enterLoading
-                        ?
-                        <button 
-                        className={lightMode ? "L-Enter" : 'Enter'}
-                        ><div className="Loader" style={{marginLeft: "auto", marginRight: "auto"}}></div>
-                        </button>
-                        :
-                        <button 
-                        className={lightMode ? "L-Enter" : 'Enter'}
-                        onClick={enter}
-                        >ENTER
-                        </button>
-                        }
+
+                        <div style={{width: "30%"}}>
+                            {search
+                            ?
+                            <></>
+                            :
+                            <button 
+                            className={lightMode ? "L-Search-Collection" : 'Search-Collection'}
+                            onClick= {() => setSearch(!search)}
+                            >Search Collection
+                            </button>
+                            }
+                            {search
+                            ?
+                            <div className={lightMode ? 'L-Landing-Inner-Container-Right' : 'Landing-Inner-Container-Right'}>    
+                              
+                                <h3 onClick={() => setSearch(!search)}>X</h3>
+                                <h3 style={{marginTop: "5px"}}>Search for Collection by Token name</h3>
+                                        
+                                <input 
+                                className={lightMode ? 'L-Landing-Page-Input' : 'Landing-Page-Input'}
+                                placeholder='name'
+                                ></input>
+                                
+                                <br></br>
+                                <br></br>
+                                {enterLoading
+                                ?
+                                <button 
+                                className={lightMode ? "L-Enter" : 'Enter'}
+                                ><div className="Loader" style={{marginLeft: "auto", marginRight: "auto"}}></div>
+                                </button>
+                                :
+                                <button 
+                                className={lightMode ? "L-Enter" : 'Enter'}
+                                onClick={enter}
+                                >SEARCH
+                                </button>
+                                }
+                            </div>
+                            :
+                            <></>
+                            }
+                        </div>
                     </div>
-                </div>
                     
         }
         
@@ -217,6 +308,9 @@ const Landing = () => {
             <h1 className='Landing-Display-Text'>Welcome to the NFT Vending machine</h1>
         </div>
         }
+        
+        
+        
         {connected()}
 
         {lightMode
