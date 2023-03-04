@@ -279,10 +279,11 @@ body {
   color: greenyellow;
   background-color: black;
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
-
+  font-size: 16px;
 }
 
 .Landing-Inner-Container-Left {
+  text-align: center;
   border: solid 5px greenyellow;
   border-radius: 40px;
   padding: 10px;
@@ -333,6 +334,13 @@ body {
 
 .Landing-Inner-Container-Middle:hover input::placeholder {
   color: black;
+}
+
+.Exit-X {
+  width: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
 }
 
 .Address-Container {

@@ -121,17 +121,18 @@ const Landing = () => {
                             {mintTokens 
                             ?
                                 <div className={lightMode ? 'L-Landing-Inner-Container-Left' : 'Landing-Inner-Container-Left'}>
-                                <h3 onClick={() => setMintTokens(!mintTokens)}>X</h3>
+                                <h3 className='Exit-X' onClick={() => setMintTokens(!mintTokens)}>X</h3>
                                 <h3 style={{marginTop: "5px"}}>Add the Vending Token Address to your Wallet and click Mint</h3>
                                 <div className={lightMode ? 'L-Address-Container' : 'Address-Container'}>
                                     <h3 style={{marginBottom: "0", marginTop: "0"}}>Vending Token</h3>   
-                                    <h1 
+                                    <h3 
                                     className={lightMode ? 'L-Address' : 'Address'} 
                                     onClick={() => copyTokenAddress()}
+                                    style={{fontSize: "15px", width: "90%"}}
                                     onMouseOver={() => setTokenAddressHovered(true)}
                                     onMouseOut={() => setTokenAddressHovered(false)}
                                     >{VendingTokenAddress}
-                                    </h1>
+                                    </h3>
                                     {tokenAddressHovered
                                     ?  
                                     <h5 className={lightMode ? 'L-Copied-Alert' : 'Copied-Alert'}>Copy to clipboard</h5> 
@@ -180,7 +181,7 @@ const Landing = () => {
                             ?
                             <div className={lightMode ? 'L-Landing-Inner-Container-Middle' : 'Landing-Inner-Container-Middle'}>    
                                 <div>
-                                    <h3 onClick={() => setCreateNFT(!createNFT)}>X</h3>
+                                    <h3 className='Exit-X' onClick={() => setCreateNFT(!createNFT)}>X</h3>
                                     <h3 style={{marginTop: "5px"}}>Enter the name and symbol for your vending items and click enter to launch an NFT contract and begin vending</h3>
                                     <input
                                     className={lightMode ? 'L-Landing-Page-Input' : 'Landing-Page-Input'}
@@ -235,7 +236,7 @@ const Landing = () => {
                             ?
                             <div className={lightMode ? 'L-Landing-Inner-Container-Right' : 'Landing-Inner-Container-Right'}>    
                               
-                                <h3 onClick={() => setSearch(!search)}>X</h3>
+                                <h3 className='Exit-X' onClick={() => setSearch(!search)}>X</h3>
                                 <h3 style={{marginTop: "5px"}}>Search for Collection by Token name</h3>
                                         
                                 <input 
