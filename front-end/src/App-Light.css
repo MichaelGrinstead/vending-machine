@@ -234,8 +234,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  left: 50%;
-  margin-left: -600px;
+  left: 0;
+  right:0;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 2%;
   position: absolute;
   overflow: hidden;
@@ -332,7 +334,18 @@
 
 }
 
-.L-Landing-Inner-Container:hover input::placeholder {
+.L-Landing-Inner-Container-Middle:hover input::placeholder {
+  color: whitesmoke;
+}
+
+.L-Landing-Inner-Container-Right:hover input {
+  background-color: #f54029;
+  border-color: whitesmoke;
+  color: whitesmoke;
+
+}
+
+.L-Landing-Inner-Container-Right:hover input::placeholder {
   color: whitesmoke;
 }
 
@@ -355,12 +368,16 @@
 
 .L-Landing-Page-Input{
   background-color: whitesmoke;
-  border: solid 1px #f54029;
-  border-radius: 5px;
+  border: solid 3px #f54029;
+  border-radius: 10px;
+  font-weight: bold;
+  width: 50%;
+  padding: 5px;
 }
 
 .L-Landing-Page-Input::placeholder {
-  color: #f54029
+  color: #f54029;
+  font-weight: bold;
 }
 
 

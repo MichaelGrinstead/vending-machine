@@ -229,8 +229,10 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  left: 50%;
-  margin-left: -600px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 2%;
   position: absolute;
   overflow: hidden;
@@ -336,6 +338,17 @@ body {
   color: black;
 }
 
+.Landing-Inner-Container-Right:hover input {
+  background-color: greenyellow;
+  border-color: black;
+  color: black;
+
+}
+
+.Landing-Inner-Container-Right:hover input::placeholder {
+  color: black;
+}
+
 .Exit-X {
   width: 20px;
   margin-left: auto;
@@ -364,8 +377,10 @@ body {
   color: greenyellow;
   border: solid 3px;
   border-color: inherit;
-  border-radius: 5px;
+  border-radius: 10px;
   font-weight: bold;
+  width: 50%;
+  padding: 5px;
 }
 
 .Landing-Page-Input::placeholder {
