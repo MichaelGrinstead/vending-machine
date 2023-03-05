@@ -43,18 +43,20 @@ const Landing = () => {
         symbol: ""
     })
 
+
+
     const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
         setFormData(prevFormData => {
             return{
                 ...prevFormData,
                 [e.target.name] : e.target.value
             }
-
-
         })
     }
 
-    const enter = async () => {
+    console.log(formData)
+
+    const create = async () => {
         setEnterLoading(true)
         try{
             const create = await VendingFactoryContract.createVending(VendingTokenAddress, formData.name, formData.symbol)
@@ -124,7 +126,7 @@ const Landing = () => {
                                 <h3 className='Exit-X' onClick={() => setMintTokens(!mintTokens)}>X</h3>
                                 <h3 style={{marginTop: "5px"}}>Add the Vending Token Address to your Wallet and click Mint</h3>
                                 <div className={lightMode ? 'L-Address-Container' : 'Address-Container'}>
-                                    <h3 style={{marginBottom: "0", marginTop: "0"}}>Vending Token</h3>   
+                                    <h3 style={{marginBottom: "10px", marginTop: "0"}}>Address</h3>   
                                     <h3 
                                     className={lightMode ? 'L-Address' : 'Address'} 
                                     onClick={() => copyTokenAddress()}
@@ -144,7 +146,7 @@ const Landing = () => {
                                     <h5 className= {lightMode ? 'L-Copied-Alert' : 'Copied-Alert'} style={{margin: 0}}></h5>
                                     }      
                                 </div>
-                                
+                                <br></br>
                                 {mintLoading
                                 ?
                                 <button 
@@ -182,7 +184,7 @@ const Landing = () => {
                             <div className={lightMode ? 'L-Landing-Inner-Container-Middle' : 'Landing-Inner-Container-Middle'}>    
                                 <div>
                                     <h3 className='Exit-X' onClick={() => setCreateNFT(!createNFT)}>X</h3>
-                                    <h3 style={{marginTop: "5px"}}>Enter the name and symbol for your vending items and click enter to launch an NFT contract and begin vending</h3>
+                                    <h3 style={{marginTop: "5px", marginBottom: "25px"}}>Enter the name and symbol for your vending items and click create</h3>
                                     <input
                                     className={lightMode ? 'L-Landing-Page-Input' : 'Landing-Page-Input'}
                                     name='name'
@@ -191,9 +193,10 @@ const Landing = () => {
                                     autoComplete='off'
                                     ></input>
                                     <br></br>
-
+                                
                                     <input
                                     className={lightMode ? 'L-Landing-Page-Input' : 'Landing-Page-Input'}
+                                    style={{marginTop: "10px", marginBottom: "30px"}}
                                     name= 'symbol'
                                     onChange={handleChange}
                                     placeholder='symbol'
@@ -201,7 +204,7 @@ const Landing = () => {
                                     ></input>
 
                                 </div>
-                                <br></br>
+                                
                                 {enterLoading
                                 ?
                                 <button 
@@ -211,8 +214,8 @@ const Landing = () => {
                                 :
                                 <button 
                                 className={lightMode ? "L-Enter" : 'Enter'}
-                                onClick={enter}
-                                >ENTER
+                                onClick={create}
+                                >CREATE
                                 </button>
                                 }
                             </div>
@@ -237,10 +240,11 @@ const Landing = () => {
                             <div className={lightMode ? 'L-Landing-Inner-Container-Right' : 'Landing-Inner-Container-Right'}>    
                               
                                 <h3 className='Exit-X' onClick={() => setSearch(!search)}>X</h3>
-                                <h3 style={{marginTop: "5px"}}>Search for Collection by Token name</h3>
-                                        
+                                <h3 style={{marginBottom: "0"}}>Search for Collection by</h3>
+                                <h3 style={{marginTop: "0", marginBottom: "45px"}}>Token Name</h3>        
                                 <input 
                                 className={lightMode ? 'L-Landing-Page-Input' : 'Landing-Page-Input'}
+                                style={{marginBottom: "28px"}}
                                 placeholder='name'
                                 ></input>
                                 
@@ -255,7 +259,7 @@ const Landing = () => {
                                 :
                                 <button 
                                 className={lightMode ? "L-Enter" : 'Enter'}
-                                onClick={enter}
+                                onClick={create}
                                 >SEARCH
                                 </button>
                                 }
@@ -267,10 +271,6 @@ const Landing = () => {
                     </div>
                     
         }
-        
-        
-        
-        
     }
 
     const copyTokenAddress = () => {
