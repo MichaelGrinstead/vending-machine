@@ -481,14 +481,19 @@ body {
   border: solid 5px greenyellow;
   color: greenyellow;
   background-color: black;
-  width: 25%;
-  height: 50px;
-  font-size: 10px;
-  padding: 5px;
+  width: 30%;
+  height: 55px;
+  font-size: 12px;
+  padding: 10px;
   border-radius: 10px;
   position: absolute;
   top: 2%;
-  right: 9%;
+  right: 6.5%;
+}
+
+.Contract-Information:hover {
+  background-color: greenyellow;
+  color: black;
 }
 
 .Contract-Information h3 {
