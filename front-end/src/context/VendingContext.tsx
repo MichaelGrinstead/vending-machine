@@ -94,6 +94,7 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
   }
 
   console.log(tokenIds)
+  console.log(URIs)
 
   const loadPurchased = () => {
     setImagesLoading(true)
