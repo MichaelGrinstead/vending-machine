@@ -18,7 +18,7 @@ const Landing = () => {
         connectionStatus,
         lightMode,
         setLightMode,
-        vendingAddress
+        setVendingAddress
     } = useContext(VendingContext)
 
 /*****************************************************************************************************
@@ -29,37 +29,36 @@ const Landing = () => {
     const [mintLoading, setMintLoading] = useState<boolean>(false)
 
     const [copyingTokenAddress, setCopyingTokenAddress] = useState<boolean>(false)
-    const [copyingNFTAddress, setCopyingNFTAddress] = useState<boolean>(false)
-
     const [tokenAddressHovered, setTokenAddressHovered] = useState<boolean>(false)
-    const [nftAddressHovered, setNftAddressHovered] = useState<boolean>(false)
-
+   
     const[mintTokens, setMintTokens] = useState<boolean>(false)
     const[createNFT, setCreateNFT] = useState<boolean>(false)
     const[search, setSearch] = useState<boolean>(false)
 
-    const [formData, setFormData] = useState({
+    const [createData, setCreateData] = useState({
         name: "",
         symbol: ""
     })
 
+    const [searchData, setSearchData] = useState("")
 
 
-    const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
-        setFormData(prevFormData => {
+
+    const handleCreateInput= (e : React.ChangeEvent<HTMLInputElement>) => {
+        setCreateData(prevCreateData => {
             return{
-                ...prevFormData,
+                ...prevCreateData,
                 [e.target.name] : e.target.value
             }
         })
     }
 
-    console.log(formData)
+    console.log(createData)
 
     const create = async () => {
         setEnterLoading(true)
         try{
-            const create = await VendingFactoryContract.createVending(VendingTokenAddress, formData.name, formData.symbol)
+            const create = await VendingFactoryContract.createVending(VendingTokenAddress, createData.name, createData.symbol)
             await create.wait()
             
         }catch(e){
@@ -83,6 +82,22 @@ const Landing = () => {
         }finally{
             setMintLoading(false)
             
+        }
+    }
+
+    const handleSearchInput = (e : React.ChangeEvent<HTMLInputElement>) => {
+        setSearchData(e.target.value)
+    }
+
+    const searchName = async () => {
+        const address = await VendingFactoryContract.nameToVendingAddress
+        const registered : boolean = await VendingFactoryContract.nameToRegistered(searchData)
+        if(registered){
+            setVendingAddress(address) 
+            navigate("/Vending") 
+        }else{
+            console.log("address already exists")
+            ///link to error component
         }
     }
 
@@ -188,7 +203,7 @@ const Landing = () => {
                                     <input
                                     className={lightMode ? 'L-Landing-Page-Input' : 'Landing-Page-Input'}
                                     name='name'
-                                    onChange={handleChange}
+                                    onChange={handleCreateInput}
                                     placeholder='name'
                                     autoComplete='off'
                                     ></input>
@@ -198,7 +213,7 @@ const Landing = () => {
                                     className={lightMode ? 'L-Landing-Page-Input' : 'Landing-Page-Input'}
                                     style={{marginTop: "10px", marginBottom: "30px"}}
                                     name= 'symbol'
-                                    onChange={handleChange}
+                                    onChange={handleCreateInput}
                                     placeholder='symbol'
                                     autoComplete='off'
                                     ></input>
@@ -244,6 +259,7 @@ const Landing = () => {
                                 <h3 style={{marginTop: "0", marginBottom: "45px"}}>Token Name</h3>        
                                 <input 
                                 className={lightMode ? 'L-Landing-Page-Input' : 'Landing-Page-Input'}
+                                onChange={handleSearchInput}
                                 style={{marginBottom: "28px"}}
                                 placeholder='name'
                                 ></input>
@@ -259,7 +275,7 @@ const Landing = () => {
                                 :
                                 <button 
                                 className={lightMode ? "L-Enter" : 'Enter'}
-                                onClick={create}
+                                onClick={searchName}
                                 >SEARCH
                                 </button>
                                 }
