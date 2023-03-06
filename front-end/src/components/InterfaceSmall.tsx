@@ -1,4 +1,3 @@
-import { ethers, utils } from 'ethers'
 import {useEffect, useState, useContext} from 'react'
 import {VendingFactoryContract, VendingTokenContract, signer} from '../ContractObjects'
 import VendingContext from '../context/VendingContext'
@@ -10,7 +9,6 @@ const InterfaceSmall = () => {
     setCurrentItemSelected,
     lightMode,
     vendingAddress,
-    setVendingAddress,
     createVendingContractInstance
   } = useContext(VendingContext)
 
@@ -32,14 +30,7 @@ const InterfaceSmall = () => {
   const [depositValue, setDepositValue] = useState<number>(0)
   const [depositDisplay, setDepositDisplay] = useState<string>("")
   const [purchaseStatus, setPurchaseStatus] = useState<status>(status.ENTERING_DEPOSIT)
-  const [itemSelected, setItemSelected] = useState<boolean>(false)
   const [remainingDeposit, setRemainingDeposit] = useState<string>("")
-
-  const getVendingContractAddress = async () => {
-    const owner = await signer.getAddress()
-    const address = await VendingFactoryContract.ownerToVendingContract(owner)
-    setVendingAddress(address)
-  }
 
   const VendingContract = createVendingContractInstance(vendingAddress)
 
@@ -72,7 +63,6 @@ const InterfaceSmall = () => {
     }else if(value !== "0"){
       setCurrentItemSelected(value)
       setItemDisplay(value)
-      setItemSelected(true)
     }
   }
 
@@ -93,7 +83,6 @@ const InterfaceSmall = () => {
     setCurrentItemSelected("")
     setInputDepositDisplay("00.00")
     setDepositString("")
-    setItemSelected(false)
     await VendingTokenContract.approve(vendingAddress, 0)
   }
 

@@ -1,5 +1,5 @@
 import {useEffect, useState, useContext} from 'react'
-import {VendingTokenContract, signer, VendingFactoryContract} from '../ContractObjects'
+import {VendingTokenContract, signer} from '../ContractObjects'
 import VendingContext from '../context/VendingContext'
 
 const Interface = () => {
@@ -34,10 +34,7 @@ const Interface = () => {
   const [depositValue, setDepositValue] = useState<number>(0)
   const [depositDisplay, setDepositDisplay] = useState<string>("")
   const [purchaseStatus, setPurchaseStatus] = useState<status>(status.ENTERING_DEPOSIT)
-  const [itemSelected, setItemSelected] = useState<boolean>(false)
-
  
-
   const VendingContract = createVendingContractInstance(vendingAddress)
 
   console.log(VendingContract)
@@ -76,7 +73,6 @@ const Interface = () => {
     }else if(value !== "0"){
       setCurrentItemSelected(value)
       setItemDisplay(value)
-      setItemSelected(true)
     }
   }
 
@@ -97,7 +93,6 @@ const Interface = () => {
     setCurrentItemSelected("")
     setInputDepositDisplay("00.00")
     setDepositString("")
-    setItemSelected(false)
     await VendingTokenContract.approve(vendingAddress, 0)
   }
 
@@ -127,7 +122,7 @@ const Interface = () => {
   const payOrder = async () => {
     const buyer = await signer.getAddress()
     try{
-      const purchase = await VendingContract.purchase(buyer, parseInt(currentItemSelected), (parseInt(cost)*100))
+      const purchase = await VendingContract.purchase(buyer, parseInt(currentItemSelected))
       await purchase.wait()
     }catch(e){
       console.log(e)
