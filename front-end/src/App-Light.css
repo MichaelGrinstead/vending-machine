@@ -466,21 +466,23 @@
 
 .L-Contract-Information {
   border: solid 5px #f54029;
-  color: #f54029;
   background-color: whitesmoke;
-  width:30%;
-  height: 55px;
-  font-size: 12px;
+  color: #f54029;
+  width:220px;
+  height: 70px;
+  font-size: 16px;
   padding: 10px;
   border-radius: 10px;
   position: absolute;
   top: 2%;
-  right: 6.5%;
+  right: 7.5%;
+  text-align: right;
 }
 
 .L-Contract-Information h3 {
   margin-top: 0;
   margin-bottom: 0;
+  
 }
 
 

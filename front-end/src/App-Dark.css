@@ -478,17 +478,17 @@ body {
 }
 
 .Contract-Information {
-  border: solid 5px greenyellow;
   color: greenyellow;
   background-color: black;
-  width: 30%;
-  height: 55px;
-  font-size: 12px;
+  width: 220px;
+  height: 70px;
+  font-size: 16px;
   padding: 10px;
   border-radius: 10px;
   position: absolute;
   top: 2%;
-  right: 6.5%;
+  right: 7.5%;
+  text-align: right;
 }
 
 .Contract-Information:hover {
