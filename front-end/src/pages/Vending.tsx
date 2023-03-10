@@ -24,6 +24,7 @@ const Vending = () => {
 
   const [name, setName] = useState<string>("")
   const [symbol, setSymbol] = useState<string>("")
+  const [formattedAddress, setFormatAddress] = useState<string>("")
 
   const getName = async () => {
     const contract = createVendingContractInstance(vendingAddress)
@@ -37,6 +38,13 @@ const Vending = () => {
     setSymbol(symbol)
   }  
 
+  const formatAddress = async (address : string) => {
+    const start = address.slice(0,5)
+    const end = address.slice(37)
+    const formatted = start + "...." + end
+    setFormatAddress(formatted)
+  }
+
   useEffect(() => {
     if(window.ethereum){
       window.ethereum.on('accountsChanged', () => {
@@ -49,6 +57,7 @@ const Vending = () => {
   useEffect(() => {
     getName()
     getSymbol()
+    formatAddress(vendingAddress)
   },[vendingAddress])
 
   return (
@@ -107,21 +116,21 @@ const Vending = () => {
             </div>
           </div>
           
-          <button className={lightMode ? 'L-Display-Info' : 'Display-Info'} onClick={() => setDisplayInfo(!displayInfo)} >Info</button>
+          {/* <button className={lightMode ? 'L-Display-Info' : 'Display-Info'} onClick={() => setDisplayInfo(!displayInfo)} >Info</button> */}
           
-         {displayInfo
-         ?
+         {/* {displayInfo
+         ? */}
           <div
             className={lightMode ? 'L-Contract-Information' : 'Contract-Information'}>
 
-              <h3>Contract Address: {vendingAddress}</h3>
+              
               <h3>Token Name: {name}</h3>
               <h3>Token Symbol: {symbol}</h3>
-
+              <h3>Address: {formattedAddress}</h3>
             </div>
-            :
+            {/* :
             <></>
-          }
+          } */}
           <Interface/>
 
         
