@@ -17,6 +17,8 @@ contract VendingFactory {
     mapping(string => address) public nameToVendingAddress;
 
     function createVending(address _tokenAddress, string memory _name, string memory _symbol) external {
+        require(nameToRegistered[_name] == false);
+
         Vending vending = new Vending(_tokenAddress, _name, _symbol);
 
         nameToRegistered[_name] = true;
