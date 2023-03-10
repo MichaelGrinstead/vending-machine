@@ -1,5 +1,6 @@
 import {useContext, useState, useEffect} from 'react'
 import VendingContext from '../context/VendingContext'
+import { Contract } from 'ethers'
 import { VendingFactoryContract, signer } from '../ContractObjects'
 import {create} from 'ipfs-http-client'
 import {Buffer} from 'buffer'
@@ -12,23 +13,15 @@ const Items = () => {
     const {currentItemSelected,
        setCurrentItemSelected,
         lightMode,
-        setVendingAddress,
         vendingAddress,
-        createVendingContractInstance
+        createVendingContractInstance,
+        images
       } = useContext(VendingContext)
 
     const [CIDS, setCIDS] = useState<any[]>([])
     const [price, setPrice] = useState({price: ""})
     const [changingPrice, setChangingPrice] = useState<boolean>(false)
     const [updatingPriceNumber, setUpdatingPriceNumber] = useState<string | null>("")
-
-    const getVendingContractAddress = async () => {
-      const owner = await signer.getAddress()
-      const address = await VendingFactoryContract.ownerToVendingContract(owner)
-      setVendingAddress(address)
-    }
-  
-    const VendingContract = createVendingContractInstance(vendingAddress)
 
     const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
       setPrice(prevPrice => {
@@ -83,12 +76,13 @@ const Items = () => {
     const handleItemUpload = async (e : any) => {
       const item : any = e.target.files[0]
       const itemNumber = e.target.name
+      const contract = createVendingContractInstance(vendingAddress)
       console.log(item)
       console.log(itemNumber)
       try{
           const added = await client.add(item)
          
-          const add = await VendingContract.addCID(parseInt(itemNumber), added.path)
+          const add = await contract.addCID(parseInt(itemNumber), added.path)
           await add.wait()
 
       }catch(error){
@@ -99,21 +93,23 @@ const Items = () => {
   }
 
   const fetchItems = async () => {
-    const _CIDS = []
+    const contract : Contract = createVendingContractInstance(vendingAddress)
+    const _CIDS : any[] = []
     for(let i = 1; i <= 12; i++){
-      const CID = await VendingContract.itemNumberToCID(i)
+      const CID = await contract.itemNumberToCID(i)
     _CIDS.push(CID)
     }
     setCIDS(_CIDS)
     
   }
 
+  console.log(CIDS)
+
   ///useEffect
 
   useEffect(() => {
     fetchItems()
-    getVendingContractAddress()
-  }, [])
+  }, [images])
 
   
 
@@ -132,7 +128,7 @@ const Items = () => {
               id='1'
               >$
               </div>
-                {CIDS[0] === ""
+                {(CIDS[0] === "") || (CIDS[0] === null)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file1'>
                     <input style= {{display: 'none'}} type='file' id='file1' name='1' onChange={handleItemUpload}></input>

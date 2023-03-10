@@ -18,7 +18,6 @@ const Vending = () => {
     remainingDeposit,
     vendingAddress,
     createVendingContractInstance,
-    getVendingContractAddress
   } = useContext(VendingContext)
 
   const [displayInfo, setDisplayInfo] = useState<boolean>(false)
@@ -44,7 +43,7 @@ const Vending = () => {
         window.location.reload();
       })
     }
-    getVendingContractAddress()
+    
   },[])
 
   useEffect(() => {

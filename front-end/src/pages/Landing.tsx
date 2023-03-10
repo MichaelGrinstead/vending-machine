@@ -18,7 +18,9 @@ const Landing = () => {
         connectionStatus,
         lightMode,
         setLightMode,
-        setVendingAddress
+        setVendingAddress,
+        vendingAddress,
+        getNewVendingContractAddress
     } = useContext(VendingContext)
 
 /*****************************************************************************************************
@@ -65,6 +67,7 @@ const Landing = () => {
             console.log(e)
         }finally{
             setEnterLoading(false)
+            getNewVendingContractAddress()
             navigate("/Vending")
         }
     }
@@ -89,10 +92,16 @@ const Landing = () => {
         setSearchData(e.target.value)
     }
 
+    console.log(searchData)
+
     const searchName = async () => {
-        const address = await VendingFactoryContract.nameToVendingAddress
+        const address = await VendingFactoryContract.nameToVendingAddress(searchData)
+        console.log(address)
         const registered : boolean = await VendingFactoryContract.nameToRegistered(searchData)
-        if(registered){
+        console.log(registered)
+        if(registered === true){
+            console.log('working')
+            console.log(address)
             setVendingAddress(address) 
             navigate("/Vending") 
         }else{
@@ -100,6 +109,8 @@ const Landing = () => {
             ///link to error component
         }
     }
+
+    console.log(vendingAddress)
 
     const connected = () => {
         if(connectionStatus === connectionState.UNCONNECTED){

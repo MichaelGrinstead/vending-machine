@@ -12,7 +12,7 @@ export const enum connectionState {
 
 interface VendingContextInterface {
     createVendingContractInstance : (address: string) => ethers.Contract
-    getVendingContractAddress : () => Promise<void>
+    getNewVendingContractAddress : () => Promise<void>
     vendingAddress : string
     setVendingAddress : React.Dispatch<React.SetStateAction<string>>
     currentItemSelected : string
@@ -39,7 +39,7 @@ const VendingContext = createContext<VendingContextInterface>({} as VendingConte
 
 export const VendingProvider  = ({children} : {children : ReactNode}) => {
 
-  const [vendingAddress, setVendingAddress] = useState<string>("")
+  
 
   const [lightMode, setLightMode] = useState<boolean>(false)
 
@@ -49,11 +49,7 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
   
   const [connectionStatus, setConnectionStatus] = useState<connectionState>(connectionState.UNCONNECTED)
 
-  const [imagesLoading, setImagesLoading] = useState<boolean>(false)
-  
-  const [URIs, setURIs] = useState<any[]>([])
 
-  const [images, setImages] = useState<any>([])
 
   const [tokenIds, setTokenIds] = useState<any[]>([])
 
@@ -64,12 +60,24 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
     return Contract
   }
 
-  const getVendingContractAddress = async () => {
+///Setting the contract address 
+
+  const [vendingAddress, setVendingAddress] = useState<string>("")
+
+  const getNewVendingContractAddress = async () => {
     const owner = await signer.getAddress()
     const address = await VendingFactoryContract.ownerToVendingContract(owner)
     setVendingAddress(address)
 
   }
+
+///Logic to display purchased items   
+
+  const [imagesLoading, setImagesLoading] = useState<boolean>(false)
+  
+  const [URIs, setURIs] = useState<any[]>([])
+
+  const [images, setImages] = useState<any>([])
 
   const getImages = () => {
   const _images = []
@@ -113,7 +121,7 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
     <VendingContext.Provider
     value={{
         createVendingContractInstance,
-        getVendingContractAddress,
+        getNewVendingContractAddress,
         currentItemSelected, 
         setCurrentItemSelected,
         connectionStatus,

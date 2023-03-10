@@ -12,8 +12,7 @@ const Interface = () => {
     setRemainingDeposit,
     retrieveImages,
     createVendingContractInstance,
-    vendingAddress,
-    getVendingContractAddress
+    vendingAddress
   } = useContext(VendingContext)
 
   
@@ -34,10 +33,7 @@ const Interface = () => {
   const [depositValue, setDepositValue] = useState<number>(0)
   const [depositDisplay, setDepositDisplay] = useState<string>("")
   const [purchaseStatus, setPurchaseStatus] = useState<status>(status.ENTERING_DEPOSIT)
- 
-  const VendingContract = createVendingContractInstance(vendingAddress)
 
-  console.log(VendingContract)
   console.log(vendingAddress
     )
   const makeDeposit = async () => {
@@ -120,9 +116,10 @@ const Interface = () => {
   }
 
   const payOrder = async () => {
+    const contract = createVendingContractInstance(vendingAddress)
     const buyer = await signer.getAddress()
     try{
-      const purchase = await VendingContract.purchase(buyer, parseInt(currentItemSelected))
+      const purchase = await contract.purchase(buyer, parseInt(currentItemSelected))
       await purchase.wait()
     }catch(e){
       console.log(e)
@@ -232,7 +229,6 @@ const Interface = () => {
 
   useEffect(() => {
     getRemainingDeposit()
-    getVendingContractAddress()
   }, [])
 
   useEffect(() => {
