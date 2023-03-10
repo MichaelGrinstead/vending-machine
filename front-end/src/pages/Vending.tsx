@@ -20,8 +20,6 @@ const Vending = () => {
     createVendingContractInstance,
   } = useContext(VendingContext)
 
-  const [displayInfo, setDisplayInfo] = useState<boolean>(false)
-
   const [name, setName] = useState<string>("")
   const [symbol, setSymbol] = useState<string>("")
   const [formattedAddress, setFormatAddress] = useState<string>("")
@@ -116,21 +114,11 @@ const Vending = () => {
             </div>
           </div>
           
-          {/* <button className={lightMode ? 'L-Display-Info' : 'Display-Info'} onClick={() => setDisplayInfo(!displayInfo)} >Info</button> */}
-          
-         {/* {displayInfo
-         ? */}
-          <div
-            className={lightMode ? 'L-Contract-Information' : 'Contract-Information'}>
-
-              
-              <h3>Token Name: {name}</h3>
-              <h3>Token Symbol: {symbol}</h3>
-              <h3>Address: {formattedAddress}</h3>
-            </div>
-            {/* :
-            <></>
-          } */}
+          <div className={lightMode ? 'L-Contract-Information' : 'Contract-Information'}>
+            <h3>Token Name: {name}</h3>
+            <h3>Token Symbol: {symbol}</h3>
+            <h3>Address: {formattedAddress}</h3>
+          </div>
           <Interface/>
 
         
