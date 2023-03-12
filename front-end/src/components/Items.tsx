@@ -93,16 +93,27 @@ const Items = () => {
       }
   }
 
+  // const fetchItems = async () => {
+  //   const contract : Contract = createVendingContractInstance(vendingAddress)
+  //   const _CIDS : any[] = []
+  //   for(let i = 1; i <= 12; i++){
+  //     const CID = await contract.itemNumberToCID(i)
+  //   _CIDS.push(CID)
+  //   }
+  //   setCIDS(_CIDS)
+    
+  // }
+
   const fetchItems = async () => {
     const contract : Contract = createVendingContractInstance(vendingAddress)
-    const _CIDS : any[] = []
-    for(let i = 1; i <= 12; i++){
-      const CID = await contract.itemNumberToCID(i)
-    _CIDS.push(CID)
+    const promises = []
+    for (let i = 1; i <= 12; i++) {
+      promises.push(contract.itemNumberToCID(i))
     }
-    setCIDS(_CIDS)
-    
+    const CIDS = await Promise.all(promises)
+    setCIDS(CIDS)
   }
+  
 
   console.log(CIDS)
 
@@ -121,7 +132,7 @@ const Items = () => {
 
   useEffect(() => {
     fetchItems()
-  }, [])
+  }, [CIDS])
 
   useEffect(() => {
     getIsUserOwner()
