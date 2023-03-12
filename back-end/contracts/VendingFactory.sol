@@ -19,7 +19,7 @@ contract VendingFactory {
     function createVending(address _tokenAddress, string memory _name, string memory _symbol) external {
         require(nameToRegistered[_name] == false);
 
-        Vending vending = new Vending(_tokenAddress, _name, _symbol);
+        Vending vending = new Vending(_tokenAddress, msg.sender, _name, _symbol);
 
         nameToRegistered[_name] = true;
         nameToVendingAddress[_name] = address(vending);
