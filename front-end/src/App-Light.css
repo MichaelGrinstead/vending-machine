@@ -442,7 +442,7 @@
   
 }
 
-.L-Display-Info {
+.L-Home-Button {
   position: absolute;
   top: 20px;
   right: 20px;
@@ -458,7 +458,7 @@
   cursor: pointer;
 }
 
-.L-Display-Info:hover {
+.L-Home-Button:hover {
   background-color: whitesmoke;
   border-color: #f54029;
   color: #f54029;

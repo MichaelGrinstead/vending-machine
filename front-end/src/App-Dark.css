@@ -455,7 +455,7 @@ body {
  
 }
 
-.Display-Info {
+.Home-Button {
   position: absolute;
   top: 20px;
   right: 20px;
@@ -471,7 +471,7 @@ body {
   cursor: pointer;
 }
 
-.Display-Info:hover {
+.Home-Button:hover {
   background-color: black;
   border-color: greenyellow;
   color: greenyellow

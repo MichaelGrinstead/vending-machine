@@ -4,10 +4,14 @@ import InterfaceSmall from '../components/InterfaceSmall'
 import Items from '../components/Items'
 import PurchasedItems from '../components/PurchasedItems'
 import VendingContext from '../context/VendingContext'
+import { useNavigate } from 'react-router'
 
 declare var window : any
 
 const Vending = () => {
+
+  const navigate = useNavigate()
+
 
   const {
     lightMode, 
@@ -60,6 +64,7 @@ const Vending = () => {
 
   return (
     <div className={lightMode ? 'L-Vending' : 'Vending'}>
+        <button onClick={() => navigate('/')} className={lightMode ? 'L-Home-Button' : 'Home-Button'}>Home</button>
           <div className={lightMode ? 'L-Vending-Outer' : 'Vending-Outer'}>
             {showItems
               ?
