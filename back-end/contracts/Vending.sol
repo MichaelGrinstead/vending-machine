@@ -3,14 +3,15 @@
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "./VendingToken.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
 
 pragma solidity 0.8.19;
 
-contract Vending is ERC721, Ownable {
+contract Vending is ERC721 {
     using Strings for uint256;
 
     VendingToken token;
+
+    address public owner;
 
     uint256 tokenId = 1;
 
@@ -18,8 +19,13 @@ contract Vending is ERC721, Ownable {
     mapping(uint => string) public itemNumberToCID;
     mapping(uint => uint) public itemNumberToPrice;
 
-    constructor(address _VendingTokenAddress, string memory _name, string memory _symbol) ERC721(_name, _symbol) {
+    modifier onlyOwner(){
+        require(msg.sender == owner);
+    _;
+    }
+    constructor(address _VendingTokenAddress, address _owner, string memory _name, string memory _symbol) ERC721(_name, _symbol) {
         token = VendingToken(_VendingTokenAddress);
+        owner = _owner;
 
     }
 
@@ -39,7 +45,7 @@ contract Vending is ERC721, Ownable {
         itemNumberToCID[_itemNumber] = _CID;
     }
 
-    function setPrice(uint _itemNumber, uint _price) external onlyOwner {
+    function setPrice(uint _itemNumber, uint _price) external onlyOwner  {
         itemNumberToPrice[_itemNumber] = _price;
     }
 
