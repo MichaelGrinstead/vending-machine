@@ -22,6 +22,7 @@ const Items = () => {
     const [price, setPrice] = useState({price: ""})
     const [changingPrice, setChangingPrice] = useState<boolean>(false)
     const [updatingPriceNumber, setUpdatingPriceNumber] = useState<string | null>("")
+    const [isUserOwner, setIsUserOwner] = useState<boolean>(false)
 
     const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
       setPrice(prevPrice => {
@@ -88,7 +89,7 @@ const Items = () => {
       }catch(error){
           console.log(error)
       }finally{
-        window.location.reload();
+        
       }
   }
 
@@ -105,11 +106,26 @@ const Items = () => {
 
   console.log(CIDS)
 
+  const getIsUserOwner = async () => {
+    const contract : Contract = createVendingContractInstance(vendingAddress)
+    const owner = await contract.owner()
+    const user = await signer.getAddress()
+    if(owner === user){
+      setIsUserOwner(true)
+    } 
+  }
+
+  console.log(isUserOwner)
+
   ///useEffect
 
   useEffect(() => {
     fetchItems()
-  }, [images])
+  }, [])
+
+  useEffect(() => {
+    getIsUserOwner()
+  }, [vendingAddress])
 
   
 
@@ -128,7 +144,8 @@ const Items = () => {
               id='1'
               >$
               </div>
-                {(CIDS[0] === "") || (CIDS[0] === null)
+            
+                {(CIDS[0] === "") 
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file1'>
                     <input style= {{display: 'none'}} type='file' id='file1' name='1' onChange={handleItemUpload}></input>
@@ -137,6 +154,8 @@ const Items = () => {
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[0]}`}/>             
                 }
+            
+
             </div>
             {changingPrice && updatingPriceNumber === "1"
             ?
