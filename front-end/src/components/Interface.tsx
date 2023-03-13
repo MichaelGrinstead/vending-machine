@@ -134,7 +134,7 @@ const Interface = () => {
       }else{
         setTimeout(() => setPurchaseStatus(status.SELECTING_ITEM), 9000)
       }
-      window.location.reload()
+      // window.location.reload()
     } 
   }
 
