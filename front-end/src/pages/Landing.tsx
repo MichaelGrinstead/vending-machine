@@ -27,7 +27,7 @@ const Landing = () => {
  *****************************************State******************************************************* 
 ******************************************************************************************************/       
 
-    const [enterLoading, setEnterLoading] = useState<boolean>(false)
+    const [createLoading, setCreateLoading] = useState<boolean>(false)
     const [mintLoading, setMintLoading] = useState<boolean>(false)
 
     const [copyingTokenAddress, setCopyingTokenAddress] = useState<boolean>(false)
@@ -58,7 +58,7 @@ const Landing = () => {
     console.log(createData)
 
     const create = async () => {
-        setEnterLoading(true)
+        setCreateLoading(true)
         try{
             const create = await VendingFactoryContract.createVending(VendingTokenAddress, createData.name, createData.symbol)
             await create.wait()
@@ -66,7 +66,7 @@ const Landing = () => {
         }catch(e){
             console.log(e)
         }finally{
-            setEnterLoading(false)
+            setCreateLoading(false)
             getNewVendingContractAddress()
             navigate("/Vending")
         }
@@ -231,7 +231,7 @@ const Landing = () => {
 
                                 </div>
                                 
-                                {enterLoading
+                                {createLoading
                                 ?
                                 <button 
                                 className={lightMode ? "L-Enter" : 'Enter'}
@@ -273,23 +273,16 @@ const Landing = () => {
                                 onChange={handleSearchInput}
                                 style={{marginBottom: "28px"}}
                                 placeholder='name'
-                                ></input>
-                                
+                                ></input>                               
                                 <br></br>
                                 <br></br>
-                                {enterLoading
-                                ?
-                                <button 
-                                className={lightMode ? "L-Enter" : 'Enter'}
-                                ><div className="Loader" style={{marginLeft: "auto", marginRight: "auto"}}></div>
-                                </button>
-                                :
+
                                 <button 
                                 className={lightMode ? "L-Enter" : 'Enter'}
                                 onClick={searchName}
                                 >SEARCH
                                 </button>
-                                }
+                                
                             </div>
                             :
                             <></>
