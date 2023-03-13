@@ -87,18 +87,33 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
     setImages(_images)
   }
 
+  // const retrieveImages = async () => {
+  //   const contract = createVendingContractInstance(vendingAddress)
+  //   const user = await signer.getAddress()
+  //   const ids = await contract.fetchIds(user)
+  //   setTokenIds(ids)
+  //   const URIArray : any[] = []
+  //   ids.map( async (id : any) => {
+  //     const uri = await contract.tokenIdToURI(id)
+  //     URIArray.push(uri)
+  //   })
+  //   setURIs(URIArray)
+    
+  // }
+
   const retrieveImages = async () => {
     const contract = createVendingContractInstance(vendingAddress)
     const user = await signer.getAddress()
     const ids = await contract.fetchIds(user)
     setTokenIds(ids)
-    const URIArray : any[] = []
-    ids.map( async (id : any) => {
-      const uri = await contract.tokenIdToURI(id)
-      URIArray.push(uri)
-    })
+  
+    // Fetch all URIs in parallel
+    const URIArray = await Promise.all(
+      ids.map(async (id: any) => {
+        return await contract.tokenIdToURI(id)
+      })
+    )
     setURIs(URIArray)
-    
   }
 
   console.log(tokenIds)
@@ -106,7 +121,7 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
 
   const loadPurchased = () => {
     setImagesLoading(true)
-    setTimeout(() => showPurchased(), 5000)
+    showPurchased()
   }
 
   const showPurchased = () => {
