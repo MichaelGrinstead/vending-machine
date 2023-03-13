@@ -249,6 +249,12 @@
   border: whitesmoke solid 5px;
 }
 
+.L-Landing-Display-Second:hover {
+  background-color: #f54029;
+  color: whitesmoke;
+  border: whitesmoke solid 5px;
+}
+
 .L-Landing-Display-Text {
   animation: animatedText 13s linear infinite;
   width: 3000px;
