@@ -6,7 +6,7 @@ pragma solidity 0.8.19;
 
 contract VendingToken is ERC20("Vending Token", "$VENDING") {
 
-    function mintGL(uint _amount) external {
+    function mintVendingToken(uint _amount) external {
         _mint(msg.sender, _amount);
     } 
 

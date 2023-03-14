@@ -6,18 +6,27 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 
 pragma solidity 0.8.19;
 
-contract Vending is ERC721("Vending Item", "V-ITEM") {
+contract Vending is ERC721 {
     using Strings for uint256;
 
     VendingToken token;
+
+    address public owner;
 
     uint256 tokenId = 1;
 
     mapping(uint => string) public tokenIdToURI;
     mapping(uint => string) public itemNumberToCID;
+    mapping(uint => uint) public itemNumberToPrice;
 
-    constructor(address _GLTokenAddress) {
-        token = VendingToken(_GLTokenAddress);
+    modifier onlyOwner(){
+        require(msg.sender == owner);
+    _;
+    }
+    constructor(address _VendingTokenAddress, address _owner, string memory _name, string memory _symbol) ERC721(_name, _symbol) {
+        token = VendingToken(_VendingTokenAddress);
+        owner = _owner;
+
     }
 
     function fetchIds(address _owner) view external returns(uint[] memory){
@@ -32,25 +41,22 @@ contract Vending is ERC721("Vending Item", "V-ITEM") {
         return ids;
     }
 
-    function addCID(uint _itemNumber, string memory _CID) external {
+    function addCID(uint _itemNumber, string memory _CID) external onlyOwner {
         itemNumberToCID[_itemNumber] = _CID;
     }
 
+    function setPrice(uint _itemNumber, uint _price) external onlyOwner  {
+        itemNumberToPrice[_itemNumber] = _price;
+    }
 
-    function purchase(address _to, uint _itemNumber, uint _amount) external {
+
+    function purchase(address _to, uint _itemNumber) external {
         require(_itemNumber <= 12 && _itemNumber > 0);
+        uint price = itemNumberToPrice[_itemNumber];
 
-        (bool success) = token.transferFrom(msg.sender, payable(address(this)), _amount);
+        (bool success) = token.transferFrom(msg.sender, payable(address(this)), price);
         require(success);
 
-        if(_itemNumber >= 1 && _itemNumber <= 4){
-            require(_amount >= 200);
-        }else if(_itemNumber >= 5 && _itemNumber <= 8) {
-            require(_amount >= 400);
-        }else if(_itemNumber >= 9 && _itemNumber <= 12){
-            require(_amount >= 600);
-            
-        }
         _safeMint(_to, tokenId);
         string memory uri = tokenURI(_itemNumber);
         tokenIdToURI[tokenId] = uri;

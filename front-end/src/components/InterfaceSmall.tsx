@@ -1,6 +1,5 @@
-import { ethers, utils } from 'ethers'
 import {useEffect, useState, useContext} from 'react'
-import {VendingContract, VendingTokenContract, VendingAddress, signer} from '../ContractObjects'
+import {VendingFactoryContract, VendingTokenContract, signer} from '../ContractObjects'
 import VendingContext from '../context/VendingContext'
 
 const InterfaceSmall = () => {
@@ -8,7 +7,9 @@ const InterfaceSmall = () => {
   const {
     currentItemSelected, 
     setCurrentItemSelected,
-    lightMode
+    lightMode,
+    vendingAddress,
+    createVendingContractInstance
   } = useContext(VendingContext)
 
   
@@ -29,13 +30,14 @@ const InterfaceSmall = () => {
   const [depositValue, setDepositValue] = useState<number>(0)
   const [depositDisplay, setDepositDisplay] = useState<string>("")
   const [purchaseStatus, setPurchaseStatus] = useState<status>(status.ENTERING_DEPOSIT)
-  const [itemSelected, setItemSelected] = useState<boolean>(false)
   const [remainingDeposit, setRemainingDeposit] = useState<string>("")
+
+  const VendingContract = createVendingContractInstance(vendingAddress)
 
 
   const makeDeposit = async () => {
     try{
-      const approval = await VendingTokenContract.approve(VendingAddress, depositValue)
+      const approval = await VendingTokenContract.approve(vendingAddress, depositValue)
       await approval.wait()
     }catch(e){
       console.log(e)
@@ -48,7 +50,7 @@ const InterfaceSmall = () => {
   }
 
   const getRemainingDeposit = async () => {
-    const changeNumber = await VendingTokenContract.allowance(signer.getAddress(), VendingAddress)
+    const changeNumber = await VendingTokenContract.allowance(signer.getAddress(), vendingAddress)
     const changeFormatted = changeNumber/100
     const changeFinal = changeFormatted.toFixed(2)
     setRemainingDeposit(changeFinal)
@@ -61,7 +63,6 @@ const InterfaceSmall = () => {
     }else if(value !== "0"){
       setCurrentItemSelected(value)
       setItemDisplay(value)
-      setItemSelected(true)
     }
   }
 
@@ -82,8 +83,7 @@ const InterfaceSmall = () => {
     setCurrentItemSelected("")
     setInputDepositDisplay("00.00")
     setDepositString("")
-    setItemSelected(false)
-    await VendingTokenContract.approve(VendingAddress, 0)
+    await VendingTokenContract.approve(vendingAddress, 0)
   }
 
   const clearPaymentDisplay = () => {
