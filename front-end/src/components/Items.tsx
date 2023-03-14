@@ -19,10 +19,15 @@ const Items = () => {
       } = useContext(VendingContext)
 
     const [CIDS, setCIDS] = useState<any[]>([])
-    const [price, setPrice] = useState({price: ""})
     const [changingPrice, setChangingPrice] = useState<boolean>(false)
     const [updatingPriceNumber, setUpdatingPriceNumber] = useState<string | null>("")
     const [isUserOwner, setIsUserOwner] = useState<boolean>(false)
+
+    const [price, setPrice] = useState({
+      1: "",
+      2: ""
+
+    })
 
     const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
       setPrice(prevPrice => {
@@ -48,14 +53,19 @@ const Items = () => {
 
       if(e.key === 'Enter'){
         console.log(`enter clicked for item${itemNumber}`)
-        // try{
-        //   const set = await VendingContract.setPrice(parseInt( "0" + itemNumber), price)
-        //   await set.wait()
-        // }catch(e) {
-        //   console.log(e)
-        // }finally{
-  
-        // }
+        console.log(price[1])
+
+        const contract = createVendingContractInstance(vendingAddress)
+        const number = parseInt("0" + itemNumber)
+        console.log(number)
+        try{
+          const set = await contract.setPrice(parseInt( "0" + itemNumber), 1)
+          await set.wait()
+        }catch(e) {
+          console.log(e)
+        }finally{
+          console.log(`price is now ${await contract.itemNumberToPrice(1)}`)
+        }
 
       }
       
@@ -93,17 +103,6 @@ const Items = () => {
       }
   }
 
-  // const fetchItems = async () => {
-  //   const contract : Contract = createVendingContractInstance(vendingAddress)
-  //   const _CIDS : any[] = []
-  //   for(let i = 1; i <= 12; i++){
-  //     const CID = await contract.itemNumberToCID(i)
-  //   _CIDS.push(CID)
-  //   }
-  //   setCIDS(_CIDS)
-    
-  // }
-
   const fetchItems = async () => {
     const contract : Contract = createVendingContractInstance(vendingAddress)
     const promises = []
@@ -132,7 +131,7 @@ const Items = () => {
 
   useEffect(() => {
     fetchItems()
-  }, [CIDS])
+  }, [])
 
   useEffect(() => {
     getIsUserOwner()
