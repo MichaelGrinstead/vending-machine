@@ -46,6 +46,14 @@ const Landing = () => {
 
 
 
+    
+
+    console.log(createData)
+
+/*****************************************************************************************************
+*****************************************Event Handlers*************************************************
+******************************************************************************************************/ 
+
     const handleCreateInput= (e : React.ChangeEvent<HTMLInputElement>) => {
         setCreateData(prevCreateData => {
             return{
@@ -55,7 +63,21 @@ const Landing = () => {
         })
     }
 
-    console.log(createData)
+    
+    const handleSearchInput = (e : React.ChangeEvent<HTMLInputElement>) => {
+        setSearchData(e.target.value)
+    }
+
+    const copyTokenAddress = () => {
+        setTokenAddressHovered(false)
+        setCopyingTokenAddress(true)
+        navigator.clipboard.writeText(VendingTokenAddress)
+        setTimeout(() => setCopyingTokenAddress(false), 1000)
+    }
+
+/*****************************************************************************************************
+*****************************************User Actions*************************************************
+******************************************************************************************************/ 
 
     const create = async () => {
         setCreateLoading(true)
@@ -88,10 +110,6 @@ const Landing = () => {
         }
     }
 
-    const handleSearchInput = (e : React.ChangeEvent<HTMLInputElement>) => {
-        setSearchData(e.target.value)
-    }
-
     console.log(searchData)
 
     const searchName = async () => {
@@ -111,6 +129,10 @@ const Landing = () => {
     }
 
     console.log(vendingAddress)
+
+/*****************************************************************************************************
+ *****************************************Conditional HTML********************************************
+******************************************************************************************************/ 
 
     const connected = () => {
         if(connectionStatus === connectionState.UNCONNECTED){
@@ -293,12 +315,7 @@ const Landing = () => {
         }
     }
 
-    const copyTokenAddress = () => {
-        setTokenAddressHovered(false)
-        setCopyingTokenAddress(true)
-        navigator.clipboard.writeText(VendingTokenAddress)
-        setTimeout(() => setCopyingTokenAddress(false), 1000)
-    }
+    
 
     console.log(connectionStatus)
 
