@@ -8,6 +8,10 @@ import {Buffer} from 'buffer'
 const ID = process.env.REACT_APP_INFURA_PROJECT_ID
 const SECRET = process.env.REACT_APP_INFURA_PROJECT_SECRET
 
+interface Prices {
+  [key : number] : string 
+}
+
 const Items = () => {
 
     const {currentItemSelected,
@@ -22,15 +26,38 @@ const Items = () => {
     const [changingPrice, setChangingPrice] = useState<boolean>(false)
     const [updatingPriceNumber, setUpdatingPriceNumber] = useState<string | null>("")
     const [isUserOwner, setIsUserOwner] = useState<boolean>(false)
-
-    const [price, setPrice] = useState({
+    const [price, setPrice] = useState<Prices>({
       1: "",
-      2: ""
+      2: "",
+      3: "",
+      4: "",
+      5: "",
+      6: "",
+      7: "",
+      8: "",
+      9: "",
+      10: "",
+      11: "",
+      12: ""
+    })
 
+    const [priceInput, setPriceInput] = useState<Prices>({
+      1: "",
+      2: "",
+      3: "",
+      4: "",
+      5: "",
+      6: "",
+      7: "",
+      8: "",
+      9: "",
+      10: "",
+      11: "",
+      12: ""
     })
 
     const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
-      setPrice(prevPrice => {
+      setPriceInput(prevPrice => {
         return{
             ...prevPrice,
             [e.target.name] : e.target.value
@@ -48,32 +75,53 @@ const Items = () => {
 
     const updatePrice = async (e : React.KeyboardEvent<HTMLElement>) => {
 
-      const target = e.target as HTMLElement
-      const itemNumber = target.getAttribute('name')
+      const target = e.currentTarget as HTMLElement
+      const itemNumber = (target.getAttribute('name')) as string 
 
       if(e.key === 'Enter'){
-        console.log(`enter clicked for item${itemNumber}`)
-        console.log(price[1])
-
         const contract = createVendingContractInstance(vendingAddress)
-        const number = parseInt("0" + itemNumber)
-        console.log(number)
+        const num = parseInt(itemNumber)
         try{
-          const set = await contract.setPrice(parseInt( "0" + itemNumber), 1)
+          const set = await contract.setPrice(num, priceInput[num])
           await set.wait()
         }catch(e) {
           console.log(e)
         }finally{
-          console.log(`price is now ${await contract.itemNumberToPrice(1)}`)
+          const number : number = (parseInt("0" + itemNumber))
+          const finalPrice = await contract.itemNumberToPrice(number)
+          setPrice({
+            ...price,
+            [number] : finalPrice.toNumber() })
+            setUpdatingPriceNumber("")
+            setChangingPrice(!changingPrice)
         }
-
       }
-      
     }
 
-    console.log(updatingPriceNumber)
+    const getPrice = async () => {
+      const contract = createVendingContractInstance(vendingAddress)
+      setPrice({
+        1: (await contract.itemNumberToPrice(1)).toNumber(),
+        2: (await contract.itemNumberToPrice(2)).toNumber(),
+        3: (await contract.itemNumberToPrice(3)).toNumber(),
+        4: (await contract.itemNumberToPrice(4)).toNumber(),
+        5: (await contract.itemNumberToPrice(5)).toNumber(),
+        6: (await contract.itemNumberToPrice(6)).toNumber(),
+        7: (await contract.itemNumberToPrice(7)).toNumber(),
+        8: (await contract.itemNumberToPrice(8)).toNumber(),
+        9: (await contract.itemNumberToPrice(9)).toNumber(),
+        10: (await contract.itemNumberToPrice(10)).toNumber(),
+        11: (await contract.itemNumberToPrice(11)).toNumber(),
+        12: (await contract.itemNumberToPrice(12)).toNumber()
+      })
+      setUpdatingPriceNumber("")
+      setChangingPrice(false)
+    }
 
-    
+    console.log(typeof(price[2]))
+
+    console.log(price)
+
     const auth = 'Basic ' + Buffer.from(ID + ':' + SECRET).toString('base64');
     const client = create({
     host: 'ipfs.infura.io',
@@ -131,6 +179,7 @@ const Items = () => {
 
   useEffect(() => {
     fetchItems()
+    getPrice()
   }, [])
 
   useEffect(() => {
@@ -173,7 +222,7 @@ const Items = () => {
             <input className= {lightMode ? 'L-Price-Input' : 'Price-Input' } onKeyDown={updatePrice} name= '1' onChange={handleChange}></input>
             
             :
-            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$$</div>
+            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>{price[1]}</div>
             }
                 
           </div>
@@ -200,10 +249,18 @@ const Items = () => {
             {changingPrice && updatingPriceNumber === "1"
             ?
             
-            <input className= {lightMode ? 'L-Price-Input' : 'Price-Input' } onKeyDown={updatePrice} name= '1' onChange={handleChange}></input>
+            <input 
+            className= {lightMode ? 'L-Price-Input' : 'Price-Input' } 
+            onKeyDown={updatePrice} 
+            name= '1' 
+            onChange={handleChange}
+            placeholder= "$00.00"
+            >
+             
+            </input>
             
             :
-            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$$</div>
+            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>${parseInt(price[1]) === 0 ? "0.00" : price[1]}</div>
             }  
           
           </div>
@@ -238,7 +295,7 @@ const Items = () => {
             <input className= {lightMode ? 'L-Price-Input' : 'Price-Input' } onKeyDown={updatePrice} name= '2' onChange={handleChange}></input>
             
             :
-            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$$</div>
+            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>${price[2] === "" ? "0.00" : price[2]}</div>
             }
                 
         </div>
@@ -268,7 +325,7 @@ const Items = () => {
             <input className= {lightMode ? 'L-Price-Input' : 'Price-Input' } onKeyDown={updatePrice} name= '2' onChange={handleChange}></input>
             
             :
-            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$$</div>
+            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>${parseInt(price[2]) === 0 ? "0.00" : price[2]}</div>
             }  
           
           </div>
@@ -301,7 +358,7 @@ const Items = () => {
             <input className= {lightMode ? 'L-Price-Input' : 'Price-Input' } onKeyDown={updatePrice} name= '3' onChange={handleChange}></input>
             
             :
-            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$$</div>
+            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>${price[3] === "" ? "0.00" : price[3]}</div>
             }
                 
         </div>
@@ -331,7 +388,7 @@ const Items = () => {
             <input className= {lightMode ? 'L-Price-Input' : 'Price-Input' } onKeyDown={updatePrice} name= '3' onChange={handleChange}></input>
             
             :
-            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$$</div>
+            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>${price[3] === "" ? "0.00" : price[3]}</div>
             }
         </div>
         }
@@ -363,7 +420,7 @@ const Items = () => {
             <input className= {lightMode ? 'L-Price-Input' : 'Price-Input' } onKeyDown={updatePrice} name= '4' onChange={handleChange}></input>
             
             :
-            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$$</div>
+            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>${parseInt(price[4]) === 0 ? "0.00" : price[4]}</div>
             }
                 
         </div>
@@ -393,7 +450,7 @@ const Items = () => {
             <input className= {lightMode ? 'L-Price-Input' : 'Price-Input' } onKeyDown={updatePrice} name= '4' onChange={handleChange}></input>
             
             :
-            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$$</div>
+            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>${parseInt(price[4]) === 0 ? "0.00" : price[4]}</div>
             }  
         </div>
         } 
@@ -426,7 +483,7 @@ const Items = () => {
             <input className= {lightMode ? 'L-Price-Input' : 'Price-Input' } onKeyDown={updatePrice} name= '5' onChange={handleChange}></input>
             
             :
-            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$$</div>
+            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>${parseInt(price[5]) === 0 ? "0.00" : price[5]}</div>
             }
                 
         </div>
@@ -456,7 +513,7 @@ const Items = () => {
             <input className= {lightMode ? 'L-Price-Input' : 'Price-Input' } onKeyDown={updatePrice} name= '5' onChange={handleChange}></input>
             
             :
-            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$$</div>
+            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>${parseInt(price[5]) === 0 ? "0.00" : price[5]}</div>
             }  
         </div>
         } 
@@ -488,7 +545,7 @@ const Items = () => {
             <input className= {lightMode ? 'L-Price-Input' : 'Price-Input' } onKeyDown={updatePrice} name= '6' onChange={handleChange}></input>
             
             :
-            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$$</div>
+            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>${parseInt(price[6]) === 0 ? "0.00" : price[6]}</div>
             }
                 
         </div>
@@ -518,7 +575,7 @@ const Items = () => {
             <input className= {lightMode ? 'L-Price-Input' : 'Price-Input' } onKeyDown={updatePrice} name= '6' onChange={handleChange}></input>
             
             :
-            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$$</div>
+            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>${parseInt(price[6]) === 0 ? "0.00" : price[6]}</div>
             }  
         </div>
         } 
@@ -551,7 +608,7 @@ const Items = () => {
             <input className= {lightMode ? 'L-Price-Input' : 'Price-Input' } onKeyDown={updatePrice} name= '7' onChange={handleChange}></input>
             
             :
-            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$$</div>
+            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>${parseInt(price[7]) === 0 ? "0.00" : price[7]}</div>
             }
                 
         </div>
@@ -581,7 +638,7 @@ const Items = () => {
             <input className= {lightMode ? 'L-Price-Input' : 'Price-Input' } onKeyDown={updatePrice} name= '7' onChange={handleChange}></input>
             
             :
-            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$$</div>
+            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>${parseInt(price[7]) === 0 ? "0.00" : price[7]}</div>
             }  
         </div>
         } 
@@ -615,7 +672,7 @@ const Items = () => {
             <input className= {lightMode ? 'L-Price-Input' : 'Price-Input' } onKeyDown={updatePrice} name= '8' onChange={handleChange}></input>
             
             :
-            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$$</div>
+            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>${parseInt(price[8]) === 0 ? "0.00" : price[8]}</div>
             }
                 
         </div>
@@ -645,7 +702,7 @@ const Items = () => {
             <input className= {lightMode ? 'L-Price-Input' : 'Price-Input' } onKeyDown={updatePrice} name= '8' onChange={handleChange}></input>
             
             :
-            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$$</div>
+            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>${parseInt(price[8]) === 0 ? "0.00" : price[8]}</div>
             }  
         </div>
         } 
@@ -679,7 +736,7 @@ const Items = () => {
             <input className= {lightMode ? 'L-Price-Input' : 'Price-Input' } onKeyDown={updatePrice} name= '9' onChange={handleChange}></input>
             
             :
-            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$$</div>
+            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>${parseInt(price[9]) === 0 ? "0.00" : price[9]}</div>
             }
                 
         </div>
@@ -709,7 +766,7 @@ const Items = () => {
             <input className= {lightMode ? 'L-Price-Input' : 'Price-Input' } onKeyDown={updatePrice} name= '9' onChange={handleChange}></input>
             
             :
-            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$$</div>
+            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>${parseInt(price[9]) === 0 ? "0.00" : price[9]}</div>
             }  
         </div>
         }
@@ -742,7 +799,7 @@ const Items = () => {
             <input className= {lightMode ? 'L-Price-Input' : 'Price-Input' } onKeyDown={updatePrice} name= '10' onChange={handleChange}></input>
             
             :
-            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$$</div>
+            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>${parseInt(price[10]) === 0 ? "0.00" : price[10]}</div>
             }
                 
         </div>
@@ -772,7 +829,7 @@ const Items = () => {
             <input className= {lightMode ? 'L-Price-Input' : 'Price-Input' } onKeyDown={updatePrice} name= '10' onChange={handleChange}></input>
             
             :
-            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$$</div>
+            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>${parseInt(price[10]) === 0 ? "0.00" : price[10]}</div>
             }  
         </div>
         } 
@@ -805,7 +862,7 @@ const Items = () => {
             <input className= {lightMode ? 'L-Price-Input' : 'Price-Input' } onKeyDown={updatePrice} name= '11' onChange={handleChange}></input>
             
             :
-            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$$</div>
+            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>${parseInt(price[11]) === 0 ? "0.00" : price[11]}</div>
             }
                 
         </div>
@@ -835,7 +892,7 @@ const Items = () => {
             <input className= {lightMode ? 'L-Price-Input' : 'Price-Input' } onKeyDown={updatePrice} name= '11' onChange={handleChange}></input>
             
             :
-            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$$</div>
+            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>${parseInt(price[11]) === 0 ? "0.00" : price[11]}</div>
             }  
         </div>
         } 
@@ -867,7 +924,7 @@ const Items = () => {
             <input className= {lightMode ? 'L-Price-Input' : 'Price-Input' } onKeyDown={updatePrice} name= '12' onChange={handleChange}></input>
             
             :
-            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>$$</div>
+            <div className={lightMode ? 'L-ItemSelected-Price' : 'ItemSelected-Price'}>${parseInt(price[12]) === 0 ? "0.00" : price[12]}</div>
           }
                 
         </div>
@@ -897,7 +954,7 @@ const Items = () => {
             <input className= {lightMode ? 'L-Price-Input' : 'Price-Input' } onKeyDown={updatePrice} name= '12' onChange={handleChange}></input>
             
             :
-            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>$$</div>
+            <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>${parseInt(price[12]) === 0 ? "0.00" : price[12]}</div>
             }  
         </div>
         }
