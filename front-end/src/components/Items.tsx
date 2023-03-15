@@ -81,8 +81,14 @@ const Items = () => {
       if(e.key === 'Enter'){
         const contract = createVendingContractInstance(vendingAddress)
         const num = parseInt(itemNumber)
+        let priceFormatted 
+        if(priceInput[num].indexOf(".") !== -1){
+          priceFormatted = parseInt(priceInput[num])
+        }else{
+          priceFormatted = parseFloat(priceInput[num]) / 100
+        }
         try{
-          const set = await contract.setPrice(num, priceInput[num])
+          const set = await contract.setPrice(num, priceFormatted)
           await set.wait()
         }catch(e) {
           console.log(e)
