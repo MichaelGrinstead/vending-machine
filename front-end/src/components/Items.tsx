@@ -1,7 +1,7 @@
 import {useContext, useState, useEffect} from 'react'
 import VendingContext from '../context/VendingContext'
 import { Contract } from 'ethers'
-import { VendingFactoryContract, signer } from '../ContractObjects'
+import {signer } from '../ContractObjects'
 import {create} from 'ipfs-http-client'
 import {Buffer} from 'buffer'
 import CurrencyInput from 'react-currency-input-field';
