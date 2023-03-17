@@ -842,13 +842,14 @@ body {
 }
 
 .Item-Price{
+  font-family: "digital-7";
   border: solid greenyellow 3px;
   background-color: black;
   color: greenyellow;
   border-radius: 100px;
   height: 22px;
   width: 60px;
-  font-size: 16px;
+  font-size: 22px;
   font-weight: bold;
   text-align: center;
   padding: 2px;
@@ -857,28 +858,41 @@ body {
 }
 
 .Price-Input {
+  font-family: 'digital-7';
   border: solid greenyellow 3px;
   background-color: black;
   color: greenyellow;
   border-radius: 100px;
   height: 22px;
   width: 60px;
-  font-size: 16px;
+  font-size: 22px;
   font-weight: bold;
-  text-align: center;
-  padding: 2px;
+  text-align: left;
+  padding: 2px 2px 2px 8px;
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
   z-index: 2;
 }
 
+.Price-Input::placeholder {
+  font-family: 'digital-7';
+  font-size: 22px;
+  color: greenyellow;
+  padding-top: 2px;
+}
+
+.Price-Input:focus {
+  outline:none;
+}
+
 .ItemSelected-Price{
+  font-family: 'digital-7';
   border: solid greenyellow 3px;
   background-color: greenyellow;
   color: black;
   border-radius: 100px;
   height: 22px;
   width: 60px;
-  font-size: 16px;
+  font-size: 22px;
   font-weight: bold;
   text-align: center;
   padding: 2px;

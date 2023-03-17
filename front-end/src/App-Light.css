@@ -832,27 +832,56 @@
 }
 
 .L-Item-Price{
+  font-family: 'digital-7';
   border: solid #f54029 3px;
   background-color: whitesmoke;
   color: #f54029;
   border-radius: 100px;
   height: 22px;
   width: 60px;
-  font-size: 16px;
+  font-size: 22px;
   font-weight: bold;
   text-align: center;
   padding: 2px;
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
 }
 
+.L-Price-Input {
+  font-family: 'digital-7';
+  border: solid #f54029 3px;
+  background-color: whitesmoke;
+  color: #f54029;
+  border-radius: 100px;
+  height: 22px;
+  width: 60px;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: left;
+  padding: 2px 2px 2px 8px;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.L-Price-Input::placeholder {
+  font-family: 'digital-7';
+  font-size: 22px;
+  color: #f54029;
+  padding-top: 2px;
+}
+
+.L-Price-Input:focus {
+  outline:none;
+}
+
 .L-ItemSelected-Price{
+  font-family: 'digital-7';
   border: solid #f54029 3px;
   background-color: #f54029;
   color: whitesmoke;
   border-radius: 100px;
   height: 22px;
   width: 60px;
-  font-size: 16px;
+  font-size: 22px;
   font-weight: bold;
   text-align: center;
   padding: 2px;
