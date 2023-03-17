@@ -105,14 +105,10 @@ const Interface = () => {
     
   }
 
-  const getCost = (order : string) => {
-    if(parseInt(order) > 0 && parseInt(order) <= 4){
-      setCost("2.00")
-    }else if(parseInt(order) > 4 && parseInt(order) <= 8){
-      setCost("4.00")
-    }else if(parseInt(order) > 8 && parseInt(order) <= 12){
-    setCost("6.00")
-    }
+  const getCost = async (order : string) => {
+    const contract = createVendingContractInstance(vendingAddress)
+    const cost = ((await contract.itemNumberToPrice(order)) / 100).toFixed(2)
+    setCost(cost)
   }
 
   const payOrder = async () => {
