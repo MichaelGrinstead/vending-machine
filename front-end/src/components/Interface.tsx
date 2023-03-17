@@ -1,5 +1,5 @@
 import {useEffect, useState, useContext} from 'react'
-import {VendingContract, VendingTokenContract, VendingAddress, signer} from '../ContractObjects'
+import {VendingTokenContract, signer} from '../ContractObjects'
 import VendingContext from '../context/VendingContext'
 
 const Interface = () => {
@@ -7,7 +7,12 @@ const Interface = () => {
   const {
     currentItemSelected, 
     setCurrentItemSelected,
-    lightMode
+    lightMode,
+    remainingDeposit,
+    setRemainingDeposit,
+    retrieveImages,
+    createVendingContractInstance,
+    vendingAddress
   } = useContext(VendingContext)
 
   
@@ -28,29 +33,33 @@ const Interface = () => {
   const [depositValue, setDepositValue] = useState<number>(0)
   const [depositDisplay, setDepositDisplay] = useState<string>("")
   const [purchaseStatus, setPurchaseStatus] = useState<status>(status.ENTERING_DEPOSIT)
-  const [itemSelected, setItemSelected] = useState<boolean>(false)
-  const [remainingDeposit, setRemainingDeposit] = useState<string>("")
 
-
+  console.log(vendingAddress
+    )
   const makeDeposit = async () => {
     try{
-      const approval = await VendingTokenContract.approve(VendingAddress, depositValue)
+      const approval = await VendingTokenContract.approve(vendingAddress, depositValue)
       await approval.wait()
     }catch(e){
       console.log(e)
     }finally{
       setPurchaseStatus(status.DISPLAYING_DEPOSIT)
       setDepositDisplay(inputDepositDisplay)
+      getRemainingDeposit()
       setTimeout(() => setPurchaseStatus(status.SELECTING_ITEM), 9000)
     
     } 
   }
 
   const getRemainingDeposit = async () => {
-    const changeNumber = await VendingTokenContract.allowance(signer.getAddress(), VendingAddress)
+    const changeNumber = await VendingTokenContract.allowance(signer.getAddress(), vendingAddress)
+    if(changeNumber > 200){
+      setPurchaseStatus(status.SELECTING_ITEM)
+    }
     const changeFormatted = changeNumber/100
     const changeFinal = changeFormatted.toFixed(2)
     setRemainingDeposit(changeFinal)
+    
   }
 
   const updateOrder = (value : string) => {
@@ -60,7 +69,6 @@ const Interface = () => {
     }else if(value !== "0"){
       setCurrentItemSelected(value)
       setItemDisplay(value)
-      setItemSelected(true)
     }
   }
 
@@ -81,8 +89,7 @@ const Interface = () => {
     setCurrentItemSelected("")
     setInputDepositDisplay("00.00")
     setDepositString("")
-    setItemSelected(false)
-    await VendingTokenContract.approve(VendingAddress, 0)
+    await VendingTokenContract.approve(vendingAddress, 0)
   }
 
   const clearPaymentDisplay = () => {
@@ -98,33 +105,32 @@ const Interface = () => {
     
   }
 
-  const getCost = (order : string) => {
-    if(parseInt(order) > 0 && parseInt(order) <= 4){
-      setCost("2.00")
-    }else if(parseInt(order) > 4 && parseInt(order) <= 8){
-      setCost("4.00")
-    }else if(parseInt(order) > 8 && parseInt(order) <= 12){
-    setCost("6.00")
-    }
+  const getCost = async (order : string) => {
+    const contract = createVendingContractInstance(vendingAddress)
+    const cost = ((await contract.itemNumberToPrice(order)) / 100).toFixed(2)
+    setCost(cost)
   }
 
   const payOrder = async () => {
+    const contract = createVendingContractInstance(vendingAddress)
     const buyer = await signer.getAddress()
     try{
-      const purchase = await VendingContract.purchase(buyer, parseInt(currentItemSelected), (parseInt(cost)*100))
+      const purchase = await contract.purchase(buyer, parseInt(currentItemSelected))
       await purchase.wait()
     }catch(e){
       console.log(e)
     }finally{
       getRemainingDeposit()
       setPurchaseStatus(status.DISPLAYING_REMAINING_DEPOSIT)
+      setCurrentItemSelected("")
+      setInputDepositDisplay("00.00")
   
       if(remainingDeposit === "0.00"){
         setTimeout(() => setPurchaseStatus(status.ENTERING_DEPOSIT), 9000)
-        setInputDepositDisplay("00.00")
       }else{
         setTimeout(() => setPurchaseStatus(status.SELECTING_ITEM), 9000)
       }
+      // window.location.reload()
     } 
   }
 
@@ -141,9 +147,9 @@ const Interface = () => {
     }else if(purchaseStatus === status.SELECTING_ITEM){
       return <h3 className={lightMode ? 'L-Selection-Text-Moving-Longer' : 'Selection-Text-Moving-Longer'}>Please make your selection or press clear to end</h3>
     }else if(purchaseStatus === status.ITEM_SELECTED){
-      return <h3 className={lightMode ? 'L-Selection-Text-Moving' : 'Selection-Text-Moving'}>You have selected item {currentItemSelected}</h3> 
+      return <h3 className={lightMode ? 'L-Selection-Text-Moving' : 'Selection-Text-Moving'} style={{width: '400px'}} >You have selected item {currentItemSelected}</h3> 
     }else if(purchaseStatus === status.DISPLAYING_COST){
-      return <h3 className={lightMode ? 'L-Selection-Text-Moving-Longer' : 'Selection-Text-Moving-Longer'}>The cost is ${cost}&nbsp;&nbsp;&nbsp;Press enter to confirm</h3>
+      return <h3 className={lightMode ? 'L-Selection-Text-Moving-Longer' : 'Selection-Text-Moving-Longer'} style={{width: '900px'}}>The cost is ${cost}&nbsp;&nbsp;&nbsp;Press enter to confirm or clear to cancel</h3>
     }else if(purchaseStatus === status.DISPLAYING_REMAINING_DEPOSIT){
       return <h3 className={lightMode ? 'L-Selection-Text-Moving' : 'Selection-Text-Moving'}>You have ${remainingDeposit} remaining</h3>
     }
@@ -220,6 +226,12 @@ const Interface = () => {
   useEffect(() => {
     getRemainingDeposit()
   }, [])
+
+  useEffect(() => {
+    retrieveImages()
+    
+  }, [])
+  
 
  return (
     <div className={lightMode ? 'L-Interface' : 'Interface'}>

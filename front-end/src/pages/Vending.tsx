@@ -1,16 +1,70 @@
-import {useContext} from 'react'
+import {useContext, useEffect, useState} from 'react'
 import Interface from '../components/Interface'
 import InterfaceSmall from '../components/InterfaceSmall'
 import Items from '../components/Items'
 import PurchasedItems from '../components/PurchasedItems'
 import VendingContext from '../context/VendingContext'
+import { useNavigate } from 'react-router'
+
+declare var window : any
 
 const Vending = () => {
 
-  const {lightMode, setLightMode, showItems, setShowItems, showPurchased} = useContext(VendingContext)
+  const navigate = useNavigate()
+
+
+  const {
+    lightMode, 
+    setLightMode, 
+    showItems, 
+    setShowItems, 
+    loadPurchased, 
+    remainingDeposit,
+    vendingAddress,
+    createVendingContractInstance,
+  } = useContext(VendingContext)
+
+  const [name, setName] = useState<string>("")
+  const [symbol, setSymbol] = useState<string>("")
+  const [formattedAddress, setFormatAddress] = useState<string>("")
+
+  const getName = async () => {
+    const contract = createVendingContractInstance(vendingAddress)
+    const name = await contract.name()
+    setName(name)
+  }
+
+  const getSymbol = async () => {
+    const contract = createVendingContractInstance(vendingAddress)
+    const symbol = await contract.symbol()
+    setSymbol(symbol)
+  }  
+
+  const formatAddress = async (address : string) => {
+    const start = address.slice(0,5)
+    const end = address.slice(37)
+    const formatted = start + "...." + end
+    setFormatAddress(formatted)
+  }
+
+  useEffect(() => {
+    if(window.ethereum){
+      window.ethereum.on('accountsChanged', () => {
+        window.location.reload();
+      })
+    }
+    
+  },[])
+
+  useEffect(() => {
+    getName()
+    getSymbol()
+    formatAddress(vendingAddress)
+  },[vendingAddress])
 
   return (
     <div className={lightMode ? 'L-Vending' : 'Vending'}>
+        <button onClick={() => navigate('/')} className={lightMode ? 'L-Home-Button' : 'Home-Button'}>Home</button>
           <div className={lightMode ? 'L-Vending-Outer' : 'Vending-Outer'}>
             {showItems
               ?
@@ -20,10 +74,12 @@ const Vending = () => {
                 <Items/>
               </div>
               }
-            <div className='InterfaceSmall-Container'>
+            <div className='Vending-Side-Container'>
+
+              <div className={lightMode ? 'L-Change-Display': 'Change-Display'}><h4>${remainingDeposit}</h4></div>
+              <br></br>
+              <br></br>
               <InterfaceSmall/>
-              <br></br>
-              <br></br>
               <br></br>
               <br></br>
               <br></br>
@@ -38,7 +94,7 @@ const Vending = () => {
               :
                 <button 
                 className={lightMode ? 'L-Show-Items' : 'Show-Items'}
-                onClick={() => showPurchased()}
+                onClick={() => loadPurchased()}
                 >Show Purchased
                 </button>
 
@@ -49,7 +105,7 @@ const Vending = () => {
               ?
               <button 
               className={lightMode ? 'L-Show-Items' : 'Show-Items'}
-              onClick={() => showPurchased()}
+              onClick={() => loadPurchased()}
               >Refresh
               </button>
               :
@@ -62,7 +118,15 @@ const Vending = () => {
               
             </div>
           </div>
+          
+          <div className={lightMode ? 'L-Contract-Information' : 'Contract-Information'}>
+            <h3>Token Name: {name}</h3>
+            <h3>Token Symbol: {symbol}</h3>
+            <h3>Address: {formattedAddress}</h3>
+          </div>
           <Interface/>
+
+        
           {lightMode
           ?
           <button className='L-Switch-Theme' onClick={() => {setLightMode(false)}} >Dark</button>

@@ -185,7 +185,7 @@ export default [
           "type": "uint256"
         }
       ],
-      "name": "mintGL",
+      "name": "mintVendingToken",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"

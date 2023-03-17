@@ -112,6 +112,78 @@ body {
   100% { transform: rotate(360deg); }
 }
 
+.Mint-Tokens {
+  width: 20%;
+  height: 15%;
+  background-color: black;
+  color: greenyellow;
+  border: solid greenyellow;
+  border-radius: 50px;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
+  font-family:'digital-7';
+  position: absolute;
+  top: 50%;
+  left: 10%;
+}
+
+.Create-NFT {
+  width: 20%;
+  height: 15%;
+  background-color: black;
+  color: greenyellow;
+  border: solid greenyellow;
+  border-radius: 50px;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
+  font-family:'digital-7';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.Search-Collection {
+  width: 20%;
+  height: 15%;
+  background-color: black;
+  color: greenyellow;
+  border: solid greenyellow;
+  border-radius: 50px;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
+  font-family:'digital-7';
+  position: absolute;
+  top: 50%;
+  right: 10%;
+}
+
+.Mint-Tokens:hover {
+  background-color: greenyellow;
+  color: black;
+}
+
+.Create-NFT:hover {
+  background-color: greenyellow;
+  color: black;
+}
+
+.Search-Collection:hover {
+  background-color: greenyellow;
+  color: black;
+}
+
 /*Landing Page*/
 
 .Landing {
@@ -122,8 +194,6 @@ body {
   display: flex;
   flex-direction: column;
   background-color: black;
-  
-  
 }
 
 .Landing-Display-First {
@@ -159,8 +229,10 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  left: 50%;
-  margin-left: -600px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 2%;
   position: absolute;
   overflow: hidden;
@@ -172,9 +244,15 @@ body {
   border: black solid 5px;
 }
 
+.Landing-Display-Second:hover {
+  background-color: greenyellow;
+  color: black;
+  border: black solid 5px;
+}
+
 .Landing-Display-Text {
   animation: animatedText 13s linear infinite;
-  width: 2500px;
+  width: 3000px;
   position: absolute;
   text-align: left;
 }
@@ -190,28 +268,92 @@ body {
 
 .Landing-Inner {
   height: 500px;
-  width: 600px;
+  width: 90%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  border: solid greenyellow 5px;
-  border-radius: 40px;
+  gap: 5%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 20%;
+  margin-top: 17%;
   margin-bottom: 5%;
   padding: 10px;
   text-align: center;
   color: greenyellow;
   background-color: black;
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
-
+  font-size: 16px;
 }
 
-.Landing-Inner:hover {
+.Landing-Inner-Container-Left {
+  text-align: center;
+  border: solid 5px greenyellow;
+  border-radius: 40px;
+  padding: 10px;
+  width: 100%;
+  height: 90%
+}
+
+.Landing-Inner-Container-Middle {
+  border: solid 5px greenyellow;
+  border-radius: 40px;
+  padding: 10px;
+  width: 100%;
+  height: 90%
+}
+
+.Landing-Inner-Container-Right {
+  border: solid 5px greenyellow;
+  border-radius: 40px;
+  padding: 10px;
+  width: 100%;
+  height: 90%
+}
+
+.Landing-Inner-Container-Left:hover {
   border-color: black;
   background-color: greenyellow;
   color: black;
+}
+
+.Landing-Inner-Container-Middle:hover {
+  border-color: black;
+  background-color: greenyellow;
+  color: black;
+}
+
+.Landing-Inner-Container-Right:hover {
+  border-color: black;
+  background-color: greenyellow;
+  color: black;
+}
+
+.Landing-Inner-Container-Middle:hover input {
+  background-color: greenyellow;
+  border-color: black;
+  color: black;
+
+}
+
+.Landing-Inner-Container-Middle:hover input::placeholder {
+  color: black;
+}
+
+.Landing-Inner-Container-Right:hover input {
+  background-color: greenyellow;
+  border-color: black;
+  color: black;
+
+}
+
+.Landing-Inner-Container-Right:hover input::placeholder {
+  color: black;
+}
+
+.Exit-X {
+  width: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
 }
 
 .Address-Container {
@@ -229,6 +371,28 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+
+.Landing-Page-Input{
+  background-color: black;
+  color: greenyellow;
+  border: solid 3px;
+  border-color: inherit;
+  border-radius: 10px;
+  font-weight: bold;
+  width: 50%;
+  padding: 5px;
+}
+
+.Landing-Page-Input::placeholder {
+  color: greenyellow;
+  font-weight: bold;
+}
+
+.Landing-Page-Input:focus {
+  outline: none;
+}
+
+
 
 
 .Copied-Alert{
@@ -254,6 +418,7 @@ body {
   display: inline;
   border-radius: 5px;
   margin-bottom: 1px;
+  margin-top: 5px;
 }
 
 /*Vending Machine*/
@@ -290,6 +455,52 @@ body {
  
 }
 
+.Home-Button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: greenyellow;
+  border: solid black 5px;
+  color: black;
+  border-radius: 100px;
+  font-family:'digital-7';
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.Home-Button:hover {
+  background-color: black;
+  border-color: greenyellow;
+  color: greenyellow
+}
+
+.Contract-Information {
+  color: greenyellow;
+  background-color: black;
+  width: 220px;
+  height: 70px;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 10px;
+  position: absolute;
+  top: 2%;
+  right: 7.5%;
+  text-align: right;
+}
+
+.Contract-Information:hover {
+  background-color: greenyellow;
+  color: black;
+}
+
+.Contract-Information h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 /*Interface*/
 
 .Interface {
@@ -300,21 +511,40 @@ body {
   align-items: center;
   gap: 5%;
   position: absolute;
-  top: 12%;
+  top: 15%;
   right: 8%;
   border: solid greenyellow 5px;
   padding: 60px;
   border-radius: 20px;
 }
 
-.InterfaceSmall-Container {
+.Vending-Side-Container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 20%;
   margin-right: 10px;
-  margin-top: 10%;
+  margin-top: 5%;
+}
+
+.Change-Display {
+  font-family:'digital-7';
+  background-color: black;
+  color: greenyellow;
+  border: solid greenyellow 2px;
+  display: inline-block;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
+  font-weight: bold;
+  font-size: 35px;
+  padding: 0 4% 0 4%;
+  text-align: center;
+}
+
+.Change-Display h4 {
+  margin: 0;
+  /* width: 80px;; */
 }
 
 .InterfaceSmall {
@@ -421,10 +651,10 @@ body {
 
 @keyframes DisplayLonger {
   from {
-    left: 120%;
+    left: 100%;
   }
   to {
-    left: -220%;
+    left: -500%;
   }
 }
 
@@ -588,14 +818,38 @@ body {
   left: 2px;
 }
 
+.Update-Price {
+  border: solid greenyellow 3px;
+  background-color: black;
+  color: greenyellow;
+  border-radius: 100px;
+  height: 20px;
+  width: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  padding: 2px 3px 4px 2px;
+  float: right;
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  cursor: pointer;
+}
+
+.Update-Price:hover {
+  background-color: greenyellow;
+  color: black;
+}
+
 .Item-Price{
+  font-family: "digital-7";
   border: solid greenyellow 3px;
   background-color: black;
   color: greenyellow;
   border-radius: 100px;
   height: 22px;
   width: 60px;
-  font-size: 16px;
+  font-size: 22px;
   font-weight: bold;
   text-align: center;
   padding: 2px;
@@ -603,14 +857,42 @@ body {
   z-index: 2;
 }
 
+.Price-Input {
+  font-family: 'digital-7';
+  border: solid greenyellow 3px;
+  background-color: black;
+  color: greenyellow;
+  border-radius: 100px;
+  height: 22px;
+  width: 60px;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: left;
+  padding: 2px 2px 2px 8px;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.Price-Input::placeholder {
+  font-family: 'digital-7';
+  font-size: 22px;
+  color: greenyellow;
+  padding-top: 2px;
+}
+
+.Price-Input:focus {
+  outline:none;
+}
+
 .ItemSelected-Price{
+  font-family: 'digital-7';
   border: solid greenyellow 3px;
   background-color: greenyellow;
   color: black;
   border-radius: 100px;
   height: 22px;
   width: 60px;
-  font-size: 16px;
+  font-size: 22px;
   font-weight: bold;
   text-align: center;
   padding: 2px;
@@ -655,10 +937,9 @@ body {
 
 .Image {
   margin-bottom: 5%;
-  margin-top: 5%;
   height: 100px;
   width: 100px;
-  border: solid greenyellow 5px;
+  border: solid greenyellow 3px;
   border-radius: 10px;
 }
 

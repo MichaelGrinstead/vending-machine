@@ -3,9 +3,11 @@ import VendingContext from "../context/VendingContext"
 
 const PurchasedItems = () => {
 
-    const {images, imagesLoading, lightMode} = useContext(VendingContext)
+    const {images, imagesLoading, loadPurchased, setImagesLoading, retrieveImages, lightMode, tokenIds} = useContext(VendingContext)
 
+    console.log(imagesLoading)
     console.log(images)
+
     
   return (
     <div className={lightMode ? "L-Purchased-Items" : 'Purchased-Items'}>
@@ -19,24 +21,78 @@ const PurchasedItems = () => {
           <h2 className={lightMode ? "L-No-Purchased-Items" : "No-Purchased-Items"}>You currently have no purchased items</h2>
           :
           <div className={lightMode ? "L-Purchased-Items-Inner" : 'Purchased-Items-Inner'}>
-            
-            <div>{images[0]}</div>
-            <div>{images[1]}</div>
-            <div>{images[2]}</div>
-            <div>{images[3]}</div>
-            <div>{images[4]}</div>
-            <div>{images[5]}</div>
-            <div>{images[6]}</div>
-            <div>{images[7]}</div>
-            <div>{images[8]}</div>
-            <div>{images[9]}</div>
-            <div>{images[10]}</div>
-            <div>{images[11]}</div>
-            <div>{images[12]}</div>
-            <div>{images[13]}</div>
-            <div>{images[14]}</div>
-            <div>{images[15]}</div>
-            <div>{images[16]}</div>
+             <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
+              <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
+                <div>{images[0]}</div>
+              </div>
+              <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:{tokenIds[0].toNumber()}</div> 
+            </div>
+            <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
+              <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
+                <div>{images[1]}</div>
+              </div>
+              <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:</div> 
+            </div>
+            <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
+              <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
+                <div>{images[2]}</div>
+              </div>
+              <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:</div> 
+            </div>
+            <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
+              <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
+                <div>{images[3]}</div>
+              </div>
+              <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:</div> 
+            </div>
+            <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
+              <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
+                <div>{images[4]}</div>
+              </div>
+              <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:</div> 
+            </div>
+            <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
+              <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
+                <div>{images[5]}</div>
+              </div>
+              <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:</div> 
+            </div>
+            <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
+              <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
+                <div>{images[6]}</div>
+              </div>
+              <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:</div> 
+            </div>
+            <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
+              <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
+                <div>{images[7]}</div>
+              </div>
+              <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:</div> 
+            </div>
+            <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
+              <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
+                <div>{images[8]}</div>
+              </div>
+              <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:</div> 
+            </div>
+            <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
+              <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
+                <div>{images[9]}</div>
+              </div>
+              <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:</div> 
+            </div>
+            <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
+              <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
+                <div>{images[10]}</div>
+              </div>
+              <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:</div> 
+            </div>
+            <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
+              <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
+                <div>{images[11]}</div>
+              </div>
+              <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:</div> 
+            </div>
           </div>
           }
         </div>
