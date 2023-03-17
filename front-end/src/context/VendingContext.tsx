@@ -87,20 +87,6 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
     setImages(_images)
   }
 
-  // const retrieveImages = async () => {
-  //   const contract = createVendingContractInstance(vendingAddress)
-  //   const user = await signer.getAddress()
-  //   const ids = await contract.fetchIds(user)
-  //   setTokenIds(ids)
-  //   const URIArray : any[] = []
-  //   ids.map( async (id : any) => {
-  //     const uri = await contract.tokenIdToURI(id)
-  //     URIArray.push(uri)
-  //   })
-  //   setURIs(URIArray)
-    
-  // }
-
   const retrieveImages = async () => {
     const contract = createVendingContractInstance(vendingAddress)
     const user = await signer.getAddress()
