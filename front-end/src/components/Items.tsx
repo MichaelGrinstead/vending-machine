@@ -13,6 +13,10 @@ interface Prices {
   [key : number] : string 
 }
 
+interface Clicked {
+  [key : number] : boolean
+}
+
 const Items = () => {
 
     const {currentItemSelected,
@@ -21,10 +25,12 @@ const Items = () => {
         vendingAddress,
         createVendingContractInstance,
         getIsUserOwner,
-        isUserOwner
+        isUserOwner,
+        CIDS,
+        setCIDS
       } = useContext(VendingContext)
 
-    const [CIDS, setCIDS] = useState<any[]>([])
+    
     const [changingPrice, setChangingPrice] = useState<boolean>(false)
     const [updatingPriceNumber, setUpdatingPriceNumber] = useState<string | null>("")
     const [price, setPrice] = useState<Prices>({
@@ -55,6 +61,21 @@ const Items = () => {
       10: "",
       11: "",
       12: ""
+    })
+
+    const [clickedItem, setClickedItem] = useState<Clicked>({
+      1: false,
+      2: false,
+      3: false,
+      4: false,
+      5: false ,
+      6: false,
+      7: false,
+      8: false,
+      9: false,
+      10: false,
+      11:false,
+      12:false 
     })
 
     const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
@@ -176,7 +197,7 @@ const Items = () => {
     }
   }
   
-
+  console.log(CIDS)
 
   ///useEffect
 
@@ -256,7 +277,7 @@ const Items = () => {
                     {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
-                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[0]}`}/>             
+                <img className= 'Item' id = '1' onClick={() => setClickedItem({1 : true})} src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[0]}`}/>             
                 }
             </div>
             {changingPrice && updatingPriceNumber === "1"
@@ -301,7 +322,7 @@ const Items = () => {
                     {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
-                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[1]}`}/>             
+                <img className= 'Item' onClick={() => setClickedItem({2 : true})} src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[1]}`}/>             
                 }
           </div>
             {changingPrice && updatingPriceNumber === "2"
@@ -341,7 +362,7 @@ const Items = () => {
                     {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
-                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[1]}`}/>             
+                <img className= 'Item' onClick={() => setClickedItem({2 : true})} src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[1]}`}/>             
                 }
           </div>
             {changingPrice && updatingPriceNumber === "2"
@@ -384,7 +405,7 @@ const Items = () => {
                     {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
-                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[2]}`}/>             
+                <img className= 'Item' onClick={() => setClickedItem({3 : true})} src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[2]}`}/>             
                 }
           </div>
             {changingPrice && updatingPriceNumber === "3"
@@ -424,7 +445,7 @@ const Items = () => {
                     {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
-                <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[2]}`}/>             
+                <img className= 'Item' onClick={() => setClickedItem({3 : true})} src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[2]}`}/>             
                 }
           </div>
             {changingPrice && updatingPriceNumber === "3"
