@@ -471,18 +471,25 @@
 }
 
 .L-Contract-Information {
-  border: solid 5px #f54029;
-  background-color: whitesmoke;
-  color: #f54029;
-  width:220px;
-  height: 70px;
-  font-size: 16px;
-  padding: 10px;
+  border: solid 5px whitesmoke;
+  background-color: #f54029;
+  color: whitesmoke;
+  width:300px;
+  height: 90px;
+  font-size: 14px;
+  padding: 5px;
   border-radius: 10px;
   position: absolute;
   top: 2%;
-  right: 7.5%;
-  text-align: right;
+  right: 11%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.L-Contract-Information:hover {
+  background-color: whitesmoke;
+  color: #f54029;
+  border: solid 5px #f54029;
 }
 
 .L-Contract-Information h3 {
@@ -502,7 +509,7 @@
   align-items: center;
   gap: 5%;
   position: absolute;
-  top: 15%;
+  top: 18%;
   right: 8%;
   border: solid #FFB52E 5px;
   background-color: #f54029;
@@ -604,7 +611,7 @@
 .L-Selection-Text-Moving-Longer {
   position: absolute;
   width: 800px;
-  animation: DisplayLonger 9s linear infinite;
+  animation: DisplayLonger 8s linear infinite;
   margin: 0
 }
 
@@ -623,7 +630,7 @@
   margin: 0
 }
 
-
+/* 
 @keyframes Display {
   from {
     left: 120%;
@@ -631,14 +638,14 @@
   to {
     left: -180%;
   }
-}
+} */
 
 @keyframes DisplayLonger {
   from {
-    left: 120%;
+    left: 100%;
   }
   to {
-    left: -220%;
+    left: -300%;
   }
 }
 
