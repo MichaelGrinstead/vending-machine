@@ -53,9 +53,9 @@ const Interface = () => {
 
   const getRemainingDeposit = async () => {
     const changeNumber = await VendingTokenContract.allowance(signer.getAddress(), vendingAddress)
-    if(changeNumber > 200){
-      setPurchaseStatus(status.SELECTING_ITEM)
-    }
+    // if(changeNumber > 200){
+    //   setPurchaseStatus(status.SELECTING_ITEM)
+    // }
     const changeFormatted = changeNumber/100
     const changeFinal = changeFormatted.toFixed(2)
     setRemainingDeposit(changeFinal)
@@ -85,11 +85,18 @@ const Interface = () => {
   }
 
   const clearOrder = async () => {
-    setPurchaseStatus(status.ENTERING_DEPOSIT)
-    setCurrentItemSelected("")
-    setInputDepositDisplay("00.00")
-    setDepositString("")
-    await VendingTokenContract.approve(vendingAddress, 0)
+    try{
+      const clear = await VendingTokenContract.approve(vendingAddress, 0)
+      await clear.wait()
+    }catch(e){
+      console.log(e)
+    }finally{
+      setPurchaseStatus(status.ENTERING_DEPOSIT)
+      setCurrentItemSelected("")
+      setInputDepositDisplay("00.00")
+      setDepositString("")
+      getRemainingDeposit()
+    }
   }
 
   const clearPaymentDisplay = () => {
@@ -126,11 +133,13 @@ const Interface = () => {
       setInputDepositDisplay("00.00")
   
       if(remainingDeposit === "0.00"){
-        setTimeout(() => setPurchaseStatus(status.ENTERING_DEPOSIT), 9000)
+        setTimeout(() => setPurchaseStatus(status.PAYMENT_COMPLETE), 9000)
+        setTimeout(() => setPurchaseStatus(status.ENTERING_DEPOSIT), 18000)
       }else{
-        setTimeout(() => setPurchaseStatus(status.SELECTING_ITEM), 9000)
+        setTimeout(() => setPurchaseStatus(status.PAYMENT_COMPLETE), 9000)
+        setTimeout(() => setPurchaseStatus(status.SELECTING_ITEM), 18000)
       }
-      // window.location.reload()
+      
     } 
   }
 
@@ -152,6 +161,8 @@ const Interface = () => {
       return <h3 className={lightMode ? 'L-Selection-Text-Moving-Longer' : 'Selection-Text-Moving-Longer'} style={{width: '900px'}}>The cost is ${cost}&nbsp;&nbsp;&nbsp;Press enter to confirm or clear to cancel</h3>
     }else if(purchaseStatus === status.DISPLAYING_REMAINING_DEPOSIT){
       return <h3 className={lightMode ? 'L-Selection-Text-Moving' : 'Selection-Text-Moving'}>You have ${remainingDeposit} remaining</h3>
+    }else if(purchaseStatus === status.PAYMENT_COMPLETE){
+      return <h3 className={lightMode ? 'L-Selection-Text-Moving' : 'Selection-Text-Moving'}>Thank You for your purchase.</h3>
     }
     
     
@@ -208,6 +219,15 @@ const Interface = () => {
               >Clear
               </button>
 
+    }else if(purchaseStatus === status.DISPLAYING_COST){
+      return  <button 
+              className={lightMode ? 'L-Key' : 'Key'}
+              style={{fontSize: "30px"}}
+              onClick={() => clearOrder()}
+              >Clear
+              </button>
+    
+    
     }else{
       return  <button 
               className={lightMode ? 'L-Key' : 'Key'}
