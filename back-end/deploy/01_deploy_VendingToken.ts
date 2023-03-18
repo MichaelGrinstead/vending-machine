@@ -18,9 +18,9 @@ const func : DeployFunction = async (hre : HardhatRuntimeEnvironment) => {
         log: true
     })
 
-    const GLToken : Contract = await ethers.getContract("VendingToken")
+    const VendingToken : Contract = await ethers.getContract("VendingToken")
 
-    await GLToken.connect(user).mintGL(1000)
+    await VendingToken.connect(user).mintVendingToken(1000)
     console.log(user.address)
  
 }   
