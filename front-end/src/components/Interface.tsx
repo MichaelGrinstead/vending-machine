@@ -108,7 +108,7 @@ const Interface = () => {
     getCost(currentItemSelected)
     setItemDisplay("")
     setPurchaseStatus(status.ITEM_SELECTED)
-    setTimeout(() => setPurchaseStatus(status.DISPLAYING_COST), 9000)
+    setTimeout(() => setPurchaseStatus(status.DISPLAYING_COST), 8000)
     
   }
 
@@ -136,10 +136,9 @@ const Interface = () => {
         setTimeout(() => setPurchaseStatus(status.PAYMENT_COMPLETE), 9000)
         setTimeout(() => setPurchaseStatus(status.ENTERING_DEPOSIT), 18000)
       }else{
-        setTimeout(() => setPurchaseStatus(status.PAYMENT_COMPLETE), 9000)
         setTimeout(() => setPurchaseStatus(status.SELECTING_ITEM), 18000)
+        setTimeout(() => setPurchaseStatus(status.PAYMENT_COMPLETE), 27000)
       }
-      
     } 
   }
 
@@ -158,7 +157,7 @@ const Interface = () => {
     }else if(purchaseStatus === status.ITEM_SELECTED){
       return <h3 className={lightMode ? 'L-Selection-Text-Moving' : 'Selection-Text-Moving'} style={{width: '400px'}} >You have selected item {currentItemSelected}</h3> 
     }else if(purchaseStatus === status.DISPLAYING_COST){
-      return <h3 className={lightMode ? 'L-Selection-Text-Moving-Longer' : 'Selection-Text-Moving-Longer'} style={{width: '900px'}}>The cost is ${cost}&nbsp;&nbsp;&nbsp;Press enter to confirm or clear to cancel</h3>
+      return <h3 className={lightMode ? 'L-Selection-Text-Moving-Longer' : 'Selection-Text-Moving-Longer'} style={{width: '1000px'}}>The cost is ${cost}&nbsp;&nbsp;&nbsp;Press enter to confirm or clear to cancel</h3>
     }else if(purchaseStatus === status.DISPLAYING_REMAINING_DEPOSIT){
       return <h3 className={lightMode ? 'L-Selection-Text-Moving' : 'Selection-Text-Moving'}>You have ${remainingDeposit} remaining</h3>
     }else if(purchaseStatus === status.PAYMENT_COMPLETE){
