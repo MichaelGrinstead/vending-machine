@@ -224,7 +224,7 @@ const Landing = () => {
                             <button 
                             className={lightMode ? "L-Create-NFT" : 'Create-NFT'}
                             onClick= {() => setCreateNFT(!createNFT)}
-                            >Create NFT Contract
+                            >Create Collection
                             </button>
                             }   
                             {createNFT
