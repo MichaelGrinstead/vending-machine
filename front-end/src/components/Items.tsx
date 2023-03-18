@@ -167,9 +167,17 @@ const Items = () => {
     const CIDS = await Promise.all(promises)
     setCIDS(CIDS)
   }
+
+  const checkItems = (x : number) => {
+    if(CIDS[x] === "" || CIDS[x] === null || CIDS.length === 0){
+      return true
+    }else {
+      return false
+    }
+  }
   
 
-  console.log(CIDS)
+  
 
   const getIsUserOwner = async () => {
     const contract : Contract = createVendingContractInstance(vendingAddress)
@@ -180,7 +188,7 @@ const Items = () => {
     } 
   }
 
-  console.log(isUserOwner)
+
 
   ///useEffect
 
@@ -211,7 +219,7 @@ const Items = () => {
               >$
               </div>
             
-                {(CIDS[0] === "") 
+                {checkItems(0)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file1'>
                     <input style= {{display: 'none'}} type='file' id='file1' name='1' onChange={handleItemUpload}></input>
@@ -253,7 +261,7 @@ const Items = () => {
               id='1'
               >$
               </div>
-                {CIDS[0] === ""
+                {checkItems(0)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file1'>
                     <input style= {{display: 'none'}} type='file' id='file1' name='1' onChange={handleItemUpload}></input>
@@ -298,7 +306,7 @@ const Items = () => {
               id= '2'
               >$
               </div>
-                {CIDS[1] === ""
+                {checkItems(1)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file2'>
                     <input style= {{display: 'none'}} type='file' id='file2' name='2' onChange={handleItemUpload}></input>
@@ -338,7 +346,7 @@ const Items = () => {
               id= '2'
               >$
               </div>
-                {CIDS[1] === ""
+                {checkItems(1)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file2'>
                     <input style= {{display: 'none'}} type='file' id='file2' name='2' onChange={handleItemUpload}></input>
@@ -381,7 +389,7 @@ const Items = () => {
               id= '3'
               >$
               </div>
-                {CIDS[2] === ""
+                {checkItems(2)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file3'>
                     <input style= {{display: 'none'}} type='file' id='file3' name='3' onChange={handleItemUpload}></input>
@@ -421,7 +429,7 @@ const Items = () => {
               id= '3'
               >$
               </div>
-                {CIDS[2] === ""
+                {checkItems(2)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file3'>
                     <input style= {{display: 'none'}} type='file' id='file3' name='3' onChange={handleItemUpload}></input>
@@ -463,7 +471,7 @@ const Items = () => {
               id= '4'
               >$
               </div>
-              {CIDS[3] === ""
+              {checkItems(3)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file4'>
                     <input style= {{display: 'none'}} type='file' id='file4' name='4' onChange={handleItemUpload}></input>
@@ -503,7 +511,7 @@ const Items = () => {
               id= '4'
               >$
               </div>
-              {CIDS[3] === ""
+              {checkItems(3)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file4'>
                     <input style= {{display: 'none'}} type='file' id='file4' name='4' onChange={handleItemUpload}></input>
@@ -546,7 +554,7 @@ const Items = () => {
               id= '5'
               >$
               </div>
-              {CIDS[4] === ""
+              {checkItems(4)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file5'>
                     <input style= {{display: 'none'}} type='file' id='file5' name='5' onChange={handleItemUpload}></input>
@@ -586,7 +594,7 @@ const Items = () => {
             id= '5'
             >$
             </div>
-              {CIDS[4] === ""
+              {checkItems(4)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file5'>
                     <input style= {{display: 'none'}} type='file' id='file5' name='5' onChange={handleItemUpload}></input>
@@ -628,7 +636,7 @@ const Items = () => {
               id= '6'
               >$
               </div>
-              {CIDS[5] === ""
+              {checkItems(5)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file6'>
                     <input style= {{display: 'none'}} type='file' id='file6' name='6' onChange={handleItemUpload}></input>
@@ -668,7 +676,7 @@ const Items = () => {
               id= '6'
               >$
               </div>
-             {CIDS[5] === ""
+             {checkItems(5)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file6'>
                     <input style= {{display: 'none'}} type='file' id='file6' name='6' onChange={handleItemUpload}></input>
@@ -711,7 +719,7 @@ const Items = () => {
               id= '7'
               >$
               </div>
-                {CIDS[6] === ""
+                {checkItems(6)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file7'>
                     <input style= {{display: 'none'}} type='file' id='file7' name='7' onChange={handleItemUpload}></input>
@@ -751,7 +759,7 @@ const Items = () => {
               id= '7'
               >$
               </div>
-                {CIDS[6] === ""
+                {checkItems(6)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file7'>
                     <input style= {{display: 'none'}} type='file' id='file7' name='7' onChange={handleItemUpload}></input>
@@ -795,7 +803,7 @@ const Items = () => {
               id= '8'
               >$
               </div>
-                {CIDS[7] === ""
+                {checkItems(7)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file8'>
                     <input style= {{display: 'none'}} type='file' id='file8' name='8' onChange={handleItemUpload}></input>
@@ -835,7 +843,7 @@ const Items = () => {
               id= '8'
               >$
               </div>
-                {CIDS[7] === ""
+                {checkItems(7)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file8'>
                     <input style= {{display: 'none'}} type='file' id='file8' name='8' onChange={handleItemUpload}></input>
@@ -879,7 +887,7 @@ const Items = () => {
               id= '9'
               >$
               </div>
-                {CIDS[8] === ""
+                {checkItems(8)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file9'>
                     <input style= {{display: 'none'}} type='file' id='file9' name='9' onChange={handleItemUpload}></input>
@@ -919,7 +927,7 @@ const Items = () => {
               id= '9'
               >$
               </div>
-                {CIDS[8] === ""
+                {checkItems(8)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file9'>
                     <input style= {{display: 'none'}} type='file' id='file9' name='9' onChange={handleItemUpload}></input>
@@ -962,7 +970,7 @@ const Items = () => {
               id= '10'
               >$
               </div>
-                {CIDS[9] === ""
+                {checkItems(9)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file10'>
                     <input style= {{display: 'none'}} type='file' id='file10' name='10' onChange={handleItemUpload}></input>
@@ -1002,7 +1010,7 @@ const Items = () => {
               id= '10'
               >$
               </div> 
-                {CIDS[9] === ""
+                {checkItems(9)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file10'>
                     <input style= {{display: 'none'}} type='file' id='file10' name='10' onChange={handleItemUpload}></input>
@@ -1045,7 +1053,7 @@ const Items = () => {
               id= '11'
               >$
               </div>
-                {CIDS[10] === ""
+                {checkItems(10)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file11'>
                     <input style= {{display: 'none'}} type='file' id='file11' name='11' onChange={handleItemUpload}></input>
@@ -1085,7 +1093,7 @@ const Items = () => {
               id= '11'
               >$
               </div> 
-                {CIDS[10] === ""
+                {checkItems(10)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file11'>
                     <input style= {{display: 'none'}} type='file' id='file11' name='11' onChange={handleItemUpload}></input>
@@ -1127,7 +1135,7 @@ const Items = () => {
               id= '12'
               >$
               </div>
-                {CIDS[11] === ""
+                {checkItems(11)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file12'>
                     <input style= {{display: 'none'}} type='file' id='file12' name='12' onChange={handleItemUpload}></input>
@@ -1167,7 +1175,7 @@ const Items = () => {
               id= '12'
               >$
               </div> 
-                {CIDS[11] === ""
+                {checkItems(11)
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file12'>
                     <input style= {{display: 'none'}} type='file' id='file12' name='12' onChange={handleItemUpload}></input>
