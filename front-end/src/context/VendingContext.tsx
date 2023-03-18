@@ -1,7 +1,7 @@
 import React, {createContext, useState, ReactNode} from 'react'
 import {signer, VendingFactoryContract } from '../ContractObjects'
 import VendingABI from '../ABIs/VendingABI'
-import {ethers} from 'ethers'
+import {ethers, Contract} from 'ethers'
 
 export const enum connectionState {
   UNCONNECTED,
@@ -33,6 +33,8 @@ interface VendingContextInterface {
     setRemainingDeposit : React.Dispatch<React.SetStateAction<string>>
     retrieveImages : () => Promise<void>
     tokenIds : any[] 
+    isUserOwner : boolean
+    getIsUserOwner : () => Promise<void>
 }
 
 const VendingContext = createContext<VendingContextInterface>({} as VendingContextInterface)
@@ -49,7 +51,7 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
   
   const [connectionStatus, setConnectionStatus] = useState<connectionState>(connectionState.UNCONNECTED)
 
-
+  const [isUserOwner, setIsUserOwner] = useState<boolean>(false)
 
   const [tokenIds, setTokenIds] = useState<any[]>([])
 
@@ -70,6 +72,18 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
     setVendingAddress(address)
 
   }
+
+///Sets isUserOwner to true if connected account is the contract owner
+
+const getIsUserOwner = async () => {
+  const contract : Contract = createVendingContractInstance(vendingAddress)
+  const owner = await contract.owner()
+  const user = await signer.getAddress()
+  if(owner === user){
+    setIsUserOwner(true)
+  } 
+}
+
 
 ///Logic to display purchased items   
 
@@ -142,7 +156,9 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
         retrieveImages,
         tokenIds,
         vendingAddress,
-        setVendingAddress
+        setVendingAddress,
+        isUserOwner,
+        getIsUserOwner
       }}
       >
         {children}

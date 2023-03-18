@@ -20,13 +20,13 @@ const Items = () => {
         lightMode,
         vendingAddress,
         createVendingContractInstance,
-        images
+        getIsUserOwner,
+        isUserOwner
       } = useContext(VendingContext)
 
     const [CIDS, setCIDS] = useState<any[]>([])
     const [changingPrice, setChangingPrice] = useState<boolean>(false)
     const [updatingPriceNumber, setUpdatingPriceNumber] = useState<string | null>("")
-    const [isUserOwner, setIsUserOwner] = useState<boolean>(false)
     const [price, setPrice] = useState<Prices>({
       1: "",
       2: "",
@@ -177,18 +177,6 @@ const Items = () => {
   }
   
 
-  
-
-  const getIsUserOwner = async () => {
-    const contract : Contract = createVendingContractInstance(vendingAddress)
-    const owner = await contract.owner()
-    const user = await signer.getAddress()
-    if(owner === user){
-      setIsUserOwner(true)
-    } 
-  }
-
-
 
   ///useEffect
 
@@ -223,7 +211,7 @@ const Items = () => {
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file1'>
                     <input style= {{display: 'none'}} type='file' id='file1' name='1' onChange={handleItemUpload}></input>
-                    Upload Image
+                    {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[0]}`}/>             
@@ -265,7 +253,7 @@ const Items = () => {
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file1'>
                     <input style= {{display: 'none'}} type='file' id='file1' name='1' onChange={handleItemUpload}></input>
-                    Upload Image
+                    {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[0]}`}/>             
@@ -310,7 +298,7 @@ const Items = () => {
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file2'>
                     <input style= {{display: 'none'}} type='file' id='file2' name='2' onChange={handleItemUpload}></input>
-                    Upload Image
+                    {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[1]}`}/>             
@@ -350,7 +338,7 @@ const Items = () => {
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file2'>
                     <input style= {{display: 'none'}} type='file' id='file2' name='2' onChange={handleItemUpload}></input>
-                    Upload Image
+                    {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[1]}`}/>             
@@ -393,7 +381,7 @@ const Items = () => {
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file3'>
                     <input style= {{display: 'none'}} type='file' id='file3' name='3' onChange={handleItemUpload}></input>
-                    Upload Image
+                    {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[2]}`}/>             
@@ -433,7 +421,7 @@ const Items = () => {
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file3'>
                     <input style= {{display: 'none'}} type='file' id='file3' name='3' onChange={handleItemUpload}></input>
-                    Upload Image
+                    {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[2]}`}/>             
@@ -475,7 +463,7 @@ const Items = () => {
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file4'>
                     <input style= {{display: 'none'}} type='file' id='file4' name='4' onChange={handleItemUpload}></input>
-                    Upload Image
+                    {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[3]}`}/>             
@@ -515,7 +503,7 @@ const Items = () => {
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file4'>
                     <input style= {{display: 'none'}} type='file' id='file4' name='4' onChange={handleItemUpload}></input>
-                    Upload Image
+                    {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[3]}`}/>             
@@ -558,7 +546,7 @@ const Items = () => {
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file5'>
                     <input style= {{display: 'none'}} type='file' id='file5' name='5' onChange={handleItemUpload}></input>
-                    Upload Image
+                    {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[4]}`}/>             
@@ -598,7 +586,7 @@ const Items = () => {
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file5'>
                     <input style= {{display: 'none'}} type='file' id='file5' name='5' onChange={handleItemUpload}></input>
-                    Upload Image
+                    {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[4]}`}/>             
@@ -640,7 +628,7 @@ const Items = () => {
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file6'>
                     <input style= {{display: 'none'}} type='file' id='file6' name='6' onChange={handleItemUpload}></input>
-                    Upload Image
+                    {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[5]}`}/>             
@@ -680,7 +668,7 @@ const Items = () => {
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file6'>
                     <input style= {{display: 'none'}} type='file' id='file6' name='6' onChange={handleItemUpload}></input>
-                    Upload Image
+                    {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[5]}`}/>             
@@ -723,7 +711,7 @@ const Items = () => {
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file7'>
                     <input style= {{display: 'none'}} type='file' id='file7' name='7' onChange={handleItemUpload}></input>
-                    Upload Image
+                    {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[6]}`}/>             
@@ -763,7 +751,7 @@ const Items = () => {
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file7'>
                     <input style= {{display: 'none'}} type='file' id='file7' name='7' onChange={handleItemUpload}></input>
-                    Upload Image
+                    {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[6]}`}/>             
@@ -807,7 +795,7 @@ const Items = () => {
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file8'>
                     <input style= {{display: 'none'}} type='file' id='file8' name='8' onChange={handleItemUpload}></input>
-                    Upload Image
+                    {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[7]}`}/>             
@@ -847,7 +835,7 @@ const Items = () => {
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file8'>
                     <input style= {{display: 'none'}} type='file' id='file8' name='8' onChange={handleItemUpload}></input>
-                    Upload Image
+                    {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[7]}`}/>             
@@ -891,7 +879,7 @@ const Items = () => {
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file9'>
                     <input style= {{display: 'none'}} type='file' id='file9' name='9' onChange={handleItemUpload}></input>
-                    Upload Image
+                    {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[8]}`}/>             
@@ -931,7 +919,7 @@ const Items = () => {
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file9'>
                     <input style= {{display: 'none'}} type='file' id='file9' name='9' onChange={handleItemUpload}></input>
-                    Upload Image
+                    {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[8]}`}/>             
@@ -974,7 +962,7 @@ const Items = () => {
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file10'>
                     <input style= {{display: 'none'}} type='file' id='file10' name='10' onChange={handleItemUpload}></input>
-                    Upload Image
+                    {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[9]}`}/>             
@@ -1014,7 +1002,7 @@ const Items = () => {
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file10'>
                     <input style= {{display: 'none'}} type='file' id='file10' name='10' onChange={handleItemUpload}></input>
-                    Upload Image
+                    {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[9]}`}/>             
@@ -1057,7 +1045,7 @@ const Items = () => {
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file11'>
                     <input style= {{display: 'none'}} type='file' id='file11' name='11' onChange={handleItemUpload}></input>
-                    Upload Image
+                    {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[10]}`}/>             
@@ -1097,7 +1085,7 @@ const Items = () => {
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file11'>
                     <input style= {{display: 'none'}} type='file' id='file11' name='11' onChange={handleItemUpload}></input>
-                    Upload Image
+                    {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[10]}`}/>             
@@ -1139,7 +1127,7 @@ const Items = () => {
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file12'>
                     <input style= {{display: 'none'}} type='file' id='file12' name='12' onChange={handleItemUpload}></input>
-                    Upload Image
+                    {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[11]}`}/>             
@@ -1179,7 +1167,7 @@ const Items = () => {
                 ?
                   <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file12'>
                     <input style= {{display: 'none'}} type='file' id='file12' name='12' onChange={handleItemUpload}></input>
-                    Upload Image
+                    {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
                 <img className= 'Item' src = {`https://personal-project-storage.infura-ipfs.io/ipfs/${CIDS[11]}`}/>             

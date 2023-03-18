@@ -22,6 +22,8 @@ const Vending = () => {
     remainingDeposit,
     vendingAddress,
     createVendingContractInstance,
+    isUserOwner,
+    getIsUserOwner
   } = useContext(VendingContext)
 
   const [name, setName] = useState<string>("")
@@ -60,6 +62,7 @@ const Vending = () => {
     getName()
     getSymbol()
     formatAddress(vendingAddress)
+    getIsUserOwner()
   },[vendingAddress])
 
   return (
@@ -123,6 +126,7 @@ const Vending = () => {
             <h3>Token Name: {name}</h3>
             <h3>Token Symbol: {symbol}</h3>
             <h3>Address: {formattedAddress}</h3>
+            <h3>Viewing As:{isUserOwner ? " Owner" : " Buyer"} </h3>
           </div>
           <Interface/>
 
