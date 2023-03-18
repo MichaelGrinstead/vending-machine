@@ -154,7 +154,7 @@ const Items = () => {
       }catch(error){
           console.log(error)
       }finally{
-        
+        fetchItems()
       }
   }
 
