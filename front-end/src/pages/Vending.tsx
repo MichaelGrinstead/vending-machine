@@ -23,7 +23,8 @@ const Vending = () => {
     vendingAddress,
     createVendingContractInstance,
     isUserOwner,
-    getIsUserOwner
+    getIsUserOwner,
+    setCIDS
   } = useContext(VendingContext)
 
   const [name, setName] = useState<string>("")
@@ -49,6 +50,10 @@ const Vending = () => {
     setFormatAddress(formatted)
   }
 
+  const returnURI = (x : number) => {
+    return `https://personal-project-storage.infura-ipfs.io/ipfs/CIDS[${x}]`
+  }
+
   useEffect(() => {
     if(window.ethereum){
       window.ethereum.on('accountsChanged', () => {
@@ -63,6 +68,7 @@ const Vending = () => {
     getSymbol()
     formatAddress(vendingAddress)
     getIsUserOwner()
+    setCIDS([])
   },[vendingAddress])
 
   return (

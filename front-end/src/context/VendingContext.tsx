@@ -35,6 +35,8 @@ interface VendingContextInterface {
     tokenIds : any[] 
     isUserOwner : boolean
     getIsUserOwner : () => Promise<void>
+    CIDS : any[]
+    setCIDS : React.Dispatch<React.SetStateAction<any[]>>
 }
 
 const VendingContext = createContext<VendingContextInterface>({} as VendingContextInterface)
@@ -54,6 +56,8 @@ export const VendingProvider  = ({children} : {children : ReactNode}) => {
   const [isUserOwner, setIsUserOwner] = useState<boolean>(false)
 
   const [tokenIds, setTokenIds] = useState<any[]>([])
+
+  const [CIDS, setCIDS] = useState<any[]>([])
 
   const [remainingDeposit, setRemainingDeposit] = useState<string>("")
 
@@ -158,7 +162,9 @@ const getIsUserOwner = async () => {
         vendingAddress,
         setVendingAddress,
         isUserOwner,
-        getIsUserOwner
+        getIsUserOwner,
+        CIDS,
+        setCIDS
       }}
       >
         {children}
