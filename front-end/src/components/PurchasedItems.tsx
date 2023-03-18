@@ -5,11 +5,6 @@ const PurchasedItems = () => {
 
     const {images, imagesLoading, lightMode, tokenIds, retrieveImages} = useContext(VendingContext)
 
-    console.log(imagesLoading)
-    console.log(images)
-
-    console.log(Number(tokenIds[0]))
-
     const retreiveIds = (index : number) => {
       if(tokenIds[index]){
         return Number(tokenIds[index])
