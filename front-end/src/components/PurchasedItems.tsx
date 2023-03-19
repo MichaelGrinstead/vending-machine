@@ -22,7 +22,15 @@ const PurchasedItems = () => {
     <div className={lightMode ? "L-Purchased-Items" : 'Purchased-Items'}>
         {imagesLoading
         ?
-        <div className={lightMode ? "L-Loader" : 'Loader'} style={{marginLeft: "auto", marginRight: "auto", marginTop: "5%"}}></div>
+        <div 
+        className={lightMode ? "L-Loader" : 'Loader'} 
+        style={
+          {marginLeft: "auto", 
+          marginRight: "auto", 
+          marginTop: "35%", 
+          height: "50px", 
+          width: "50px"
+        }}></div>
         :
         <div className={lightMode ? "L-Purchased-Items-Outer" : "Purchased-Items-Outer"}>
           {images.length === 0
