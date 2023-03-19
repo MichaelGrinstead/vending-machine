@@ -69,6 +69,7 @@ const Vending = () => {
     formatAddress(vendingAddress)
     getIsUserOwner()
     setCIDS([])
+    setShowItems(false)
   },[vendingAddress])
 
   return (
