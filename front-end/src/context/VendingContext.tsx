@@ -85,7 +85,9 @@ const getIsUserOwner = async () => {
   const user = await signer.getAddress()
   if(owner === user){
     setIsUserOwner(true)
-  } 
+  }else{
+    setIsUserOwner(false)
+  }
 }
 
 
