@@ -118,7 +118,7 @@
   height: 15%;
   background-color: whitesmoke;
   color: #f54029;
-  border: solid #f54029;
+  border: solid 5px #f54029;
   border-radius: 50px;
   font-size: 30px;
   font-weight: bold;
@@ -127,8 +127,8 @@
   margin-right: auto;
   font-family:'digital-7';
   position: absolute;
-  top: 50%;
-  left: 10%;
+  top: 55%;
+  left: 12%;
 }
 
 .L-Create-NFT {
@@ -136,7 +136,7 @@
   height: 15%;
   background-color: whitesmoke;
   color: #f54029;
-  border: solid #f54029;
+  border: solid 5px #f54029;
   border-radius: 50px;
   font-size: 30px;
   font-weight: bold;
@@ -145,7 +145,7 @@
   margin-right: auto;
   font-family:'digital-7';
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 0;
   right: 0;
   margin-left: auto;
@@ -157,7 +157,7 @@
   height: 15%;
   background-color: whitesmoke;
   color: #f54029;
-  border: solid #f54029;
+  border: solid 5px #f54029;
   border-radius: 50px;
   font-size: 30px;
   font-weight: bold;
@@ -166,8 +166,8 @@
   margin-right: auto;
   font-family:'digital-7';
   position: absolute;
-  top: 50%;
-  right: 10%;
+  top: 55%;
+  right: 12%;
 }
 
 .L-Mint-Tokens:hover {
@@ -205,7 +205,7 @@
   font-family:'digital-7';
   font-size: 100px;
   height: 200px;
-  width: 1200px;
+  width: 1300px;
   background-color: whitesmoke;
   color: #f54029;
   border: solid #f54029 5px;
@@ -214,9 +214,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  left: 50%;
-  margin-left: -600px;
-  margin-top: 12%;
+  margin-left: 113.2px;
+  margin-top: auto;
+  margin-top: 10%;
   position: absolute;
   overflow: hidden;
 }
@@ -225,7 +225,7 @@
   font-family:'digital-7';
   font-size: 100px;
   height: 200px;
-  width: 1200px;
+  width: 1300px;
   background-color: whitesmoke;
   color: #f54029;
   border: solid #f54029 5px;
@@ -238,7 +238,7 @@
   right:0;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 2%;
+  margin-top: 3%;
   position: absolute;
   overflow: hidden;
 }
@@ -279,7 +279,7 @@
   gap: 5%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 17%;
+  margin-top: 18%;
   margin-bottom: 5%;
   padding: 10px;
   text-align: center;
