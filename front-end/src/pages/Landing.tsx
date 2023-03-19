@@ -1,4 +1,4 @@
-import {useState, useContext} from 'react'
+import {useState, useEffect, useContext} from 'react'
 import ConnectWallet from "../components/ConnectWallet"
 import {VendingFactoryContract, VendingTokenContract, VendingTokenAddress } from "../ContractObjects"
 import VendingContext from '../context/VendingContext'
@@ -20,7 +20,8 @@ const Landing = () => {
         setLightMode,
         setVendingAddress,
         vendingAddress,
-        getNewVendingContractAddress
+        getNewVendingContractAddress,
+        getIsUserOwner
     } = useContext(VendingContext)
 
 /*****************************************************************************************************
@@ -314,6 +315,10 @@ const Landing = () => {
                     
         }
     }
+
+    useEffect(() => {
+        getIsUserOwner()
+    },[])
 
     
 
