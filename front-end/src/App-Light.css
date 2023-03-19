@@ -99,9 +99,9 @@
   
 .L-Loader {
   border: solid #f54029 2px; 
-  border-top: solid #171717;
-  border-right: solid #171717; 
-  border-left: solid #171717;
+  border-top: solid whitesmoke;
+  border-right: solid whitesmoke; 
+  border-left: solid whitesmoke;
   border-radius: 50%;
   width: 20px;
   height: 20px;
