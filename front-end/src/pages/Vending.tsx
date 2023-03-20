@@ -25,6 +25,7 @@ const Vending = () => {
     isUserOwner,
     getIsUserOwner,
     setCIDS,
+    displayOwnerInfo,
     setDisplayOwnerInfo
   } = useContext(VendingContext)
 
@@ -76,7 +77,7 @@ const Vending = () => {
   return (
     <div className={lightMode ? 'L-Vending' : 'Vending'}>
         <button onClick={() => navigate('/')} className={lightMode ? 'L-Home-Button' : 'Home-Button'}>Home</button>
-        <button onClick={() => setDisplayOwnerInfo(true)} className={lightMode ? 'L-Withdraw-Button' : 'Withdraw-Button'}>Owner</button>
+        <button onClick={() => setDisplayOwnerInfo(!displayOwnerInfo)} className={lightMode ? 'L-Withdraw-Button' : 'Withdraw-Button'}>Owner</button>
           <div className={lightMode ? 'L-Vending-Outer' : 'Vending-Outer'}>
             {showItems
               ?
@@ -137,7 +138,17 @@ const Vending = () => {
             <h3>Address: {formattedAddress}</h3>
             <h3>Viewing As:{isUserOwner ? " Owner" : " Buyer"} </h3>
           </div>
+          {
+
+          }
+          {displayOwnerInfo
+          ?
+          <h1>Withdraw</h1>
+          :
           <Interface/>
+
+          }
+          
 
         
           {lightMode
