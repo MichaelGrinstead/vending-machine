@@ -165,7 +165,7 @@ const getIsUserOwner = async () => {
   const showPurchased = () => {
     setShowItems(true)
     getImages()
-    setTimeout(() => setImagesLoading(false), 5000)
+    setTimeout(() => setImagesLoading(false), 2000)
   }
 
   
