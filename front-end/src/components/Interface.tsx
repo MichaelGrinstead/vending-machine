@@ -37,18 +37,25 @@ const Interface = () => {
   console.log(vendingAddress
     )
   const makeDeposit = async () => {
-    try{
-      const approval = await VendingTokenContract.approve(vendingAddress, depositValue)
-      await approval.wait()
-    }catch(e){
-      console.log(e)
-    }finally{
-      setPurchaseStatus(status.DISPLAYING_DEPOSIT)
-      setDepositDisplay(inputDepositDisplay)
-      getRemainingDeposit()
-      setTimeout(() => setPurchaseStatus(status.SELECTING_ITEM), 9000)
-    
-    } 
+    const user = await signer.getAddress()
+    console.log(await VendingTokenContract.balanceOf(user))
+    console.log(depositValue)
+    if(await VendingTokenContract.balanceOf(user) > depositValue){
+
+      try{
+        const approval = await VendingTokenContract.approve(vendingAddress, depositValue)
+        await approval.wait()
+      }catch(e){
+        console.log(e)
+      }finally{
+        setPurchaseStatus(status.DISPLAYING_DEPOSIT)
+        setDepositDisplay(inputDepositDisplay)
+        getRemainingDeposit()
+        setTimeout(() => setPurchaseStatus(status.SELECTING_ITEM), 9000)
+      
+      } 
+    }else{
+      console.log("not enough tokens")    }
   }
 
   const getRemainingDeposit = async () => {
