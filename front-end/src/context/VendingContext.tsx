@@ -107,20 +107,52 @@ const getIsUserOwner = async () => {
     setImages(_images)
   }
 
-  const retrieveImages = async () => {
-    const contract = createVendingContractInstance(vendingAddress)
-    const user = await signer.getAddress()
-    const ids = await contract.fetchIds(user)
-    setTokenIds(ids)
+  // const retrieveImages = async () => {
+  //   const contract = createVendingContractInstance(vendingAddress)
+  //   const user = await signer.getAddress()
+  //   const ids = await contract.fetchIds(user)
+  //   setTokenIds(ids)
   
+  //   // Fetch all URIs in parallel
+  //   const URIArray = await Promise.all(
+  //     ids.map(async (id: any) => {
+  //       return await contract.tokenIdToURI(id)
+  //     })
+  //   )
+  //   setURIs(URIArray)
+  // }
+
+  const retrieveImages = async () => {
+    const contract = createVendingContractInstance(vendingAddress);
+    const user = await signer.getAddress();
+    const ids = await contract.fetchIds(user);
+    setTokenIds(ids);
+
     // Fetch all URIs in parallel
-    const URIArray = await Promise.all(
+    const URIArray = await Promise.allSettled(
       ids.map(async (id: any) => {
-        return await contract.tokenIdToURI(id)
+        return await contract.tokenIdToURI(id);
       })
-    )
-    setURIs(URIArray)
-  }
+    );
+
+    const fulfilledURIs: any[] = []
+
+    URIArray.forEach((result) => {
+      if(result.status === "fulfilled"){
+        fulfilledURIs.push(result.value)
+      }else{
+        console.log(result.reason)
+      }
+    })
+    console.log(fulfilledURIs)
+
+    setURIs(fulfilledURIs)
+    
+  };
+
+  console.log(URIs)
+
+  
 
   console.log(tokenIds)
   console.log(URIs)
