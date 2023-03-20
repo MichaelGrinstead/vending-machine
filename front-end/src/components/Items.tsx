@@ -126,25 +126,16 @@ const Items = () => {
       }
     }
 
-    const getPrice = async () => {
-      const contract = createVendingContractInstance(vendingAddress)
-      setPrice({
-        1: ((await contract.itemNumberToPrice(1)) / 100).toFixed(2),
-        2: ((await contract.itemNumberToPrice(2)) / 100).toFixed(2),
-        3: ((await contract.itemNumberToPrice(3)) / 100).toFixed(2),
-        4: ((await contract.itemNumberToPrice(4)) / 100).toFixed(2),
-        5: ((await contract.itemNumberToPrice(5)) / 100).toFixed(2),
-        6: ((await contract.itemNumberToPrice(6)) / 100).toFixed(2),
-        7: ((await contract.itemNumberToPrice(7)) / 100).toFixed(2),
-        8: ((await contract.itemNumberToPrice(8)) / 100).toFixed(2),
-        9: ((await contract.itemNumberToPrice(9)) / 100).toFixed(2),
-        10: ((await contract.itemNumberToPrice(10)) / 100).toFixed(2),
-        11: ((await contract.itemNumberToPrice(11)) / 100).toFixed(2),
-        12: ((await contract.itemNumberToPrice(12)) / 100).toFixed(2) 
-      })
+    const fetchPrice = async () => {
+      const contract = createVendingContractInstance(vendingAddress);
+      const priceData : Prices = {};
+      for (let i = 1; i <= 12; i++) {
+        priceData[i] = ((await contract.itemNumberToPrice(i)) / 100).toFixed(2);
+      }
+      setPrice(priceData);
       setUpdatingPriceNumber("")
       setChangingPrice(false)
-    }
+    };
 
     console.log(typeof(price[2]))
 
@@ -203,7 +194,7 @@ const Items = () => {
 
   useEffect(() => {
     fetchItems()
-    getPrice()
+    fetchPrice()
   }, [])
 
   useEffect(() => {
