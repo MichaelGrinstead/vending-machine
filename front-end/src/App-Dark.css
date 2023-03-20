@@ -429,6 +429,7 @@ body {
   top: 0;
   background-color: black;
   position: absolute;
+  text-align: center;
 }
 
 .Vending-Outer {
@@ -472,6 +473,28 @@ body {
 }
 
 .Home-Button:hover {
+  background-color: black;
+  border-color: greenyellow;
+  color: greenyellow
+}
+
+.Withdraw-Button {
+  position: absolute;
+  top: 100px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: greenyellow;
+  border: solid black 5px;
+  color: black;
+  border-radius: 100px;
+  font-family:'digital-7';
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.Withdraw-Button:hover {
   background-color: black;
   border-color: greenyellow;
   color: greenyellow

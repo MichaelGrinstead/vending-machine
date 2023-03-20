@@ -12,7 +12,8 @@ const Interface = () => {
     setRemainingDeposit,
     retrieveImages,
     createVendingContractInstance,
-    vendingAddress
+    vendingAddress,
+    displayOwnerInfo
   } = useContext(VendingContext)
 
   

@@ -24,7 +24,8 @@ const Vending = () => {
     createVendingContractInstance,
     isUserOwner,
     getIsUserOwner,
-    setCIDS
+    setCIDS,
+    setDisplayOwnerInfo
   } = useContext(VendingContext)
 
   const [name, setName] = useState<string>("")
@@ -75,6 +76,7 @@ const Vending = () => {
   return (
     <div className={lightMode ? 'L-Vending' : 'Vending'}>
         <button onClick={() => navigate('/')} className={lightMode ? 'L-Home-Button' : 'Home-Button'}>Home</button>
+        <button onClick={() => setDisplayOwnerInfo(true)} className={lightMode ? 'L-Withdraw-Button' : 'Withdraw-Button'}>Owner</button>
           <div className={lightMode ? 'L-Vending-Outer' : 'Vending-Outer'}>
             {showItems
               ?
