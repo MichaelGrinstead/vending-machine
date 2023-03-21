@@ -537,7 +537,7 @@
   height: 60%;
   width: 20%;
   color: #f54029;
-  background-color: #f54029;
+  background-color: #FFB52E;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -545,7 +545,7 @@
   position: absolute;
   top: 18%;
   right: 8%;
-  border: solid #f54029 5px;
+  /* border: solid #f54029 5px; */
   padding: 60px;
   border-radius: 20px;
 }

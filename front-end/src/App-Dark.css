@@ -556,7 +556,7 @@ body {
   position: absolute;
   top: 18%;
   right: 8%;
-  border: solid greenyellow 5px;
+  /* border: solid greenyellow 5px; */
   padding: 60px;
   border-radius: 20px;
 }
