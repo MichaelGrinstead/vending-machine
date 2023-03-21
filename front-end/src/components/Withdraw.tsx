@@ -34,16 +34,16 @@ const Withdraw = () => {
     
 
   return (
-    <div className={lightMode ? 'L-Owner-Container' : 'Owner-Container'}>
-        <div className={lightMode ? 'L-Owner-Inner' : "Owner-Inner"}>
-            <h3 style={{fontSize:"35px", marginTop: "20%", fontFamily: "digital-7"}}> Tokens Minted: {numberOfTokensMinted}</h3>
+    
+    <div className={lightMode ? 'L-Owner-Container' : "Owner-Container"}>
+        <h3 style={{fontSize:"35px", fontFamily: "digital-7"}}> Tokens Minted: {numberOfTokensMinted}</h3>
 
-            <h3 style={{fontSize:"35px", marginTop: "40%", fontFamily: "digital-7"}}> Balance: ${balance}</h3>
-            <br></br>
-            <button className={lightMode ? 'L-Withdraw' : 'Withdraw'} onClick={() => withdrawBalance()}>Withdraw</button>
+        <h3 style={{fontSize:"35px",  fontFamily: "digital-7"}}> Balance: ${balance}</h3>
+        <br></br>
+        <button className={lightMode ? 'L-Withdraw' : 'Withdraw'} onClick={() => withdrawBalance()}>Withdraw</button>
 
-        </div>
     </div>
+    
   )
 }
 
