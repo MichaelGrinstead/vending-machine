@@ -81,7 +81,7 @@ const Vending = () => {
         {isUserOwner
         ?
 
-          <button onClick={() => setDisplayOwnerInfo(!displayOwnerInfo)} className={lightMode ? 'L-Withdraw-Button' : 'Withdraw-Button'}>Owner</button>
+          <button onClick={() => setDisplayOwnerInfo(!displayOwnerInfo)} className={lightMode ? 'L-Owner-Button' : 'Owner-Button'}>Owner</button>
         :
         <></>
         }
@@ -140,8 +140,8 @@ const Vending = () => {
           </div>
           
           <div className={lightMode ? 'L-Contract-Information' : 'Contract-Information'}>
-            <h3>Token Name: {name}</h3>
-            <h3>Token Symbol: {symbol}</h3>
+            <h3>Collection Name: {name}</h3>
+            <h3>Collection Symbol: {symbol}</h3>
             <h3>Address: {formattedAddress}</h3>
             <h3>Viewing As:{isUserOwner ? " Owner" : " Buyer"} </h3>
           </div>
