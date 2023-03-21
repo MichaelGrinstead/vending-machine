@@ -148,7 +148,7 @@ const Vending = () => {
           {
 
           }
-          {displayOwnerInfo
+          {displayOwnerInfo && isUserOwner
           ?
           <Withdraw/>
           :
