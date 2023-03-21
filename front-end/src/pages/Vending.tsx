@@ -3,6 +3,7 @@ import Interface from '../components/Interface'
 import InterfaceSmall from '../components/InterfaceSmall'
 import Items from '../components/Items'
 import PurchasedItems from '../components/PurchasedItems'
+import Withdraw from '../components/Withdraw'
 import VendingContext from '../context/VendingContext'
 import { useNavigate } from 'react-router'
 
@@ -77,7 +78,13 @@ const Vending = () => {
   return (
     <div className={lightMode ? 'L-Vending' : 'Vending'}>
         <button onClick={() => navigate('/')} className={lightMode ? 'L-Home-Button' : 'Home-Button'}>Home</button>
-        <button onClick={() => setDisplayOwnerInfo(!displayOwnerInfo)} className={lightMode ? 'L-Withdraw-Button' : 'Withdraw-Button'}>Owner</button>
+        {isUserOwner
+        ?
+
+          <button onClick={() => setDisplayOwnerInfo(!displayOwnerInfo)} className={lightMode ? 'L-Withdraw-Button' : 'Withdraw-Button'}>Owner</button>
+        :
+        <></>
+        }
           <div className={lightMode ? 'L-Vending-Outer' : 'Vending-Outer'}>
             {showItems
               ?
@@ -143,7 +150,7 @@ const Vending = () => {
           }
           {displayOwnerInfo
           ?
-          <h1>Withdraw</h1>
+          <Withdraw/>
           :
           <Interface/>
 
