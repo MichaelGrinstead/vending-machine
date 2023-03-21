@@ -458,7 +458,7 @@ body {
 
 .Home-Button {
   position: absolute;
-  top: 20px;
+  bottom: 180px;
   right: 20px;
   width: 60px;
   height: 60px;
@@ -478,9 +478,9 @@ body {
   color: greenyellow
 }
 
-.Withdraw-Button {
+.Owner-Button {
   position: absolute;
-  top: 100px;
+  bottom: 100px;
   right: 20px;
   width: 60px;
   height: 60px;
@@ -502,25 +502,25 @@ body {
 
 .Contract-Information {
   color: greenyellow;
-  border: solid 5px greenyellow;
+  /* border: solid 5px greenyellow; */
   background-color: black;
-  width: 300px;
+  width: 400px;
   height: 85px;
-  font-size: 14px;
+  font-size: 18px;
   padding: 5px;
   border-radius: 10px;
   position: absolute;
-  top: 2%;
-  right: 11%;
-  text-align: center;
+  top: 0.5%;
+  right: 8%;
+  text-align: right;
   cursor: pointer;
   padding-bottom: 7px;
 }
 
-.Contract-Information:hover {
+/* .Contract-Information:hover {
   background-color: greenyellow;
   color: black;
-}
+} */
 
 .Contract-Information h3 {
   margin-top: 0;
@@ -546,29 +546,24 @@ body {
 }
 
 .Owner-Container {
-  height: 60%;
-  width: 20%;
+  height: 300px;
+  width: 300px;
   color: greenyellow;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5%;
   position: absolute;
   top: 18%;
   right: 8%;
-  /* border: solid greenyellow 5px; */
+  border: solid greenyellow 5px;
   padding: 60px;
   border-radius: 20px;
+  position:absolute;
+  top: 25%;
 }
 
-.Owner-Inner {
-  border: solid greenyellow 5px;
-  padding: 30px;
-  height: 86%;
-  border-radius: 20px;
-}
 
-.Owner-Inner:hover  {
+.Owner-Container:hover  {
   background-color: greenyellow;
   color: black;
 }
