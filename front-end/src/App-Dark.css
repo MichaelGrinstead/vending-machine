@@ -532,6 +532,7 @@ body {
 .Interface {
   height: 60%;
   width: 20%;
+  color: greenyellow;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -542,6 +543,52 @@ body {
   border: solid greenyellow 5px;
   padding: 60px;
   border-radius: 20px;
+}
+
+.Owner-Container {
+  height: 60%;
+  width: 20%;
+  color: greenyellow;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5%;
+  position: absolute;
+  top: 18%;
+  right: 8%;
+  border: solid greenyellow 5px;
+  padding: 60px;
+  border-radius: 20px;
+}
+
+.Owner-Inner {
+  border: solid greenyellow 5px;
+  padding: 30px;
+  height: 86%;
+  border-radius: 20px;
+}
+
+.Owner-Inner:hover  {
+  background-color: greenyellow;
+  color: black;
+}
+
+.Withdraw {
+  height: 60px;
+  width: 150px;
+  background-color: black;
+  border: solid greenyellow 3px;
+  border-radius: 30px;
+  color: greenyellow;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.Withdraw:hover {
+  color: black;
+  background-color: greenyellow;
+  border-color: black;
 }
 
 .Vending-Side-Container {
