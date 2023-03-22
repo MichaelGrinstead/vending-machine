@@ -458,7 +458,7 @@ body {
 
 .Home-Button {
   position: absolute;
-  bottom: 180px;
+  bottom: 100px;
   right: 20px;
   width: 60px;
   height: 60px;
@@ -480,7 +480,7 @@ body {
 
 .Owner-Button {
   position: absolute;
-  bottom: 100px;
+  bottom: 180px;
   right: 20px;
   width: 60px;
   height: 60px;
@@ -492,6 +492,12 @@ body {
   font-weight: bold;
   font-size: 18px;
   cursor: pointer;
+}
+
+.Owner-Button:hover {
+  background-color: black;
+  border-color: greenyellow;
+  color: greenyellow
 }
 
 .Withdraw-Button:hover {
