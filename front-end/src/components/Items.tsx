@@ -129,20 +129,26 @@ const Items = () => {
       }
     }
 
-    const fetchPrice = async () => {
-      const contract = createVendingContractInstance(vendingAddress);
+    const fetchPrice = async (address : string) => {
+      const contract = createVendingContractInstance(address);
       const priceData : Prices = {};
+      const promises = []
+
+      for (let i =1; i <= 12; i++){
+        promises.push(contract.itemNumberToPrice(i))
+      }
+
+      const prices = await Promise.all(promises);
+
       for (let i = 1; i <= 12; i++) {
-        priceData[i] = ((await contract.itemNumberToPrice(i)) / 100).toFixed(2);
+        priceData[i] = (prices[i-1] / 100).toFixed(2);
       }
       setPrice(priceData);
       setUpdatingPriceNumber("")
       setChangingPrice(false)
     };
 
-    console.log(typeof(price[2]))
-
-    console.log(price)
+    
 
     const auth = 'Basic ' + Buffer.from(ID + ':' + SECRET).toString('base64');
     const client = create({
@@ -212,6 +218,8 @@ const Items = () => {
     console.log(itemsArray)
     return itemsArray
   }
+
+  console.log(price)
   
   console.log(CIDS)
 
@@ -219,8 +227,8 @@ const Items = () => {
 
   useEffect(() => {
     fetchItems()
-    fetchPrice()
-  }, [])
+    fetchPrice(vendingAddress)
+  }, [vendingAddress])
 
   useEffect(() => {
     getIsUserOwner()
