@@ -209,8 +209,10 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-left: 113.2px;
-  margin-top: auto;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 12%;
   position: absolute;
   overflow: hidden;
