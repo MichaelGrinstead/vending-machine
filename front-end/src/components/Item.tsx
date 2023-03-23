@@ -58,8 +58,8 @@ const Item : FC<props> = ({
             
                 {checkItems
                 ?
-                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} >
-                    <input style= {{display: 'none'}} name={itemNumber.toString()} onChange={handleItemUpload}></input>
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor={`item-${itemNumber}`}>
+                    <input style= {{display: 'none'}} type='file' id={`item-${itemNumber}`} onChange={handleItemUpload}></input>
                     {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :
@@ -100,8 +100,8 @@ const Item : FC<props> = ({
               </div>
                 {checkItems
                 ?
-                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor='file1'>
-                    <input style= {{display: 'none'}} type='file' id='file1' name={itemNumber.toString()} onChange={handleItemUpload}></input>
+                  <label className={lightMode ? 'L-Item-Upload-Label' : 'Item-Upload-Label'} htmlFor={`item-${itemNumber}`}>
+                    <input style= {{display: 'none'}} type='file'id={`item-${itemNumber}`} onChange={handleItemUpload}></input>
                     {isUserOwner ? "Upload Image" : "No Image"}
                   </label>
                 :

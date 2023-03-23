@@ -156,15 +156,14 @@ const Items = () => {
   })
     const handleItemUpload = async (e : any) => {
       const item : any = e.target.files[0]
-      const itemNumber = e.target.name
+      const itemNumber = parseInt(e.target.id.split('-')[1])
       console.log(itemNumber)
       const contract = createVendingContractInstance(vendingAddress)
       console.log(item)
-      console.log(itemNumber)
       try{
           const added = await client.add(item)
          
-          const add = await contract.addCID(parseInt(itemNumber), added.path)
+          const add = await contract.addCID(itemNumber, added.path)
           await add.wait()
 
       }catch(error){
@@ -194,19 +193,19 @@ const Items = () => {
 
   const item = () => {
     const itemsArray = []
-    for(let i = 1; i <= 12; i++){
+    for(let i = 0; i < 12; i++){
       itemsArray.push(
           <Item
             handleClick={handleClick}
             handleChange={handleChange}
             updatePrice={updatePrice}
             handleItemUpload={handleItemUpload}
-            checkItems={checkItems(i-1)}
+            checkItems={checkItems(i)}
             changingPrice={changingPrice}
             updatingPriceNumber={updatingPriceNumber}
             price={price}
             setClickedItem={setClickedItem}
-            itemNumber={i}
+            itemNumber={i + 1}
             />
       )
     }
