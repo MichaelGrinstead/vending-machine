@@ -8,13 +8,13 @@ declare var window: any
 
 ///LocalHost
 
-// const VendingTokenAddress = "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
-// const VendingFactoryAddress = "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707"
+// const VendingTokenAddress = "0x2bdCC0de6bE1f7D2ee689a0342D76F52E8EFABa3"
+// const VendingFactoryAddress = "0x7bc06c482DEAd17c0e297aFbC32f6e63d3846650"
 
 // Mumbai
 
-const VendingTokenAddress = "0x6Dc30e207Dd70fD7EAdF913a42C95B1aE7C868bA"
-const VendingFactoryAddress = "0xB3461553BE94C26668fd18ae412D2AA725D7e4b6"
+const VendingTokenAddress = "0xe4B12a26d62dDc6d00EF784ab0263011B518419e"
+const VendingFactoryAddress = "0x7F965088170FdB9003B436437B40b762e025A9E6"
 
 
 
