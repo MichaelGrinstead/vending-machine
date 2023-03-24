@@ -13,6 +13,21 @@ const PurchasedItems = () => {
       }
     }
 
+    const purchased = () => {
+      let items = []
+      for(let i = 0; i < 12; i++){
+         items.push(
+          <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
+            <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
+              <div>{images[i]}</div>
+            </div>
+          <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:{retreiveIds(i)}</div> 
+        </div>
+         )
+      }
+      return items
+    }
+
     useEffect(() => {
       retrieveImages()
     },[])
@@ -38,89 +53,7 @@ const PurchasedItems = () => {
           <h2 className={lightMode ? "L-No-Purchased-Items" : "No-Purchased-Items"}>You currently have no purchased items</h2>
           :
           <div className={lightMode ? "L-Purchased-Items-Inner" : 'Purchased-Items-Inner'}>
-             <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
-              <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
-                <div>{images[0]}</div>
-              </div>
-              <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:{retreiveIds(0)}</div> 
-            </div>
-            
-            <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
-              <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
-                <div>{images[1]}</div>
-              </div>
-              <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:{retreiveIds(1)}</div> 
-            </div>
-
-            <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
-              <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
-                <div>{images[2]}</div>
-              </div>
-              <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:{retreiveIds(2)}</div> 
-            </div>
-
-            <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
-              <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
-                <div>{images[3]}</div>
-              </div>
-              <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:{retreiveIds(3)}</div> 
-            </div>
-
-            <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
-              <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
-                <div>{images[4]}</div>
-              </div>
-              <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:{retreiveIds(4)}</div> 
-            </div>
-
-            <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
-              <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
-                <div>{images[5]}</div>
-              </div>
-              <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:{retreiveIds(5)}</div> 
-            </div>
-
-            <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
-              <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
-                <div>{images[6]}</div>
-              </div>
-              <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:{retreiveIds(6)}</div> 
-            </div>
-
-            <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
-              <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
-                <div>{images[7]}</div>
-              </div>
-              <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:{retreiveIds(7)}</div> 
-            </div>
-
-            <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
-              <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
-                <div>{images[8]}</div>
-              </div>
-              <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:{retreiveIds(8)}</div> 
-            </div>
-
-            <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
-              <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
-                <div>{images[9]}</div>
-              </div>
-              <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:{retreiveIds(9)}</div> 
-            </div>
-
-            <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
-              <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
-                <div>{images[10]}</div>
-              </div>
-              <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:{retreiveIds(10)}</div> 
-            </div>
-
-            <div className={lightMode ? 'L-Item-Box' : 'Item-Box'}>
-              <div className={lightMode ? 'L-Item-Container' : 'Item-Container'}>
-                <div>{images[11]}</div>
-              </div>
-              <div className={lightMode ? 'L-Item-Price' : 'Item-Price'}>Id:{retreiveIds(11)}</div> 
-            </div>
+            {purchased()}
           </div>
           }
         </div>
