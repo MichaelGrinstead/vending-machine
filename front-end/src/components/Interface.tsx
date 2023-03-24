@@ -138,13 +138,14 @@ const Interface = () => {
       setPurchaseStatus(status.DISPLAYING_REMAINING_DEPOSIT)
       setCurrentItemSelected("")
       setInputDepositDisplay("00.00")
+      setItemDisplay("")
   
       if(remainingDeposit === "0.00"){
         setTimeout(() => setPurchaseStatus(status.PAYMENT_COMPLETE), 9000)
         setTimeout(() => setPurchaseStatus(status.ENTERING_DEPOSIT), 18000)
       }else{
+        setTimeout(() => setPurchaseStatus(status.PAYMENT_COMPLETE), 9000)
         setTimeout(() => setPurchaseStatus(status.SELECTING_ITEM), 18000)
-        setTimeout(() => setPurchaseStatus(status.PAYMENT_COMPLETE), 27000)
       }
     } 
   }
