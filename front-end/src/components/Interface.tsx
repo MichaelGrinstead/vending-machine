@@ -4,6 +4,11 @@ import VendingContext from '../context/VendingContext'
 
 const Interface = () => {
 
+
+/*****************************************************************************************************
+****************************************useContext****************************************************
+******************************************************************************************************/    
+
   const {
     currentItemSelected, 
     setCurrentItemSelected,
@@ -16,6 +21,11 @@ const Interface = () => {
   } = useContext(VendingContext)
 
   
+/*****************************************************************************************************
+****************************************Component Status**********************************************
+******************************************************************************************************/    
+
+  
   const enum status {
     ENTERING_DEPOSIT,
     DISPLAYING_DEPOSIT,
@@ -26,6 +36,12 @@ const Interface = () => {
     PAYMENT_COMPLETE
   }
 
+
+/*****************************************************************************************************
+****************************************useState******************************************************
+******************************************************************************************************/    
+
+
   const [cost, setCost] = useState<string>("")
   const [itemDisplay, setItemDisplay] = useState<string>("")
   const [inputDepositDisplay, setInputDepositDisplay] = useState<string>("00.00")
@@ -34,8 +50,11 @@ const Interface = () => {
   const [depositDisplay, setDepositDisplay] = useState<string>("")
   const [purchaseStatus, setPurchaseStatus] = useState<status>(status.ENTERING_DEPOSIT)
 
-  console.log(vendingAddress
-    )
+
+/*****************************************************************************************************
+*****************************************User Actions*************************************************
+******************************************************************************************************/ 
+
   const makeDeposit = async () => {
     const user = await signer.getAddress()
     console.log(await VendingTokenContract.balanceOf(user))
@@ -58,17 +77,6 @@ const Interface = () => {
       console.log("not enough tokens")    }
   }
 
-  const getRemainingDeposit = async () => {
-    const changeNumber = await VendingTokenContract.allowance(signer.getAddress(), vendingAddress)
-    // if(changeNumber > 200){
-    //   setPurchaseStatus(status.SELECTING_ITEM)
-    // }
-    const changeFormatted = changeNumber/100
-    const changeFinal = changeFormatted.toFixed(2)
-    setRemainingDeposit(changeFinal)
-    
-  }
-
   const updateOrder = (value : string) => {
     if((currentItemSelected === "1") && (value === "0" || value === "1" || value === "2")){
       setCurrentItemSelected(currentItemSelected + value)
@@ -81,7 +89,6 @@ const Interface = () => {
 
   const inputPayment = (input : string) => {
     setPurchaseStatus(status.ENTERING_DEPOSIT)
-
     const value = depositString.concat(input)
     setDepositString(value)
     const numberValue : number = parseInt(value)
@@ -119,12 +126,6 @@ const Interface = () => {
     
   }
 
-  const getCost = async (order : string) => {
-    const contract = createVendingContractInstance(vendingAddress)
-    const cost = ((await contract.itemNumberToPrice(order)) / 100).toFixed(2)
-    setCost(cost)
-  }
-
   const payOrder = async () => {
     const contract = createVendingContractInstance(vendingAddress)
     const buyer = await signer.getAddress()
@@ -150,10 +151,29 @@ const Interface = () => {
     } 
   }
 
-  console.log(purchaseStatus)
-  console.log(remainingDeposit)
+/*****************************************************************************************************
+*****************************************Helper*******************************************************
+******************************************************************************************************/ 
 
-///Conditional HTML
+
+  const getRemainingDeposit = async () => {
+    const changeNumber = await VendingTokenContract.allowance(signer.getAddress(), vendingAddress)
+    const changeFormatted = changeNumber/100
+    const changeFinal = changeFormatted.toFixed(2)
+    setRemainingDeposit(changeFinal)
+    
+  }
+
+  
+  const getCost = async (order : string) => {
+    const contract = createVendingContractInstance(vendingAddress)
+    const cost = ((await contract.itemNumberToPrice(order)) / 100).toFixed(2)
+    setCost(cost)
+  }
+
+/*****************************************************************************************************
+*****************************************Conditional HTML*********************************************
+******************************************************************************************************/ 
 
   const selectionText = () => {
     if(purchaseStatus === status.ENTERING_DEPOSIT){
@@ -244,7 +264,10 @@ const Interface = () => {
     }
   }
 
-///UseEffect
+/*****************************************************************************************************
+*****************************************useEffect****************************************************
+******************************************************************************************************/ 
+
 
   useEffect(() => {
     selectionText()
@@ -258,7 +281,10 @@ const Interface = () => {
     retrieveImages()
     
   }, [])
-  
+
+/*****************************************************************************************************
+*****************************************HTML*********************************************************
+******************************************************************************************************/ 
 
  return (
     <div className={lightMode ? 'L-Interface' : 'Interface'}>
