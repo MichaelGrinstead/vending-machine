@@ -19,7 +19,6 @@ const Landing = () => {
         lightMode,
         setLightMode,
         setVendingAddress,
-        vendingAddress,
         getNewVendingContractAddress,
         getIsUserOwner
     } = useContext(VendingContext)
@@ -121,8 +120,6 @@ const Landing = () => {
             ///link to error component
         }
     }
-
-    console.log(vendingAddress)
 
 /*****************************************************************************************************
  *****************************************Conditional HTML********************************************
@@ -313,9 +310,9 @@ const Landing = () => {
 *****************************************UseEffect****************************************************
 ******************************************************************************************************/ 
 
-    useEffect(() => {
-        getIsUserOwner()
-    },[])
+    // useEffect(() => {
+    //     getIsUserOwner()
+    // },[])
 
 /*****************************************************************************************************
 *****************************************HTML*********************************************************
@@ -325,7 +322,10 @@ const Landing = () => {
 
 
   return (
-    <div className={lightMode ? 'L-Landing' : 'Landing'}>
+    <div 
+    className={lightMode ? 'L-Landing' : 'Landing'}
+    data-testid= "Landing"
+    >
         {lightMode
         ?
         <div className={connectionStatus === connectionState.UNCONNECTED || connectionStatus === connectionState.NO_WALLET
